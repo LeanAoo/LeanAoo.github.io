@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Hadoop集群单机版搭建首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建  1. CentOS的安装 首先准备好CentOS7  64位的镜像 然后在VMware上安装虚拟机 这里注意选择镜像自动检测CentOS 64位, 不然之后步骤比较麻烦其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机 这里直接进行回车继续即可 语言选择可以选择简">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop集群单机版搭建">
+<meta property="og:url" content="http://www.givemev.com/2018/10/16/blog181016/index.html">
+<meta property="og:site_name" content="GivemeV">
+<meta property="og:description" content="Hadoop集群单机版搭建首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建  1. CentOS的安装 首先准备好CentOS7  64位的镜像 然后在VMware上安装虚拟机 这里注意选择镜像自动检测CentOS 64位, 不然之后步骤比较麻烦其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机 这里直接进行回车继续即可 语言选择可以选择简">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/4.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/5.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/6.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/7.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/8.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/9.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/10.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/11.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/16.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/17.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/12.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/13.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/14.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/15.png">
+<meta property="og:updated_time" content="2018-10-16T14:16:14.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop集群单机版搭建">
+<meta name="twitter:description" content="Hadoop集群单机版搭建首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建  1. CentOS的安装 首先准备好CentOS7  64位的镜像 然后在VMware上安装虚拟机 这里注意选择镜像自动检测CentOS 64位, 不然之后步骤比较麻烦其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机 这里直接进行回车继续即可 语言选择可以选择简">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/16/blog181016/2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.givemev.com/2018/10/16/blog181016/"/>
+
+
+
+
+
+  <title>Hadoop集群单机版搭建 | GivemeV</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GivemeV</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">给我五毛钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/16/blog181016/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="panz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GivemeV">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hadoop集群单机版搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T22:05:12+08:00">
+                2018-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Hadoop集群单机版搭建"><a href="#Hadoop集群单机版搭建" class="headerlink" title="Hadoop集群单机版搭建"></a>Hadoop集群单机版搭建</h2><p><strong>首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建</strong></p>
+<p> <strong>1. CentOS的安装</strong><br> 首先准备好CentOS7  64位的镜像<br> 然后在VMware上安装虚拟机</p>
+<p><strong>这里注意选择镜像自动检测CentOS 64位</strong>, 不然之后步骤比较麻烦<br><img src="/2018/10/16/blog181016/2.png" alt="安装CentOS7"><br>其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机</p>
+<p>这里直接进行回车继续即可<br><img src="/2018/10/16/blog181016/3.png" alt="虚拟机开启"></p>
+<p>语言选择可以选择简体中文<br>这时选择安装位置,直接点击完成即可,这样才能继续下一步操作<br><img src="/2018/10/16/blog181016/4.png" alt="安装位置"><br><img src="/2018/10/16/blog181016/5.png" alt="安装位置完成继续"></p>
+<p>然后开始安装,设置并且设置root密码<br><img src="/2018/10/16/blog181016/6.png" alt="设置root密码"><br>然后重新开机登录root账号即可,成功登录则表示CentOS安装成功</p>
+<p> <strong>2. 设置Linux静态ip</strong><br> 开机完成后需要我们设置静态ip,这样之后开机都不需要dhclient动态分配ip地址</p>
+<p>首先找到/etc/sysconfig/network-scripts/下的ifcfg-ens33配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+<p>2.首先把BOOTPROTO=”dhcp”改成BOOTPROTO=”static”表示静态获取,然后把UUID注释掉,把ONBOOT=no改为yes表示开机自动静态获取,然后在最后追加比如下面的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IPADDR=192.168.134.151  #自己的ip地址</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.134.2</span><br><span class="line">DNS1=8.8.8.8</span><br></pre></td></tr></table></figure>
+<p>IPADDR就是静态IP，NETMASK是子网掩码，GATEWAY就是网关或者路由地址；需要说明，原来还有个NETWORK配置的是局域网网络号，这个是ifcalc自动计算的，所以这里配置这些就足够了，最终配置如下图：<br><img src="/2018/10/16/blog181016/7.png" alt="在这里插入图片描述"><br> 如果不知道自己的GATEWAY可以去虚拟机的编辑查看虚拟网络编辑器中的NAT设置<br> <img src="/2018/10/16/blog181016/8.png" alt="在这里插入图片描述"><br> 最后保存退出<br> <strong>重启服务</strong><br> centos6的网卡重启方法：<code>service network restart</code><br>    centos7的网卡重启方法：<code>systemctl restart network</code><br>    然后查看自己的ip地址是不是自己设置的<br>    centos6的查看ip方法: <code>ifconfig</code><br>    centos7的查看ip方法: <code>ip addr</code><br>    <img src="/2018/10/16/blog181016/9.png" alt="在这里插入图片描述"><br>接下来可以用Xshell工具连接虚拟机了,这样比较好操作(如果没有此工具的需要去官网下载,Xshell和配套的文件传输工具Xftp,都有免费版本)<br><img src="/2018/10/16/blog181016/10.png" alt="在这里插入图片描述"><br> <strong>3. JDK的安装</strong><br> 首先在usr的目录下创建一个java文件夹用来存放jdk的安装包并作为安装路径<br> <img src="/2018/10/16/blog181016/11.png" alt="在这里插入图片描述"><br> 这时候新建文件传输,将jdk的压缩包放入到CentOS中<br> <img src="/2018/10/16/blog181016/16.png" alt="在这里插入图片描述"><br> 然后解压jdk<br> <img src="/2018/10/16/blog181016/17.png" alt="在这里插入图片描述"><br> 解压完成之后返回到根目录的etc文件夹下,改写profile配置文件  <code>vi /etc/profile</code><br> 在profile最后加上:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_141</span><br><span class="line">export JAVA_BIN=/usr/java/jdk1.8.0_141/bin</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">export CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br></pre></td></tr></table></figure>
+<p>保存退出,<code>source /etc/profile</code>刷新配置文件<br>用java -version看看jdk环境是否配置完毕</p>
+<p> <strong>4. 修改主机名和ip映射</strong><br>修改etc文件夹下的hosts文件<code>vi  /etc/hosts</code><br>如图:<br><img src="/2018/10/16/blog181016/12.png" alt="在这里插入图片描述"><br> <strong>5. 安装hadoop并修改配置文件</strong></p>
+<p> 在usr文件夹下创建hadoop文件夹作为压缩包存放和解压路径,将hadoop的压缩包传输到此文件夹下</p>
+<p> 然后解压 <code>tar -zxf hadoop-2.7.3.tar.gz</code> </p>
+<p> <strong>5.1配置proflie文件</strong><br>注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop<br>在etc的profile最后添加,然后source刷新配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/usr/hadoop/hadoop-2.7.3</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
+<p>接下来需要改五个配置文件<br><strong>5.2 第一个：</strong><code>hadoop-env.sh</code><br>进入到hadoop-2.7.3/etc/hadoop文件夹下,修改hadoop-env.sh <code>vi hadoop-env.sh</code><br>第25行将<br><img src="/2018/10/16/blog181016/13.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/16/blog181016/14.png" alt="在这里插入图片描述"><br>保存退出<br><strong>5.3 第二个 core-site.xml</strong><br>在<strong>configuration</strong>中加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 制定HDFS的老大（NameNode）的地址 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;hdfs://zhiyou:9000&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;!-- 指定hadoop运行时产生文件的存储目录[能自动生成目录] --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;/zhiyou/hadoop/tmp&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p>保存退出</p>
+<p><strong>5.4 第三个 hdfs-site.xml</strong><br>同上configuration中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定HDFS副本的数量 --&gt;</span><br><span class="line">       &lt;property&gt;</span><br><span class="line">                   &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">                      &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;      					     &lt;value&gt;/usr/local/hadoop/tmp/dfs/name&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;                      &lt;value&gt;/usr/local/hadoop/tmp/dfs/data&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>5.5 第四个mapred-site.xml</strong> </p>
+<p>这个是需要你复制一个模版文件出来的 <code>cp mapred-site.xml.template mapred-site.xml</code><br>然后 <code>vi mapred-site.xml</code>添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定mr运行在yarn上 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p>保存退出</p>
+<p><strong>5.6 第五个 yarn-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;zhiyou&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">		&lt;!-- reducer获取数据的方式 --&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">			&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>6.格式化namenode（是对namenode进行初始化）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure>
+<p>如果没有报错说明配置文件成功,否则重新检查配置文件</p>
+<p> <strong>7.启动hadoop</strong><br> 先启动HDFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure>
+<p>再启动YARN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+<p>这里需要yes三次并输入你的root密码三次</p>
+<p><strong>8.验证是否启动成功</strong></p>
+<pre><code>jps
+</code></pre><p>3912 DataNode<br>4378 Jps<br>4331 NodeManager<br>4093 SecondaryNameNode<br>3822 NameNode<br>4239 ResourceManager</p>
+<p>关闭防火墙</p>
+<p> #停止firewall </p>
+<pre><code>systemctl stop firewalld
+
+systemctl disable firewalld.service #禁止firewall开机启动
+</code></pre><p>浏览器查看<br>    <a href="http://ip地址:50070" target="_blank" rel="noopener">http://ip地址:50070</a> （HDFS管理界面）<br>    <a href="http://ip地址:8088" target="_blank" rel="noopener">http://ip地址:8088</a>  (yarn管理界面）<br>如果页面正常则说明hadoop配置成功</p>
+<p>有人觉得每次启动都需要输入密码很繁琐,那么就设置ssh免密登录</p>
+<p><strong>9.设置ssh免密登录</strong></p>
+<p>#生成ssh免登陆密钥</p>
+<pre><code>#进入到我的home目录
+
+
+cd  ~/.ssh
+</code></pre><p><code>ssh-keygen -t rsa</code> （四个回车）<br>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）<br>    将公钥拷贝到要免登陆的机器上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id 192.168.134.151</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/10/16/blog181016/15.png" alt="在这里插入图片描述"><br>至此,基本的搭建已经完成</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/15/test/" rel="next" title="海琴烟">
+                <i class="fa fa-chevron-left"></i> 海琴烟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">panz</p>
+              <p class="site-description motion-element" itemprop="description">每天想着一夜暴富</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop集群单机版搭建"><span class="nav-number">1.</span> <span class="nav-text">Hadoop集群单机版搭建</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panz</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
+</html>
