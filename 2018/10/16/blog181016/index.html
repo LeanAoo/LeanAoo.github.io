@@ -86,12 +86,12 @@
 
 
 
-<meta name="description" content="首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建 概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
+<meta name="description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop集群单机版搭建">
 <meta property="og:url" content="http://www.givemev.com/2018/10/16/blog181016/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建 概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
+<meta property="og:description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/2.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/3.png">
@@ -109,10 +109,10 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/13.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/14.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016/15.png">
-<meta property="og:updated_time" content="2018-10-17T01:10:05.658Z">
+<meta property="og:updated_time" content="2018-10-17T12:48:55.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop集群单机版搭建">
-<meta name="twitter:description" content="首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建 概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
+<meta name="twitter:description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
 <meta name="twitter:image" content="http://www.givemev.com/2018/10/16/blog181016/2.png">
 
 
@@ -323,8 +323,8 @@
       
 
       
-        <p><strong>首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建</strong></p>
-<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.CentOS的安装<br>2.设置Linux静态ip<br>3.JDK的安装<br>4.修改主机名和ip映射<br>5.安装hadoop并修改配置文件<br>6.格式化namenode<br>7.启动hadoop<br>8.验证是否启动成功<br>9.设置ssh免密登录<br><a id="more"></a></p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.CentOS的安装<br>2.设置Linux静态ip<br>3.JDK的安装<br>4.修改主机名和ip映射<br>5.安装hadoop并修改配置文件<br>6.格式化namenode<br>7.启动hadoop<br>8.验证是否启动成功<br>9.设置ssh免密登录<br><a id="more"></a></p>
+<p><strong>首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建</strong></p>
 <h2 id="CentOS的安装"><a href="#CentOS的安装" class="headerlink" title="CentOS的安装"></a>CentOS的安装</h2><p> 首先准备好CentOS7  64位的镜像<br> 然后在VMware上安装虚拟机</p>
 <p><strong>这里注意选择镜像自动检测CentOS 64位</strong>, 不然之后步骤比较麻烦<br><img src="/2018/10/16/blog181016/2.png" alt="安装CentOS7"><br>其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机</p>
 <p>这里直接进行回车继续即可<br><img src="/2018/10/16/blog181016/3.png" alt="虚拟机开启"></p>
@@ -419,6 +419,10 @@ cd  ~/.ssh
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/10/17/blog181017-1/" rel="prev" title="Hadoop集群版搭建">
+                Hadoop集群版搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -494,7 +498,7 @@ cd  ~/.ssh
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +563,6 @@ cd  ~/.ssh
 
   
 </div>
-
 
 
 
