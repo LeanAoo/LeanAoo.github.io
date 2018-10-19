@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop," />
+  <meta name="keywords" content="Hadoop,Java," />
 
 
 
@@ -87,7 +87,7 @@
 
 
 <meta name="description" content="概览1.MapReduce简介2.MapReduce的执行流程3.MapReduce的原理4.测试MapReduce5.Java代码实现">
-<meta name="keywords" content="Hadoop">
+<meta name="keywords" content="Hadoop,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MapReduce的执行流程和原理">
 <meta property="og:url" content="http://www.givemev.com/2018/10/18/blog181018-2/index.html">
@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/9.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/10.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/11.png">
-<meta property="og:updated_time" content="2018-10-19T00:33:48.562Z">
+<meta property="og:updated_time" content="2018-10-19T10:37:51.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce的执行流程和原理">
 <meta name="twitter:description" content="概览1.MapReduce简介2.MapReduce的执行流程3.MapReduce的原理4.测试MapReduce5.Java代码实现">
@@ -428,19 +428,19 @@
       
         <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.MapReduce简介<br>2.MapReduce的执行流程<br>3.MapReduce的原理<br>4.测试MapReduce<br>5.Java代码实现</p>
 <a id="more"></a>
-<h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce是一种分布式计算模型，是Google提出的，主要用于搜索领域，解决海量数据的计算问题。</p>
+<h2 id="1-MapReduce简介"><a href="#1-MapReduce简介" class="headerlink" title="1.MapReduce简介"></a>1.MapReduce简介</h2><p>MapReduce是一种分布式计算模型，是Google提出的，主要用于搜索领域，解决海量数据的计算问题。</p>
 <p>MR有两个阶段组成：Map和Reduce，用户只需实现map()和reduce()两个函数，即可实现分布式计算。</p>
 <p>MapReduce是一种并行可扩展计算模型，并且有较好的容错性，主要解决海量离线数据的批处理。实现下面目标<br><strong>★ 易于编程<br>★ 良好的扩展性<br>★ 高容错性</strong></p>
 <p>MapReduce有哪些角色？各自的作用是什么？<br>MapReduce由JobTracker和TaskTracker组成。JobTracker负责资源管理和作业控制，TaskTracker负责任务的运行。</p>
-<h2 id="MapReduce的执行流程"><a href="#MapReduce的执行流程" class="headerlink" title="MapReduce的执行流程"></a>MapReduce的执行流程</h2><p><strong>MapReduce程序执行流程</strong><br>程序执行流程图如下：<br><img src="/2018/10/18/blog181018-2/1.png" alt="在这里插入图片描述"></p>
+<h2 id="2-MapReduce的执行流程"><a href="#2-MapReduce的执行流程" class="headerlink" title="2.MapReduce的执行流程"></a>2.MapReduce的执行流程</h2><p><strong>MapReduce程序执行流程</strong><br>程序执行流程图如下：<br><img src="/2018/10/18/blog181018-2/1.png" alt="在这里插入图片描述"></p>
 <p>(1) 开发人员编写好MapReduce program，将程序打包运行。<br>(2) JobClient向JobTracker申请可用Job，JobTracker返回JobClient一个可用Job ID。<br>(3) JobClient得到Job ID后，将运行Job所需要的资源拷贝到共享文件系统HDFS中。<br>(4) 资源准备完备后，JobClient向JobTracker提交Job。<br>(5) JobTracker收到提交的Job后，初始化Job。<br>(6) 初始化完成后，JobTracker从HDFS中获取输入splits(作业可以该启动多少Mapper任务)。<br>(7) 与此同时，TaskTracker不断地向JobTracker汇报心跳信息，并且返回要执行的任务。<br>(8) TaskTracker得到JobTracker分配(尽量满足数据本地化)的任务后，向HDFS获取Job资源(若数据是本地的，不需拷贝数据)。<br>(9) 获取资源后，TaskTracker会开启JVM子进程运行任务。<br>注：<br>(3)中资源具体指什么？主要包含：<br>    ● 程序jar包、作业配置文件xml<br>    ● 输入划分信息，决定作业该启动多少个map任务<br>    ● 本地文件，包含依赖的第三方jar包(-libjars)、依赖的归档文件(-archives)和普通文件(-files)，如果已经上传，则不需上传</p>
-<h2 id="MapReduce原理"><a href="#MapReduce原理" class="headerlink" title="MapReduce原理"></a>MapReduce原理</h2><p><img src="/2018/10/18/blog181018-2/2.png" alt="在这里插入图片描述"></p>
+<h2 id="3-MapReduce原理"><a href="#3-MapReduce原理" class="headerlink" title="3.MapReduce原理"></a>3.MapReduce原理</h2><p><img src="/2018/10/18/blog181018-2/2.png" alt="在这里插入图片描述"></p>
 <p><strong>MapReduce的执行步骤：</strong></p>
 <p>1、Map任务处理<br>1.1 读取HDFS中的文件。每一行解析成一个&lt;k,v&gt;。每一个键值对调用一次map函数。<br> &lt;0,hello you&gt;   &lt;10,hello me&gt;<br>1.2 覆盖map()，接收1.1产生的&lt;k,v&gt;，进行处理，转换为新的&lt;k,v&gt;输出。　　　　　　　　　　</p>
 <p>&lt;hello,1&gt; &lt;you,1&gt; &lt;hello,1&gt; &lt;me,1&gt;<br>　　1.3 对1.2输出的&lt;k,v&gt;进行分区。默认分为一个区。详见《Partitioner》<br>1.4 对不同分区中的数据进行排序（按照k）、分组。分组指的是相同key的value放到一个集合中。　排序后：</p>
 <p>&lt;hello,1&gt; &lt;hello,1&gt; &lt;me,1&gt; &lt;you,1&gt;<br>分组后：&lt;hello,{1,1}&gt;&lt;me,{1}&gt;&lt;you,{1}&gt;<br>　　1.5 （可选）对分组后的数据进行归约。详见《Combiner》<br>2、Reduce任务处理<br>　　2.1 多个map任务的输出，按照不同的分区，通过网络copy到不同的reduce节点上。（shuffle）详见《shuffle过程分析》<br>2.2 对多个map的输出进行合并、排序。覆盖reduce函数，接收的是分组后的数据，实现自己的业务逻辑，　</p>
 <p>&lt;hello,2&gt; &lt;me,1&gt; &lt;you,1&gt;<br>　　　　处理后，产生新的&lt;k,v&gt;输出。<br>　　2.3 对reduce输出的&lt;k,v&gt;写到HDFS中。</p>
-<h2 id="测试MapReduce"><a href="#测试MapReduce" class="headerlink" title="测试MapReduce"></a>测试MapReduce</h2><p>启动虚拟机利用Xshell工具连接</p>
+<h2 id="4-测试MapReduce"><a href="#4-测试MapReduce" class="headerlink" title="4.测试MapReduce"></a>4.测试MapReduce</h2><p>启动虚拟机利用Xshell工具连接</p>
 <p>启动hadoop</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
 <p>上传到hdfs上一个文件test1<br>文件test1的内容如下</p>
@@ -452,7 +452,7 @@
 <p>等待执行,然后查看result文件内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#查看result文件夹</span><br><span class="line">[root@master mapreduce]# hadoop fs -ls /result</span><br><span class="line">Found 2 items</span><br><span class="line">-rw-r--r--   1 root supergroup          0 2018-10-18 21:40 /result/_SUCCESS</span><br><span class="line">-rw-r--r--   1 root supergroup         52 2018-10-18 21:40 /result/part-r-00000</span><br><span class="line">#查看part-r-00000内容</span><br><span class="line">[root@master mapreduce]# hadoop fs -cat /result/part-r-00000</span><br><span class="line">girl	2</span><br><span class="line">hadoop	1</span><br><span class="line">haimeimei	1</span><br><span class="line">hello	6</span><br><span class="line">lilei	1</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure>
 <p>这个就是按照你所执行的文件,一次读取一行的内容,然后每行用空格分隔<br>如图<br><img src="/2018/10/18/blog181018-2/3.png" alt="在这里插入图片描述"></p>
-<h2 id="Java代码实现"><a href="#Java代码实现" class="headerlink" title="Java代码实现"></a>Java代码实现</h2><p>首先eclipse建个Java项目,然后项目下建个lib文件夹放置jar包<br>将<br><img src="/2018/10/18/blog181018-2/4.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-2/5.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-2/6.png" alt="在这里插入图片描述"><br><strong>复制到lib下,然后add to Build Path</strong><br>建立个mr包,在其中建立WCMapper,WCReducer,WordCount</p>
+<h2 id="5-Java代码实现"><a href="#5-Java代码实现" class="headerlink" title="5.Java代码实现"></a>5.Java代码实现</h2><p>首先eclipse建个Java项目,然后项目下建个lib文件夹放置jar包<br>将<br><img src="/2018/10/18/blog181018-2/4.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-2/5.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-2/6.png" alt="在这里插入图片描述"><br><strong>复制到lib下,然后add to Build Path</strong><br>建立个mr包,在其中建立WCMapper,WCReducer,WordCount</p>
 <p><strong>WCMapper</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.hd.hadoop.mr;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.io.LongWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line">//Mapper&lt;k1,v1,k2,v2&gt;</span><br><span class="line">//&lt;k1 long,v1 String&gt; &lt;k2 String,v2 long&gt;</span><br><span class="line">public class WCMapper extends Mapper&lt;LongWritable, Text, Text, LongWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line">	//重新一个map方法</span><br><span class="line">	@Override</span><br><span class="line">	protected void map(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, LongWritable&gt;.Context context)</span><br><span class="line">			throws IOException, InterruptedException &#123;</span><br><span class="line">		// value代表文件中的每一行的数据</span><br><span class="line">		String line = value.toString();</span><br><span class="line">		//根据空格拆分字符串</span><br><span class="line">		String[] results = line.split(&quot; &quot;);</span><br><span class="line">		//遍历数组得到每一个结果</span><br><span class="line">		for (String str : results) &#123;</span><br><span class="line">			context.write(new Text(str), new LongWritable(1));</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>WCReducer</strong></p>
@@ -487,6 +487,8 @@
         <div class="post-tags">
           
             <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
       
@@ -613,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -662,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce简介"><span class="nav-number">2.</span> <span class="nav-text">MapReduce简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce的执行流程"><span class="nav-number">3.</span> <span class="nav-text">MapReduce的执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce原理"><span class="nav-number">4.</span> <span class="nav-text">MapReduce原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试MapReduce"><span class="nav-number">5.</span> <span class="nav-text">测试MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java代码实现"><span class="nav-number">6.</span> <span class="nav-text">Java代码实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MapReduce简介"><span class="nav-text">1.MapReduce简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MapReduce的执行流程"><span class="nav-text">2.MapReduce的执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MapReduce原理"><span class="nav-text">3.MapReduce原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-测试MapReduce"><span class="nav-text">4.测试MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java代码实现"><span class="nav-text">5.Java代码实现</span></a></li></ol></div>
             
 
           </div>
