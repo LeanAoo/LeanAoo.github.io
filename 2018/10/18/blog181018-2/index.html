@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="概览1.MapReduce简介2.MapReduce的原理和执行流程3.测试MapReduce4.Java代码实现">
+<meta name="description" content="概览1.MapReduce简介2.MapReduce的执行流程3.MapReduce的原理4.测试MapReduce5.Java代码实现">
 <meta name="keywords" content="Hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce的原理和执行流程">
+<meta property="og:title" content="MapReduce的执行流程和原理">
 <meta property="og:url" content="http://www.givemev.com/2018/10/18/blog181018-2/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.MapReduce简介2.MapReduce的原理和执行流程3.测试MapReduce4.Java代码实现">
+<meta property="og:description" content="概览1.MapReduce简介2.MapReduce的执行流程3.MapReduce的原理4.测试MapReduce5.Java代码实现">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/1.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/2.png">
@@ -105,10 +105,10 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/9.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/10.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-2/11.png">
-<meta property="og:updated_time" content="2018-10-18T14:18:24.450Z">
+<meta property="og:updated_time" content="2018-10-19T00:33:48.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MapReduce的原理和执行流程">
-<meta name="twitter:description" content="概览1.MapReduce简介2.MapReduce的原理和执行流程3.测试MapReduce4.Java代码实现">
+<meta name="twitter:title" content="MapReduce的执行流程和原理">
+<meta name="twitter:description" content="概览1.MapReduce简介2.MapReduce的执行流程3.MapReduce的原理4.测试MapReduce5.Java代码实现">
 <meta name="twitter:image" content="http://www.givemev.com/2018/10/18/blog181018-2/1.png">
 
 
@@ -145,7 +145,7 @@
 
 
 
-  <title>MapReduce的原理和执行流程 | GivemeV</title>
+  <title>MapReduce的执行流程和原理 | GivemeV</title>
   
 
 
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MapReduce的原理和执行流程</h1>
+          <h1 class="post-title" itemprop="name headline">MapReduce的执行流程和原理</h1>
         
 
         <div class="post-meta">
@@ -395,13 +395,13 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.MapReduce简介<br>2.MapReduce的原理和执行流程<br>3.测试MapReduce<br>4.Java代码实现</p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.MapReduce简介<br>2.MapReduce的执行流程<br>3.MapReduce的原理<br>4.测试MapReduce<br>5.Java代码实现</p>
 <a id="more"></a>
 <h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce是一种分布式计算模型，是Google提出的，主要用于搜索领域，解决海量数据的计算问题。</p>
 <p>MR有两个阶段组成：Map和Reduce，用户只需实现map()和reduce()两个函数，即可实现分布式计算。</p>
 <p>MapReduce是一种并行可扩展计算模型，并且有较好的容错性，主要解决海量离线数据的批处理。实现下面目标<br><strong>★ 易于编程<br>★ 良好的扩展性<br>★ 高容错性</strong></p>
 <p>MapReduce有哪些角色？各自的作用是什么？<br>MapReduce由JobTracker和TaskTracker组成。JobTracker负责资源管理和作业控制，TaskTracker负责任务的运行。</p>
-<h2 id="MapReduce的原理和执行流程"><a href="#MapReduce的原理和执行流程" class="headerlink" title="MapReduce的原理和执行流程"></a>MapReduce的原理和执行流程</h2><p><strong>MapReduce程序执行流程</strong><br>程序执行流程图如下：<br><img src="/2018/10/18/blog181018-2/1.png" alt="在这里插入图片描述"></p>
+<h2 id="MapReduce的执行流程"><a href="#MapReduce的执行流程" class="headerlink" title="MapReduce的执行流程"></a>MapReduce的执行流程</h2><p><strong>MapReduce程序执行流程</strong><br>程序执行流程图如下：<br><img src="/2018/10/18/blog181018-2/1.png" alt="在这里插入图片描述"></p>
 <p>(1) 开发人员编写好MapReduce program，将程序打包运行。<br>(2) JobClient向JobTracker申请可用Job，JobTracker返回JobClient一个可用Job ID。<br>(3) JobClient得到Job ID后，将运行Job所需要的资源拷贝到共享文件系统HDFS中。<br>(4) 资源准备完备后，JobClient向JobTracker提交Job。<br>(5) JobTracker收到提交的Job后，初始化Job。<br>(6) 初始化完成后，JobTracker从HDFS中获取输入splits(作业可以该启动多少Mapper任务)。<br>(7) 与此同时，TaskTracker不断地向JobTracker汇报心跳信息，并且返回要执行的任务。<br>(8) TaskTracker得到JobTracker分配(尽量满足数据本地化)的任务后，向HDFS获取Job资源(若数据是本地的，不需拷贝数据)。<br>(9) 获取资源后，TaskTracker会开启JVM子进程运行任务。<br>注：<br>(3)中资源具体指什么？主要包含：<br>    ● 程序jar包、作业配置文件xml<br>    ● 输入划分信息，决定作业该启动多少个map任务<br>    ● 本地文件，包含依赖的第三方jar包(-libjars)、依赖的归档文件(-archives)和普通文件(-files)，如果已经上传，则不需上传</p>
 <h2 id="MapReduce原理"><a href="#MapReduce原理" class="headerlink" title="MapReduce原理"></a>MapReduce原理</h2><p><img src="/2018/10/18/blog181018-2/2.png" alt="在这里插入图片描述"></p>
 <p><strong>MapReduce的执行步骤：</strong></p>
@@ -624,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce简介"><span class="nav-number">2.</span> <span class="nav-text">MapReduce简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce的原理和执行流程"><span class="nav-number">3.</span> <span class="nav-text">MapReduce的原理和执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce原理"><span class="nav-number">4.</span> <span class="nav-text">MapReduce原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试MapReduce"><span class="nav-number">5.</span> <span class="nav-text">测试MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java代码实现"><span class="nav-number">6.</span> <span class="nav-text">Java代码实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce简介"><span class="nav-number">2.</span> <span class="nav-text">MapReduce简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce的执行流程"><span class="nav-number">3.</span> <span class="nav-text">MapReduce的执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce原理"><span class="nav-number">4.</span> <span class="nav-text">MapReduce原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试MapReduce"><span class="nav-number">5.</span> <span class="nav-text">测试MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java代码实现"><span class="nav-number">6.</span> <span class="nav-text">Java代码实现</span></a></li></ol></div>
             
 
           </div>
