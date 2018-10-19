@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/11.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/12.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/13.png">
-<meta property="og:updated_time" content="2018-10-18T03:52:23.467Z">
+<meta property="og:updated_time" content="2018-10-19T06:18:08.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop集群版搭建">
 <meta name="twitter:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datenode没有启动">
@@ -438,7 +438,7 @@ ssh master
 <h2 id="重新格式化namenode"><a href="#重新格式化namenode" class="headerlink" title="重新格式化namenode"></a>重新格式化namenode</h2><p>三台虚拟机都需要<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></p>
 <h2 id="启动hadoop并验证是否成功"><a href="#启动hadoop并验证是否成功" class="headerlink" title="启动hadoop并验证是否成功"></a>启动hadoop并验证是否成功</h2><p>在主机master上直接启动<code>start-all.sh</code>从机会跟着启动</p>
 <p>然后分别在主机从机上查看<code>jps</code><br>应该与规划相同<br>|主机名|cluster规划  |<br>|–|–|<br>| master | namenode,secondarynamenode,ResourceManager  |<br>| slave1 | Datanode, NodeManager  |<br>| slave2 | Datanode, NodeManager  |</p>
-<h2 id="若slave的datenode没有启动"><a href="#若slave的datenode没有启动" class="headerlink" title="若slave的datenode没有启动"></a>若slave的datenode没有启动</h2><p><strong>如果发现从机的datenode没有启动</strong><br>首先在主机master停止</p>
+<h2 id="若slave的datanode没有启动"><a href="#若slave的datanode没有启动" class="headerlink" title="若slave的datanode没有启动"></a>若slave的datanode没有启动</h2><p><strong>如果发现从机的datanode没有启动</strong><br>首先在主机master停止</p>
 <pre><code>stop-all.sh
 </code></pre><p><strong>然后进入到从机的/usr/local/hadoop/tmp/dfs/data</strong></p>
 <pre><code>cd /usr/local/hadoop/tmp/dfs/data
@@ -644,7 +644,7 @@ start-all.sh
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规划"><span class="nav-number">2.</span> <span class="nav-text">规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆虚拟机"><span class="nav-number">3.</span> <span class="nav-text">克隆虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在hosts文件修改ip映射"><span class="nav-number">4.</span> <span class="nav-text">在hosts文件修改ip映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改hadoop配置文件"><span class="nav-number">5.</span> <span class="nav-text">修改hadoop配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改slaves文件"><span class="nav-number">6.</span> <span class="nav-text">更改slaves文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群版ssh免密钥登录"><span class="nav-number">7.</span> <span class="nav-text">集群版ssh免密钥登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新格式化namenode"><span class="nav-number">8.</span> <span class="nav-text">重新格式化namenode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动hadoop并验证是否成功"><span class="nav-number">9.</span> <span class="nav-text">启动hadoop并验证是否成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若slave的datenode没有启动"><span class="nav-number">10.</span> <span class="nav-text">若slave的datenode没有启动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规划"><span class="nav-number">2.</span> <span class="nav-text">规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆虚拟机"><span class="nav-number">3.</span> <span class="nav-text">克隆虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在hosts文件修改ip映射"><span class="nav-number">4.</span> <span class="nav-text">在hosts文件修改ip映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改hadoop配置文件"><span class="nav-number">5.</span> <span class="nav-text">修改hadoop配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改slaves文件"><span class="nav-number">6.</span> <span class="nav-text">更改slaves文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群版ssh免密钥登录"><span class="nav-number">7.</span> <span class="nav-text">集群版ssh免密钥登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新格式化namenode"><span class="nav-number">8.</span> <span class="nav-text">重新格式化namenode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动hadoop并验证是否成功"><span class="nav-number">9.</span> <span class="nav-text">启动hadoop并验证是否成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若slave的datanode没有启动"><span class="nav-number">10.</span> <span class="nav-text">若slave的datanode没有启动</span></a></li></ol></div>
             
 
           </div>
