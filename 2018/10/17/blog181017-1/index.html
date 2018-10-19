@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datenode没有启动">
+<meta name="description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datanode没有启动">
 <meta name="keywords" content="Hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop集群版搭建">
 <meta property="og:url" content="http://www.givemev.com/2018/10/17/blog181017-1/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datenode没有启动">
+<meta property="og:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datanode没有启动">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/1.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/2.png">
@@ -107,10 +107,10 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/11.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/12.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/13.png">
-<meta property="og:updated_time" content="2018-10-19T06:18:08.809Z">
+<meta property="og:updated_time" content="2018-10-19T06:21:26.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop集群版搭建">
-<meta name="twitter:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datenode没有启动">
+<meta name="twitter:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datanode没有启动">
 <meta name="twitter:image" content="http://www.givemev.com/2018/10/17/blog181017-1/1.png">
 
 
@@ -397,7 +397,7 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.规划<br>2.克隆虚拟机<br>3.在hosts文件修改ip映射<br>4.修改hadoop配置文件<br>5.更改slaves文件<br>6.集群版ssh免密钥登录<br>7.重新格式化namenode<br>8.启动hadoop并验证是否成功<br>9.若slave的datenode没有启动<br><a id="more"></a></p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.规划<br>2.克隆虚拟机<br>3.在hosts文件修改ip映射<br>4.修改hadoop配置文件<br>5.更改slaves文件<br>6.集群版ssh免密钥登录<br>7.重新格式化namenode<br>8.启动hadoop并验证是否成功<br>9.若slave的datanode没有启动<br><a id="more"></a></p>
 <p><strong>上次说了<a href="http://www.givemev.com/2018/10/16/blog181016-1/#more">Hadoop集群单机版的搭建</a>,这次来依照单机版的基础搭建一个简单的集群版</strong></p>
 <h2 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h2><p>这次搭建的是一个主机和两个从机,也就是只有两个node节点,也可以让主机上有node节点,之后会说<br>|主机名|cluster规划  |<br>|–|–|<br>| master | namenode,secondarynamenode,ResourceManager  |<br>| slave1 | Datanode, NodeManager  |<br>| slave2 | Datanode, NodeManager  |</p>
 <p>首先克隆一台单机版虚拟机</p>
