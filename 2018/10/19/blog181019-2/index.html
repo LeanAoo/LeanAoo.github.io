@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop," />
+  <meta name="keywords" content="Hadoop,MapReduce,Java," />
 
 
 
@@ -86,35 +86,18 @@
 
 
 
-<meta name="description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
-<meta name="keywords" content="Hadoop">
+<meta name="description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
+<meta name="keywords" content="Hadoop,MapReduce,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop集群单机版搭建">
-<meta property="og:url" content="http://www.givemev.com/2018/10/16/blog181016-1/index.html">
+<meta property="og:title" content="将MapReduce分析手机上网记录的结果进行排序操作">
+<meta property="og:url" content="http://www.givemev.com/2018/10/19/blog181019-2/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
+<meta property="og:description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/3.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/4.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/blog181016/5.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/6.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/7.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/8.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/9.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/10.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/11.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/16.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/17.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/12.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/13.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/14.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/16/blog181016-1/15.png">
-<meta property="og:updated_time" content="2018-10-19T10:32:31.300Z">
+<meta property="og:updated_time" content="2018-10-19T12:55:00.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop集群单机版搭建">
-<meta name="twitter:description" content="概览1.CentOS的安装2.设置Linux静态ip3.JDK的安装4.修改主机名和ip映射5.安装hadoop并修改配置文件6.格式化namenode7.启动hadoop8.验证是否启动成功9.设置ssh免密登录">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/16/blog181016-1/2.png">
+<meta name="twitter:title" content="将MapReduce分析手机上网记录的结果进行排序操作">
+<meta name="twitter:description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
 
 
 
@@ -144,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/16/blog181016-1/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/19/blog181019-2/"/>
 
 
 
 
 
-  <title>Hadoop集群单机版搭建 | GivemeV</title>
+  <title>将MapReduce分析手机上网记录的结果进行排序操作 | GivemeV</title>
   
 
 
@@ -321,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/16/blog181016-1/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/19/blog181019-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -338,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop集群单机版搭建</h1>
+          <h1 class="post-title" itemprop="name headline">将MapReduce分析手机上网记录的结果进行排序操作</h1>
         
 
         <div class="post-meta">
@@ -350,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T22:05:12+08:00">
-                2018-10-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-19T20:52:03+08:00">
+                2018-10-19
               </time>
             
 
@@ -391,8 +374,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/16/blog181016-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/16/blog181016-1/" itemprop="commentCount"></span>
+                <a href="/2018/10/19/blog181019-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/19/blog181019-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,7 +383,7 @@
 
           
           
-             <span id="/2018/10/16/blog181016-1/" class="leancloud_visitors" data-flag-title="Hadoop集群单机版搭建">
+             <span id="/2018/10/19/blog181019-2/" class="leancloud_visitors" data-flag-title="将MapReduce分析手机上网记录的结果进行排序操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -431,68 +414,38 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.CentOS的安装<br>2.设置Linux静态ip<br>3.JDK的安装<br>4.修改主机名和ip映射<br>5.安装hadoop并修改配置文件<br>6.格式化namenode<br>7.启动hadoop<br>8.验证是否启动成功<br>9.设置ssh免密登录<br><a id="more"></a></p>
-<p><strong>首先本文是基于CentOS 7 , jdk1.8.0_141 和Hadoop2.7.3环境搭建</strong></p>
-<h2 id="1-CentOS的安装"><a href="#1-CentOS的安装" class="headerlink" title="1.CentOS的安装"></a>1.CentOS的安装</h2><p> 首先准备好CentOS7  64位的镜像<br> 然后在VMware上安装虚拟机</p>
-<p><strong>这里注意选择镜像自动检测CentOS 64位</strong>, 不然之后步骤比较麻烦<br><img src="/2018/10/16/blog181016-1/2.png" alt="安装CentOS7"><br>其他步骤都与普通安装虚拟机一样,直接默认下一步,然后开启虚拟机</p>
-<p>这里直接进行回车继续即可<br><img src="/2018/10/16/blog181016-1/3.png" alt="虚拟机开启"></p>
-<p>语言选择可以选择简体中文<br>这时选择安装位置,直接点击完成即可,这样才能继续下一步操作<br><img src="/2018/10/16/blog181016-1/4.png" alt="安装位置"><br><img src="/2018/10/16/blog181016-1/blog181016/5.png" alt="安装位置完成继续"></p>
-<p>然后开始安装,设置并且设置root密码<br><img src="/2018/10/16/blog181016-1/6.png" alt="设置root密码"><br>然后重新开机登录root账号即可,成功登录则表示CentOS安装成功</p>
-<h2 id="2-设置Linux静态ip"><a href="#2-设置Linux静态ip" class="headerlink" title="2.设置Linux静态ip"></a>2.设置Linux静态ip</h2><p> 开机完成后需要我们设置静态ip,这样之后开机都不需要dhclient动态分配ip地址</p>
-<p>首先找到/etc/sysconfig/network-scripts/下的ifcfg-ens33配置文件(如果没有找到此文件,说明你没有选择安装CentOS64位系统,建议重新安装)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
-<p>2.首先把BOOTPROTO=”dhcp”改成BOOTPROTO=”static”表示静态获取,然后把UUID注释掉,把ONBOOT=no改为yes表示开机自动静态获取,然后在最后追加比如下面的配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IPADDR=192.168.134.151  #自己的ip地址</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.134.2</span><br><span class="line">DNS1=8.8.8.8</span><br></pre></td></tr></table></figure>
-<p>IPADDR就是静态IP，NETMASK是子网掩码，GATEWAY就是网关或者路由地址；需要说明，原来还有个NETWORK配置的是局域网网络号，这个是ifcalc自动计算的，所以这里配置这些就足够了，最终配置如下图：<br><img src="/2018/10/16/blog181016-1/7.png" alt="在这里插入图片描述"><br> 如果不知道自己的GATEWAY可以去虚拟机的编辑查看虚拟网络编辑器中的NAT设置<br> <img src="/2018/10/16/blog181016-1/8.png" alt="在这里插入图片描述"><br> 最后保存退出<br> <strong>重启服务</strong><br> centos6的网卡重启方法：<code>service network restart</code><br>    centos7的网卡重启方法：<code>systemctl restart network</code><br>    然后查看自己的ip地址是不是自己设置的<br>    centos6的查看ip方法: <code>ifconfig</code><br>    centos7的查看ip方法: <code>ip addr</code><br>    <img src="/2018/10/16/blog181016-1/9.png" alt="在这里插入图片描述"><br>接下来可以用Xshell工具连接虚拟机了,这样比较好操作(如果没有此工具的需要去官网下载,Xshell和配套的文件传输工具Xftp,都有免费版本)<br><img src="/2018/10/16/blog181016-1/10.png" alt="在这里插入图片描述"></p>
-<h2 id="3-JDK的安装"><a href="#3-JDK的安装" class="headerlink" title="3.JDK的安装"></a>3.JDK的安装</h2><p> 首先在usr的目录下创建一个java文件夹用来存放jdk的安装包并作为安装路径<br> <img src="/2018/10/16/blog181016-1/11.png" alt="在这里插入图片描述"><br> 这时候新建文件传输,将jdk的压缩包放入到CentOS中<br> <img src="/2018/10/16/blog181016-1/16.png" alt="在这里插入图片描述"><br> 然后解压jdk<br> <img src="/2018/10/16/blog181016-1/17.png" alt="在这里插入图片描述"><br> 解压完成之后返回到根目录的etc文件夹下,改写profile配置文件  <code>vi /etc/profile</code><br> 在profile最后加上:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_141</span><br><span class="line">export JAVA_BIN=/usr/java/jdk1.8.0_141/bin</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">export CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br></pre></td></tr></table></figure>
-<p>保存退出,<code>source /etc/profile</code>刷新配置文件<br>用java -version看看jdk环境是否配置完毕</p>
-<h2 id="4-修改主机名和ip映射"><a href="#4-修改主机名和ip映射" class="headerlink" title="4.修改主机名和ip映射"></a>4.修改主机名和ip映射</h2><p>修改etc文件夹下的hosts文件<code>vi  /etc/hosts</code><br>如图:<br><img src="/2018/10/16/blog181016-1/12.png" alt="在这里插入图片描述"></p>
-<h2 id="5-安装hadoop并修改配置文件"><a href="#5-安装hadoop并修改配置文件" class="headerlink" title="5.安装hadoop并修改配置文件"></a>5.安装hadoop并修改配置文件</h2><p> 在usr文件夹下创建hadoop文件夹作为压缩包存放和解压路径,将hadoop的压缩包传输到此文件夹下</p>
-<p> 然后解压 <code>tar -zxf hadoop-2.7.3.tar.gz</code> </p>
-<p> <strong>5.1配置proflie文件</strong><br>注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop<br>在etc的profile最后添加,然后source刷新配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/usr/hadoop/hadoop-2.7.3</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
-<p>接下来需要改五个配置文件<br><strong>5.2 第一个：</strong><code>hadoop-env.sh</code><br>进入到hadoop-2.7.3/etc/hadoop文件夹下,修改hadoop-env.sh <code>vi hadoop-env.sh</code><br>第25行将<br><img src="/2018/10/16/blog181016-1/13.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/16/blog181016-1/14.png" alt="在这里插入图片描述"><br>保存退出<br><strong>5.3 第二个 core-site.xml</strong><br>在<strong>configuration</strong>中加上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 制定HDFS的老大（NameNode）的地址 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;hdfs://zhiyou:9000&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;!-- 指定hadoop运行时产生文件的存储目录[能自动生成目录] --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;/zhiyou/hadoop/tmp&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p>保存退出</p>
-<p><strong>5.4 第三个 hdfs-site.xml</strong><br>同上configuration中添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定HDFS副本的数量 --&gt;</span><br><span class="line">       &lt;property&gt;</span><br><span class="line">                   &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">                      &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;      	</span><br><span class="line">      &lt;value&gt;/usr/local/hadoop/tmp/dfs/name&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;         </span><br><span class="line">      &lt;value&gt;/usr/local/hadoop/tmp/dfs/data&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>5.5 第四个mapred-site.xml</strong> </p>
-<p>这个是需要你复制一个模版文件出来的 <code>cp mapred-site.xml.template mapred-site.xml</code><br>然后 <code>vi mapred-site.xml</code>添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定mr运行在yarn上 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p>保存退出</p>
-<p><strong>5.6 第五个 yarn-site.xml</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</span><br><span class="line">		&lt;property&gt;</span><br><span class="line">			&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;zhiyou&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">		&lt;!-- reducer获取数据的方式 --&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">			&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">			&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="6-格式化namenode"><a href="#6-格式化namenode" class="headerlink" title="6.格式化namenode"></a>6.格式化namenode</h2><p><strong>是对namenode进行初始化</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure>
-<p>如果没有报错说明配置文件成功,否则重新检查配置文件</p>
-<h2 id="7-启动hadoop"><a href="#7-启动hadoop" class="headerlink" title="7.启动hadoop"></a>7.启动hadoop</h2><p> 先启动HDFS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure>
-<p>再启动YARN</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
-<p>这里需要yes三次并输入你的root密码三次</p>
-<h2 id="8-验证是否启动成功"><a href="#8-验证是否启动成功" class="headerlink" title="8.验证是否启动成功"></a>8.验证是否启动成功</h2><pre><code>jps
-</code></pre><p>3912 DataNode<br>4378 Jps<br>4331 NodeManager<br>4093 SecondaryNameNode<br>3822 NameNode<br>4239 ResourceManager</p>
-<p>关闭防火墙</p>
-<p> #停止firewall </p>
-<pre><code>systemctl stop firewalld
-
-systemctl disable firewalld.service #禁止firewall开机启动
-</code></pre><p>浏览器查看<br>    <a href="http://ip地址:50070" target="_blank" rel="noopener">http://ip地址:50070</a> （HDFS管理界面）<br>    <a href="http://ip地址:8088" target="_blank" rel="noopener">http://ip地址:8088</a>  (yarn管理界面）<br>如果页面正常则说明hadoop配置成功</p>
-<p>有人觉得每次启动都需要输入密码很繁琐,那么就设置ssh免密登录</p>
-<h2 id="9-设置ssh免密登录"><a href="#9-设置ssh免密登录" class="headerlink" title="9.设置ssh免密登录"></a>9.设置ssh免密登录</h2><p><strong>生成ssh免登陆密钥</strong></p>
-<pre><code>#进入到我的home目录
-
-
-cd  ~/.ssh
-</code></pre><p><code>ssh-keygen -t rsa</code> （四个回车）<br>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）<br>    将公钥拷贝到要免登陆的机器上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id 192.168.134.151</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/10/16/blog181016-1/15.png" alt="在这里插入图片描述"></p>
-<p>然后重新启动虚拟机<code>reboot</code></p>
-<p>进入到hadoop下的sbin文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/hadoop/hadoop-2.7.3/sbin</span><br></pre></td></tr></table></figure>
-<p>有个<code>start-all.sh</code>和<code>stop-all.sh</code>,这是启动和停止所有服务,这样更加快捷</p>
-<p>启动之后再次验证是否启动成功</p>
-<p>至此,基本的搭建已经完成</p>
+        <p>上次我们说过了<a href="http://www.givemev.com/2018/10/19/blog181019-1/">MapReduce对手机上网记录的简单分析和Partitioner分区</a><br>这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序</p>
+<a id="more"></a>
+<h2 id="1-编写Java代码-并将其打包成jar包"><a href="#1-编写Java代码-并将其打包成jar包" class="headerlink" title="1.编写Java代码,并将其打包成jar包"></a>1.编写Java代码,并将其打包成jar包</h2><p><strong>在eclipse上创建个新的java项目,创建lib文件夹,将上次的jar同样导入进来</strong></p>
+<p>然后创建个TelBean类<br>这里实现了WritableComparable接口,就是序列化的比较,详情查询api文档</p>
+<blockquote>
+<p>public interface Comparator<t>比较功能，对一些对象的集合施加了一个整体排序 。 可以将比较器传递给排序方法（如Collections.sort或Arrays.sort ），以便对排序顺序进行精确控制。 比较器还可以用来控制某些数据结构（如顺序sorted sets或sorted maps ），或对于不具有对象的集合提供的排序natural ordering 。<br>通过比较c上的一组元素S的确定的顺序对被认为是与equals一致当且仅当c.compare(e1, e2)==0具有用于S每e1和e2相同布尔值e1.equals(e2)。 </t></p>
+<p>当使用能够强制排序不一致的比较器时，应注意使用排序集（或排序图）。 假设具有显式比较器c的排序集（或排序映射）与从集合S中绘制的元素（或键）<br>一起使用 。 如果88446235254451上的c强制的排序与equals不一致，则排序集（或排序映射）将表现为“奇怪”。<br>特别是排序集（或排序图）将违反用于设置（或映射）的一般合同，其按equals定义。 </p>
+<p>例如，假设一个将两个元件a和b ，使得(a.equals(b) &amp;&amp; c.compare(a, b) != 0)到空TreeSet与比较c<br>。 因为a和b与树集的角度不相等，所以第二个add操作将返回true（并且树集的大小将增加），即使这与Set.add方法的规范相反。 </p>
+<p>注意：这通常是一个好主意比较，也能实现java.io.Serializable，因为它们可能被用来作为排序的序列化数据结构的方法（如TreeSet<br>， TreeMap ）。 为了使数据结构成功序列化，比较器（如果提供）必须实现Serializable 。 </p>
+<p>对于数学上的倾斜，即限定了施加顺序 ，给定的比较器c上一组给定对象的S强加关系式为： </p>
+<p>  {(x, y) such that c.compare(x, y) &lt;= 0}. 这个总订单的商是：    {(x, y) such<br>that c.compare(x, y) == 0}. 它从合同compare，该商数是S的等价关系紧随其后，而强加的排序是S， 总订单 。<br>当我们说S上的c所规定的顺序与等于一致时，我们的意思是排序的商是由对象’ equals(Object)方法定义的等价关系：    {(x,<br>y) such that x.equals(y)}. 与Comparable不同，比较器可以可选地允许比较空参数，同时保持对等价关系的要求。</p>
+<p>此接口是成员Java Collections Framework 。 </p>
+<p>从以下版本开始：<br>1.2  另请参见：  Comparable ， Serializable</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">package com.zy.hadoop.entity;</span><br><span class="line"></span><br><span class="line">import java.io.DataInput;</span><br><span class="line">import java.io.DataOutput;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.io.Writable;</span><br><span class="line">import org.apache.hadoop.io.WritableComparable;</span><br><span class="line"></span><br><span class="line">public class TelBean implements WritableComparable&lt;TelBean&gt;&#123;</span><br><span class="line">	</span><br><span class="line">	private String tel;</span><br><span class="line">	private long upPayLoad;</span><br><span class="line">	private long downPayLoad;</span><br><span class="line">	private long totalPayLoad;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public String getTel() &#123;</span><br><span class="line">		return tel;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setTel(String tel) &#123;</span><br><span class="line">		this.tel = tel;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public long getUpPayLoad() &#123;</span><br><span class="line">		return upPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setUpPayLoad(long upPayLoad) &#123;</span><br><span class="line">		this.upPayLoad = upPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public long getDownPayLoad() &#123;</span><br><span class="line">		return downPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setDownPayLoad(long downPayLoad) &#123;</span><br><span class="line">		this.downPayLoad = downPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public long getTotalPayLoad() &#123;</span><br><span class="line">		return totalPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setTotalPayLoad(long totalPayLoad) &#123;</span><br><span class="line">		this.totalPayLoad = totalPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TelBean(String tel, long upPayLoad, long downPayLoad, long totalPayLoad) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.tel = tel;</span><br><span class="line">		this.upPayLoad = upPayLoad;</span><br><span class="line">		this.downPayLoad = downPayLoad;</span><br><span class="line">		this.totalPayLoad = totalPayLoad;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public TelBean() &#123;</span><br><span class="line">		super();</span><br><span class="line">		// TODO Auto-generated constructor stub</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return  tel + &quot;\t&quot; + upPayLoad + &quot;\t&quot; + downPayLoad + &quot;\t&quot;</span><br><span class="line">				+ totalPayLoad ;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//反序列化的过程</span><br><span class="line">	@Override</span><br><span class="line">	public void readFields(DataInput in) throws IOException &#123;</span><br><span class="line">		this.tel = in.readUTF();</span><br><span class="line">		this.upPayLoad = in.readLong();</span><br><span class="line">		this.downPayLoad = in.readLong();</span><br><span class="line">		this.totalPayLoad = in.readLong();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//序列化的过程</span><br><span class="line">	@Override</span><br><span class="line">	public void write(DataOutput out) throws IOException &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		out.writeUTF(this.tel);</span><br><span class="line">		out.writeLong(this.upPayLoad);</span><br><span class="line">		out.writeLong(this.downPayLoad);</span><br><span class="line">		out.writeLong(this.totalPayLoad);</span><br><span class="line">	&#125;</span><br><span class="line">	//compare比较,详情查阅java的api文档</span><br><span class="line">	@Override</span><br><span class="line">	public int compareTo(TelBean bean) &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		return (int)(this.totalPayLoad-bean.getTotalPayLoad());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在mr包下依次建立SortMapper,SortReducer,SortCount</p>
+<p><strong>关于分析可以查看</strong><a href="http://www.givemev.com/2018/10/19/blog181019-1/">MapReduce对手机上网记录的简单分析和Partitioner分区</a><br><strong>SortMapper</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package com.zy.hadoop.mr2;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.io.LongWritable;</span><br><span class="line">import org.apache.hadoop.io.NullWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line">import com.zy.hadoop.entity.TelBean;</span><br><span class="line"></span><br><span class="line">public class SortMapper extends Mapper&lt;LongWritable, Text, TelBean, NullWritable&gt;&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void map(LongWritable key, Text value, Mapper&lt;LongWritable, Text, TelBean, NullWritable&gt;.Context context)</span><br><span class="line">			throws IOException, InterruptedException &#123;</span><br><span class="line">		//value ,第一mr出来的结果中的每一行</span><br><span class="line">		String line = value.toString();</span><br><span class="line">		//拆分字符串&quot;\t&quot;</span><br><span class="line">		String[] strs = line.split(&quot;\t&quot;);</span><br><span class="line">		//直接通过下标取值</span><br><span class="line">		//电话号码</span><br><span class="line">		</span><br><span class="line">		String tel = strs[0];</span><br><span class="line">		//上行流量</span><br><span class="line">		long upPayLoad=Long.parseLong(strs[2]);</span><br><span class="line">		//下行流量</span><br><span class="line">		long downPayLoad=Long.parseLong(strs[3]);</span><br><span class="line">		//总流量</span><br><span class="line">		long totalPayLoad=Long.parseLong(strs[4]);</span><br><span class="line">		//把去除的值封装到对象中</span><br><span class="line">		TelBean telBean = new TelBean(tel, upPayLoad, downPayLoad, totalPayLoad);</span><br><span class="line">		//输出k2,v2</span><br><span class="line">		context.write(telBean, NullWritable.get());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>SortReducer</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package com.zy.hadoop.mr2;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.io.NullWritable;</span><br><span class="line">import org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"></span><br><span class="line">import com.zy.hadoop.entity.TelBean;</span><br><span class="line"></span><br><span class="line">public class SortReducer extends Reducer&lt;TelBean, NullWritable, TelBean, NullWritable&gt;&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void reduce(TelBean arg0, Iterable&lt;NullWritable&gt; arg1,</span><br><span class="line">			Reducer&lt;TelBean, NullWritable, TelBean, NullWritable&gt;.Context arg2)</span><br><span class="line">			throws IOException, InterruptedException &#123;</span><br><span class="line">		arg2.write(arg0, NullWritable.get());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>SortCount</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package com.zy.hadoop.mr2;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.apache.hadoop.io.NullWritable;</span><br><span class="line">import org.apache.hadoop.mapreduce.Job;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line">import com.zy.hadoop.entity.TelBean;</span><br><span class="line"></span><br><span class="line">public class SortCount &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		// 1.获取job</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		// 2.指定job使用的类</span><br><span class="line">		job.setJarByClass(SortCount.class);</span><br><span class="line"></span><br><span class="line">		// 3.设置Mapper的属性</span><br><span class="line">		job.setMapperClass(SortMapper.class);</span><br><span class="line">		job.setMapOutputKeyClass(TelBean.class);</span><br><span class="line">		job.setMapOutputValueClass(NullWritable.class);</span><br><span class="line"></span><br><span class="line">		// 4.设置输入文件</span><br><span class="line">		FileInputFormat.setInputPaths(job, new Path(args[0]));</span><br><span class="line"></span><br><span class="line">		// 5.设置reducer的属性</span><br><span class="line">		job.setReducerClass(SortReducer.class);</span><br><span class="line">		job.setOutputKeyClass(TelBean.class);</span><br><span class="line">		job.setMapOutputValueClass(NullWritable.class);</span><br><span class="line"></span><br><span class="line">		// 6.设置输出文件夹,查看结果保存到hdfs文件夹中的位置</span><br><span class="line">		FileOutputFormat.setOutputPath(job, new Path(args[1]));</span><br><span class="line"></span><br><span class="line">		// 7.提交 true 提交的时候打印日志信息</span><br><span class="line">		job.waitForCompletion(true);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来将项目打包成jar包,上传到虚拟机/usr/tmp下</p>
+<h2 id="2-虚拟机上运行jar包-查看结果"><a href="#2-虚拟机上运行jar包-查看结果" class="headerlink" title="2.虚拟机上运行jar包,查看结果"></a>2.虚拟机上运行jar包,查看结果</h2><p>启动hadoop集群服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
+<p>查看是否成功</p>
+<p><strong>我们将之前处理过一次的文件/tel1/part-r-00000(/tel2下的进行过分区了,所以不进行处理)作为源文件进行分析排序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar tel_3.jar /tel/part-r-00000 /tel3</span><br></pre></td></tr></table></figure>
+<p>等待执行完毕查看结果</p>
+<p><strong>结果如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@master tmp]# hadoop fs -ls /</span><br><span class="line">hadoopFound 5 items</span><br><span class="line">-rw-r--r--   1 root supergroup       2315 2018-10-19 19:33 /tel.log</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 19:59 /tel1</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 20:10 /tel2</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 20:47 /tel3</span><br><span class="line">drwx------   - root supergroup          0 2018-10-19 19:58 /tmp</span><br><span class="line">[root@master tmp]# hadoop fs -ls /tel3</span><br><span class="line">Found 2 items</span><br><span class="line">-rw-r--r--   1 root supergroup          0 2018-10-19 20:47 /tel3/_SUCCESS</span><br><span class="line">-rw-r--r--   1 root supergroup        477 2018-10-19 20:47 /tel3/part-r-00000</span><br><span class="line">[root@master tmp]# hadoop fs -cat /tel3/part-r-00000</span><br><span class="line">13926251106	240	0	240</span><br><span class="line">13826544101	264	0	264</span><br><span class="line">13480253104	180	180	360</span><br><span class="line">13926435656	132	1512	1644</span><br><span class="line">15989002119	1938	180	2118</span><br><span class="line">18211575961	1527	2106	3633</span><br><span class="line">13560436666	2232	1908	4140</span><br><span class="line">13602846565	1938	2910	4848</span><br><span class="line">84138413	4116	1432	5548</span><br><span class="line">15920133257	3156	2936	6092</span><br><span class="line">13922314466	3008	3720	6728</span><br><span class="line">15013685858	3659	3538	7197</span><br><span class="line">13660577991	6960	690	7650</span><br><span class="line">13560439658	2034	5892	7926</span><br><span class="line">18320173382	9531	2412	11943</span><br><span class="line">13726238888	2481	24681	27162</span><br><span class="line">13925057413	11058	48243	59301</span><br><span class="line">13502468823	7335	110349	117684</span><br></pre></td></tr></table></figure></p>
+<p>这就是MapReduce进行简单的数据分析</p>
+<p><strong>不过hadoop集群的datanode节点如果过多会导致速度慢 , 接下来会介绍zookeeper的高效hadoop集群如何搭建</strong></p>
 
       
     </div>
@@ -512,6 +465,10 @@ cd  ~/.ssh
           
             <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
           
+            <a href="/tags/MapReduce/" rel="tag"><i class="fa fa-tag"></i> MapReduce</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
         </div>
       
 
@@ -523,8 +480,8 @@ cd  ~/.ssh
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/15/test/" rel="next" title="海琴烟">
-                <i class="fa fa-chevron-left"></i> 海琴烟
+              <a href="/2018/10/19/blog181019-1/" rel="next" title="MapReduce对手机上网记录的简单分析和Partitioner分区">
+                <i class="fa fa-chevron-left"></i> MapReduce对手机上网记录的简单分析和Partitioner分区
               </a>
             
           </div>
@@ -532,10 +489,6 @@ cd  ~/.ssh
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/17/blog181017-1/" rel="prev" title="Hadoop集群版搭建">
-                Hadoop集群版搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -690,7 +643,7 @@ cd  ~/.ssh
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CentOS的安装"><span class="nav-text">1.CentOS的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-设置Linux静态ip"><span class="nav-text">2.设置Linux静态ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JDK的安装"><span class="nav-text">3.JDK的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-修改主机名和ip映射"><span class="nav-text">4.修改主机名和ip映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安装hadoop并修改配置文件"><span class="nav-text">5.安装hadoop并修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-格式化namenode"><span class="nav-text">6.格式化namenode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-启动hadoop"><span class="nav-text">7.启动hadoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-验证是否启动成功"><span class="nav-text">8.验证是否启动成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-设置ssh免密登录"><span class="nav-text">9.设置ssh免密登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-编写Java代码-并将其打包成jar包"><span class="nav-text">1.编写Java代码,并将其打包成jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-虚拟机上运行jar包-查看结果"><span class="nav-text">2.虚拟机上运行jar包,查看结果</span></a></li></ol></div>
             
 
           </div>
