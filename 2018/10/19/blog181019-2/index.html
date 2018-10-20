@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop,MapReduce,Java," />
+  <meta name="keywords" content="Hadoop,Java,MapReduce," />
 
 
 
@@ -87,14 +87,14 @@
 
 
 <meta name="description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
-<meta name="keywords" content="Hadoop,MapReduce,Java">
+<meta name="keywords" content="Hadoop,Java,MapReduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="将MapReduce分析手机上网记录的结果进行排序操作">
 <meta property="og:url" content="http://www.givemev.com/2018/10/19/blog181019-2/index.html">
 <meta property="og:site_name" content="GivemeV">
 <meta property="og:description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-19T12:55:00.675Z">
+<meta property="og:updated_time" content="2018-10-20T06:44:30.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="将MapReduce分析手机上网记录的结果进行排序操作">
 <meta name="twitter:description" content="上次我们说过了MapReduce对手机上网记录的简单分析和Partitioner分区这次我们介绍一下如何将手机上网记录根据总流量的多少进行排序">
@@ -445,7 +445,7 @@
 <p>等待执行完毕查看结果</p>
 <p><strong>结果如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@master tmp]# hadoop fs -ls /</span><br><span class="line">hadoopFound 5 items</span><br><span class="line">-rw-r--r--   1 root supergroup       2315 2018-10-19 19:33 /tel.log</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 19:59 /tel1</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 20:10 /tel2</span><br><span class="line">drwxr-xr-x   - root supergroup          0 2018-10-19 20:47 /tel3</span><br><span class="line">drwx------   - root supergroup          0 2018-10-19 19:58 /tmp</span><br><span class="line">[root@master tmp]# hadoop fs -ls /tel3</span><br><span class="line">Found 2 items</span><br><span class="line">-rw-r--r--   1 root supergroup          0 2018-10-19 20:47 /tel3/_SUCCESS</span><br><span class="line">-rw-r--r--   1 root supergroup        477 2018-10-19 20:47 /tel3/part-r-00000</span><br><span class="line">[root@master tmp]# hadoop fs -cat /tel3/part-r-00000</span><br><span class="line">13926251106	240	0	240</span><br><span class="line">13826544101	264	0	264</span><br><span class="line">13480253104	180	180	360</span><br><span class="line">13926435656	132	1512	1644</span><br><span class="line">15989002119	1938	180	2118</span><br><span class="line">18211575961	1527	2106	3633</span><br><span class="line">13560436666	2232	1908	4140</span><br><span class="line">13602846565	1938	2910	4848</span><br><span class="line">84138413	4116	1432	5548</span><br><span class="line">15920133257	3156	2936	6092</span><br><span class="line">13922314466	3008	3720	6728</span><br><span class="line">15013685858	3659	3538	7197</span><br><span class="line">13660577991	6960	690	7650</span><br><span class="line">13560439658	2034	5892	7926</span><br><span class="line">18320173382	9531	2412	11943</span><br><span class="line">13726238888	2481	24681	27162</span><br><span class="line">13925057413	11058	48243	59301</span><br><span class="line">13502468823	7335	110349	117684</span><br></pre></td></tr></table></figure></p>
 <p>这就是MapReduce进行简单的数据分析</p>
-<p><strong>不过hadoop集群的datanode节点如果过多会导致速度慢 , 接下来会介绍zookeeper的高效hadoop集群如何搭建</strong></p>
+<p><strong>不过hadoop集群的namenode如果只有一个,如果namenode机器宕机整个机器都会不可用 , 接下来会介绍zookeeper的高可用hadoop集群如何搭建</strong></p>
 
       
     </div>
@@ -465,9 +465,9 @@
           
             <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
           
-            <a href="/tags/MapReduce/" rel="tag"><i class="fa fa-tag"></i> MapReduce</a>
-          
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"><i class="fa fa-tag"></i> MapReduce</a>
           
         </div>
       
