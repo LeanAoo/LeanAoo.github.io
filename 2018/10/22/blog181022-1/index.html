@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta name="description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试">
 <meta name="keywords" content="Hadoop,Zookeeper,HA高可用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop 2.0 HA 3节点高可用集群搭建">
 <meta property="og:url" content="http://www.givemev.com/2018/10/22/blog181022-1/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta property="og:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/1.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/9.png">
@@ -105,10 +105,10 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/7.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/6.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/8.png">
-<meta property="og:updated_time" content="2018-10-22T13:14:07.578Z">
+<meta property="og:updated_time" content="2018-10-22T13:29:59.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop 2.0 HA 3节点高可用集群搭建">
-<meta name="twitter:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta name="twitter:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试">
 <meta name="twitter:image" content="http://www.givemev.com/2018/10/22/blog181022-1/1.png">
 
 
@@ -426,7 +426,7 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.集群规划<br>2.准备<br>3.修改Hadoop配置文件<br>4.复制内容<br>5.启动集群<br>6.查看jps<br>7.测试</p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.集群规划<br>2.准备<br>3.修改Hadoop配置文件<br>4.复制内容<br>5.启动集群<br>6.查看jps<br>7.测试<br><a id="more"></a></p>
 <h2 id="1-集群规划"><a href="#1-集群规划" class="headerlink" title="1.集群规划"></a>1.集群规划</h2><p> <strong>HDFS HA背景</strong></p>
 <p>HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。</p>
 <p>影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将导致集群不可用，重启NameNode之后才可使用；二是计划内的NameNode节点软件或硬件升级，导致集群在短时间内不可用。</p>
@@ -560,6 +560,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/10/22/blog181022-2/" rel="prev" title="Hadoop中JournalNode的作用">
+                Hadoop中JournalNode的作用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -642,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -664,7 +668,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
