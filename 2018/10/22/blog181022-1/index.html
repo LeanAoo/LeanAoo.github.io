@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hadoop,Zookeeper,HA高可用," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta name="keywords" content="Hadoop,Zookeeper,HA高可用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop 2.0 HA 3节点高可用集群搭建">
+<meta property="og:url" content="http://www.givemev.com/2018/10/22/blog181022-1/index.html">
+<meta property="og:site_name" content="GivemeV">
+<meta property="og:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/9.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/4.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/5.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/6.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/7.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/6.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/22/blog181022-1/8.png">
+<meta property="og:updated_time" content="2018-10-22T13:14:07.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop 2.0 HA 3节点高可用集群搭建">
+<meta name="twitter:description" content="概览1.集群规划2.准备3.修改Hadoop配置文件4.复制内容5.启动集群6.查看jps7.测试 1.集群规划 HDFS HA背景 HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。 影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/22/blog181022-1/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.givemev.com/2018/10/22/blog181022-1/"/>
+
+
+
+
+
+  <title>Hadoop 2.0 HA 3节点高可用集群搭建 | GivemeV</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GivemeV</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">给我五毛钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/22/blog181022-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="panz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GivemeV">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hadoop 2.0 HA 3节点高可用集群搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T21:00:32+08:00">
+                2018-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/22/blog181022-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/22/blog181022-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/22/blog181022-1/" class="leancloud_visitors" data-flag-title="Hadoop 2.0 HA 3节点高可用集群搭建">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.集群规划<br>2.准备<br>3.修改Hadoop配置文件<br>4.复制内容<br>5.启动集群<br>6.查看jps<br>7.测试</p>
+<h2 id="1-集群规划"><a href="#1-集群规划" class="headerlink" title="1.集群规划"></a>1.集群规划</h2><p> <strong>HDFS HA背景</strong></p>
+<p>HDFS集群中NameNode 存在单点故障（SPOF）。对于只有一个NameNode的集群，如果NameNode机器出现意外情况，将导致整个集群无法使用，直到NameNode 重新启动。</p>
+<p>影响HDFS集群不可用主要包括以下两种情况：一是NameNode机器宕机，将导致集群不可用，重启NameNode之后才可使用；二是计划内的NameNode节点软件或硬件升级，导致集群在短时间内不可用。</p>
+<p>为了解决上述问题，Hadoop给出了HDFS的高可用HA方案：HDFS通常由两个NameNode组成，一个处于active状态，另一个处于standby状态。Active NameNode对外提供服务，比如处理来自客户端的RPC请求，而Standby NameNode则不对外提供服务，仅同步Active NameNode的状态，以便能够在它失败时快速进行切换。</p>
+<p><strong>规划</strong><br>之后的服务启动和配置文件都是安装此配置来,master上是namenode,slave2上是yarn,而slave1则是namenode和yarn的备用<br><img src="/2018/10/22/blog181022-1/1.png" alt="在这里插入图片描述"></p>
+<p>需要说明以下几点：</p>
+<p>HDFS HA通常由两个NameNode组成，一个处于Active状态，另一个处于Standby状态。Active NameNode对外提供服务，而Standby NameNode则不对外提供服务，仅同步Active NameNode的状态，以便能够在它失败时快速进行切换。</p>
+<p>Hadoop 2.0官方提供了两种HDFS HA的解决方案，一种是NFS，另一种是QJM。这里我们使用简单的QJM。在该方案中，主备NameNode之间通过一组JournalNode同步元数据信息，一条数据只要成功写入多数JournalNode即认为写入成功。通常配置奇数个JournalNode，这里还配置了一个Zookeeper集群，用于ZKFC故障转移，当Active NameNode挂掉了，会自动切换Standby NameNode为Active状态。</p>
+<p>YARN的ResourceManager也存在单点故障问题，这个问题在hadoop-2.4.1得到了解决：有两个ResourceManager，一个是Active，一个是Standby，状态由zookeeper进行协调。</p>
+<p>YARN框架下的MapReduce可以开启JobHistoryServer来记录历史任务信息，否则只能查看当前正在执行的任务信息。</p>
+<p>Zookeeper的作用是负责HDFS中NameNode主备节点的选举，和YARN框架下ResourceManaer主备节点的选举。</p>
+<h2 id="2-准备"><a href="#2-准备" class="headerlink" title="2.准备"></a>2.准备</h2><p><strong>软件:</strong><br>1.jdk1.8.141<br>2.hadoop2.7.3(jdk1.8版本编译)<br>3.Zookeeper3.4.12<br>4.Xshell5 + Xftp5</p>
+<p><strong>2.1.设置静态ip,参考</strong><a href="http://www.givemev.com/2018/10/16/blog181016-1/">Hadoop集群单机版</a>的设置静态ip,然后使用Xshell工具连接(官网有免费版本)</p>
+<p><strong>2.2.配置jdk,hosts文件</strong><br>jdk安装参考<a href="http://www.givemev.com/2018/10/16/blog181016-1/">Hadoop集群单机版</a>的jdk安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]#  vi /etc/hosts</span><br><span class="line"></span><br><span class="line">#127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4   </span><br><span class="line"></span><br><span class="line">#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line"># 上面的给注释掉或者删除</span><br><span class="line">192.168.134.154 master</span><br><span class="line">192.168.134.155 slave1</span><br><span class="line">192.168.134.156 slave2</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.3.配置ssh免密登录,参考</strong><a href="http://www.givemev.com/2018/10/17/blog181017-1/">Hadoop集群搭建</a>的ssh免密登录</p>
+<p><strong>2.4.配置Zookeeper,参考</strong><a href="http://www.givemev.com/2018/10/19/blog181019-3/">Zookeeper的安装</a></p>
+<h2 id="3-修改Hadoop配置文件"><a href="#3-修改Hadoop配置文件" class="headerlink" title="3.修改Hadoop配置文件"></a>3.修改Hadoop配置文件</h2><p><strong>如果你之前搭建过hadoop集群,只需要将其中的配置文件做修改即可</strong></p>
+<p>1.在/usr下创建个hadoop文件夹,作为hadoop安装(压缩)包的存放路径和解压路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#进入usr文件夹下</span><br><span class="line">cd /usr</span><br><span class="line">#创建hadoop文件夹</span><br><span class="line">mkdir hadoop</span><br><span class="line">#进入hadoop文件夹</span><br><span class="line">cd hadoop</span><br></pre></td></tr></table></figure>
+<p>利用Xftp工具将文件传输到虚拟机中<br><img src="/2018/10/22/blog181022-1/9.png" alt="在这里插入图片描述"><br>解压后进入到 hadoop的解压路径/etc/hadoop文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd  /usr/hadoop/hadoop-2.7.3/etc/hadoop/</span><br></pre></td></tr></table></figure>
+<p><strong>3.1.core-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim core-site.xml</span><br></pre></td></tr></table></figure>
+<p>在其中的configuration标签中添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定hdfs的nameservice为ns --&gt; </span><br><span class="line">&lt;property&gt; </span><br><span class="line">&lt;name&gt;fs.defaultFS&lt;/name&gt; </span><br><span class="line">&lt;value&gt;hdfs://ns&lt;/value&gt; </span><br><span class="line">&lt;/property&gt; </span><br><span class="line">&lt;!--指定hadoop数据存放目录--&gt; </span><br><span class="line">&lt;property&gt; </span><br><span class="line">&lt;name&gt;hadoop.tmp.dir&lt;/name&gt; </span><br><span class="line">&lt;value&gt;/HA/hadoop/tmp&lt;/value&gt; </span><br><span class="line">&lt;/property&gt; </span><br><span class="line"></span><br><span class="line">&lt;property&gt; </span><br><span class="line">&lt;name&gt;io.file.buffer.size&lt;/name&gt; </span><br><span class="line">&lt;value&gt;4096&lt;/value&gt; </span><br><span class="line">&lt;/property&gt; </span><br><span class="line">&lt;!--指定zookeeper地址--&gt; </span><br><span class="line">&lt;property&gt; </span><br><span class="line">&lt;name&gt;ha.zookeeper.quorum&lt;/name&gt; </span><br><span class="line">&lt;value&gt;master:2181,slave1:2181,slave2:2181&lt;/value&gt; </span><br><span class="line">&lt;/property&gt; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;ipc.client.connect.max.retries&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;100&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Indicates the number of retries a client will make to establish</span><br><span class="line">      a server connection.</span><br><span class="line">  &lt;/description&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">  &lt;name&gt;ipc.client.connect.retry.interval&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;10000&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Indicates the number of milliseconds a client will wait for</span><br><span class="line">  before retrying to establish a server connection.</span><br><span class="line">  &lt;/description&gt;</span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>3.2.hdfs-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim hdfs-site.xml</span><br></pre></td></tr></table></figure>
+<p>在其中的configuration标签中添加以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--指定hdfs的nameservice为ns，需要和core-site.xml中的保持一致 --&gt;      </span><br><span class="line">    &lt;property&gt;      </span><br><span class="line">        &lt;name&gt;dfs.nameservices&lt;/name&gt;      </span><br><span class="line">        &lt;value&gt;ns&lt;/value&gt;      </span><br><span class="line">    &lt;/property&gt;    </span><br><span class="line">    &lt;!-- ns下面有两个NameNode，分别是nn1，nn2 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">       &lt;name&gt;dfs.ha.namenodes.ns&lt;/name&gt;  </span><br><span class="line">       &lt;value&gt;nn1,nn2&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- nn1的RPC通信地址 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">       &lt;name&gt;dfs.namenode.rpc-address.ns.nn1&lt;/name&gt;  </span><br><span class="line">       &lt;value&gt;master:9000&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- nn1的http通信地址 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">        &lt;name&gt;dfs.namenode.http-address.ns.nn1&lt;/name&gt;  </span><br><span class="line">        &lt;value&gt;master:50070&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- nn2的RPC通信地址 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">        &lt;name&gt;dfs.namenode.rpc-address.ns.nn2&lt;/name&gt;  </span><br><span class="line">        &lt;value&gt;slave1:9000&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- nn2的http通信地址 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">        &lt;name&gt;dfs.namenode.http-address.ns.nn2&lt;/name&gt;  </span><br><span class="line">        &lt;value&gt;slave1:50070&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 指定NameNode的元数据在JournalNode上的存放位置 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">         &lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;  </span><br><span class="line">         &lt;value&gt;qjournal://master:8485;slave1:8485;slave2:8485/ns&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 指定JournalNode在本地磁盘存放数据的位置 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">          &lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;  </span><br><span class="line">          &lt;value&gt;/HA/hadoop/journal&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 开启NameNode故障时自动切换 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">          &lt;name&gt;dfs.ha.automatic-failover.enabled&lt;/name&gt;  </span><br><span class="line">          &lt;value&gt;true&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 配置失败自动切换实现方式 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">            &lt;name&gt;dfs.client.failover.proxy.provider.ns&lt;/name&gt;  </span><br><span class="line">            &lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 配置隔离机制 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">             &lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;  </span><br><span class="line">             &lt;value&gt;sshfence&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">    &lt;!-- 使用隔离机制时需要ssh免登陆 --&gt;  </span><br><span class="line">    &lt;property&gt;  </span><br><span class="line">            &lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt;  </span><br><span class="line">            &lt;value&gt;/root/.ssh/id_rsa&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">                                </span><br><span class="line">    &lt;property&gt;      </span><br><span class="line">        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;      </span><br><span class="line">        &lt;value&gt;file:///HA/hadoop/hdfs/name&lt;/value&gt;      </span><br><span class="line">    &lt;/property&gt;      </span><br><span class="line">      </span><br><span class="line">    &lt;property&gt;      </span><br><span class="line">        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;      </span><br><span class="line">        &lt;value&gt;file:///HA/hadoop/hdfs/data&lt;/value&gt;      </span><br><span class="line">    &lt;/property&gt;      </span><br><span class="line">      </span><br><span class="line">    &lt;property&gt;      </span><br><span class="line">       &lt;name&gt;dfs.replication&lt;/name&gt;      </span><br><span class="line">       &lt;value&gt;3&lt;/value&gt;      </span><br><span class="line">    &lt;/property&gt;     </span><br><span class="line">    &lt;!-- 在NN和DN上开启WebHDFS (REST API)功能,不是必须 --&gt;                                                                      </span><br><span class="line">    &lt;property&gt;      </span><br><span class="line">       &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;      </span><br><span class="line">       &lt;value&gt;true&lt;/value&gt;      </span><br><span class="line">    &lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.3.mapred-site.xml</strong><br>这个文件刚开始是没有的,所以我们需要将其创建出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#利用模版文件copy出来一个</span><br><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br></pre></td></tr></table></figure>
+<p>然后在其configuration标签中添加以下内容<code>vim mapred-site.xml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定mr运行在yarn上 --&gt;</span><br><span class="line">      	&lt;property&gt;</span><br><span class="line">             &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>3.4.yarn-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim yarn-site.xml</span><br></pre></td></tr></table></figure>
+<p>在其configuration标签中添加以下内容<br><strong>普通版</strong><br>只有slave2有Resourcemanager<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定nodemanager启动时加载server的方式为shuffle server --&gt; </span><br><span class="line">　　&lt;property&gt; </span><br><span class="line">　　　　&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; </span><br><span class="line">　　　　&lt;value&gt;mapreduce_shuffle&lt;/value&gt; </span><br><span class="line">　　&lt;/property&gt; </span><br><span class="line">　　&lt;!-- 指定resourcemanager地址 --&gt; </span><br><span class="line">　　&lt;property&gt; </span><br><span class="line">　　　　&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt; </span><br><span class="line">　　　　&lt;value&gt;slave2&lt;/value&gt; </span><br><span class="line">　　&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>yarn HA高可用版</strong></p>
+<p>slave1和slave2都有Resourcemanager<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- //////////////以下为YARN HA的配置////////////// --&gt;</span><br><span class="line">  &lt;!-- 开启YARN HA --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.ha.enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 启用自动故障转移 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.ha.automatic-failover.enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 指定YARN HA的名称 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.cluster-id&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;yarncluster&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 指定两个resourcemanager的名称 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.ha.rm-ids&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;rm1,rm2&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置rm1，rm2的主机 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.hostname.rm1&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;slave2&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.hostname.rm2&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;slave1&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置YARN的http端口 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.webapp.address.rm1&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;slave2:8088&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.webapp.address.rm2&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;slave1:8088&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置zookeeper的地址 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;master:2181,slave1:2181,slave2:2181&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置zookeeper的存储位置 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.zk-state-store.parent-path&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;/rmstore&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 开启yarn resourcemanager restart --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.recovery.enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置resourcemanager的状态存储到zookeeper中 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.store.class&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 开启yarn nodemanager restart --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.recovery.enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 配置nodemanager IPC的通信端口 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.address&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;0.0.0.0:45454&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.5 .hadoop-env.sh</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=$&#123;JAVA_HOME&#125; 一行，</span><br><span class="line">将其修改为 export JAVA_HOME=/usr/java/jdkxxx(jdk的安装路径)</span><br></pre></td></tr></table></figure>
+<p><strong>3.6.修改slaves文件(dataNode)</strong><br>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#localhost</span><br><span class="line"></span><br><span class="line">#你的集群主机名</span><br><span class="line">master</span><br><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<h2 id="4-复制内容到slave1-slave2"><a href="#4-复制内容到slave1-slave2" class="headerlink" title="4.复制内容到slave1,slave2"></a>4.复制内容到slave1,slave2</h2><p>如果你的slave1和slave2什么也没有,可以一并将配置jdk的profile文件和配置ip映射的hosts文件一起复制过去,Zookeeper则需要注意改下配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#复制给slave1,如果之前有hadoop也会覆盖</span><br><span class="line">[root@master hadoop]# scp -r /usr/hadoop root@slave1:/usr/</span><br><span class="line">#复制给slave2</span><br><span class="line">[root@master hadoop]# scp -r /usr/hadoop root@slave2:/usr/</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-启动集群"><a href="#5-启动集群" class="headerlink" title="5.启动集群"></a>5.启动集群</h2><p><strong>5.1分别启动Zookeeper</strong><br>所有虚拟机全部启动<br>在Zookeeper安装目录的/bin目录下启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master hadoop]# cd /usr/zookeeper/zookeeper-3.4.12/bin</span><br><span class="line">[root@master bin]# ./zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /usr/zookeeper/zookeeper-3.4.12/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+<p>启动后查看状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 bin]# ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /usr/zookeeper/zookeeper-3.4.12/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader #leader或者follower则代表启动Zookeeper成功</span><br></pre></td></tr></table></figure>
+<p><strong>5.2在master,slave1,slave2上启动journalnode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#进入到hadoop安装目录sbin文件夹下</span><br><span class="line">[root@master bin]# cd /usr/hadoop/hadoop-2.7.3/sbin/</span><br><span class="line">[root@master sbin]# ls</span><br><span class="line">distribute-exclude.sh  kms.sh                   start-balancer.sh    stop-all.cmd        stop-yarn.cmd</span><br><span class="line">hadoop-daemon.sh       mr-jobhistory-daemon.sh  start-dfs.cmd        stop-all.sh         stop-yarn.sh</span><br><span class="line">hadoop-daemons.sh      refresh-namenodes.sh     start-dfs.sh         stop-balancer.sh    yarn-daemon.sh</span><br><span class="line">hdfs-config.cmd        slaves.sh                start-secure-dns.sh  stop-dfs.cmd        yarn-daemons.sh</span><br><span class="line">hdfs-config.sh         start-all.cmd            start-yarn.cmd       stop-dfs.sh</span><br><span class="line">httpfs.sh              start-all.sh             start-yarn.sh        stop-secure-dns.sh</span><br><span class="line"></span><br><span class="line">#这里有一个daemons和daemon,不带s是启动单个,带s是启动集群</span><br><span class="line">[root@master sbin]# ./hadoop-daemons.sh start journalnode</span><br><span class="line">slave2: starting journalnode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-journalnode-slave2.out</span><br><span class="line">slave1: starting journalnode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-journalnode-slave1.out</span><br><span class="line">master: starting journalnode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-journalnode-master.out</span><br></pre></td></tr></table></figure>
+<p>分别在master,slave1,slave2上查看<code>jps</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#这样正常,否则查看你的Zookeeper是否启动成功</span><br><span class="line">[root@master sbin]# jps</span><br><span class="line">2232 JournalNode</span><br><span class="line">2281 Jps</span><br><span class="line">2157 QuorumPeerMain</span><br></pre></td></tr></table></figure>
+<p><strong>5.3在master上格式化zkfc</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]# hdfs zkfc -formatZK</span><br></pre></td></tr></table></figure>
+<p><strong>5.4在master上格式化hdfs</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]# hadoop namenode  -format</span><br></pre></td></tr></table></figure>
+<p><strong>5.5在master上启动namenode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]#  ./hadoop-daemon.sh start  namenode</span><br><span class="line">starting namenode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-namenode-master.out</span><br><span class="line">[root@master sbin]# jps</span><br><span class="line">2232 JournalNode</span><br><span class="line">2490 Jps</span><br><span class="line">2157 QuorumPeerMain</span><br><span class="line">2431 NameNode</span><br></pre></td></tr></table></figure>
+<p><strong>5.6在slave1上启动数据同步和standby的namenode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 sbin]# hdfs namenode -bootstrapStandby</span><br><span class="line"></span><br><span class="line">[root@slave1 sbin]# ./hadoop-daemon.sh start namenode</span><br></pre></td></tr></table></figure>
+<p><strong>5.7在master上启动datanode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]#  ./hadoop-daemons.sh start datanode</span><br><span class="line">master: starting datanode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-datanode-master.out</span><br><span class="line">slave2: starting datanode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-datanode-slave2.out</span><br><span class="line">slave1: starting datanode, logging to /usr/hadoop/hadoop-2.7.3/logs/hadoop-root-datanode-slave1.out</span><br></pre></td></tr></table></figure>
+<p><strong>5.8在slave1和slave2上启动yarn</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-yarn.sh</span><br></pre></td></tr></table></figure>
+<p><strong>5.9在master上启动zkfc</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./hadoop-daemons.sh start zkfc</span><br></pre></td></tr></table></figure>
+<h2 id="6-查看jps"><a href="#6-查看jps" class="headerlink" title="6.查看jps"></a>6.查看jps</h2><p>master</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master sbin]# jps</span><br><span class="line">2593 DataNode</span><br><span class="line">2709 NodeManager</span><br><span class="line">2902 DFSZKFailoverController</span><br><span class="line">2232 JournalNode</span><br><span class="line">2969 Jps</span><br><span class="line">2157 QuorumPeerMain</span><br><span class="line">2431 NameNode</span><br></pre></td></tr></table></figure>
+<p>slave1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 sbin]# jps</span><br><span class="line">2337 QuorumPeerMain</span><br><span class="line">3074 Jps</span><br><span class="line">2259 JournalNode</span><br><span class="line">2709 ResourceManager</span><br><span class="line">2475 NameNode</span><br><span class="line">2587 DataNode</span><br><span class="line">3007 DFSZKFailoverController</span><br></pre></td></tr></table></figure>
+<p>slave2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@slave2 sbin]# jps</span><br><span class="line">2355 DataNode</span><br><span class="line">2164 JournalNode</span><br><span class="line">2244 QuorumPeerMain</span><br><span class="line">3126 NodeManager</span><br><span class="line">3017 ResourceManager</span><br><span class="line">3162 Jps</span><br></pre></td></tr></table></figure>
+<p>启动如上则正常<br><strong>如果有服务没有启动,重启该服务</strong>,例如Resourcemanager没启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#停止</span><br><span class="line">./stop-yarn.sh</span><br><span class="line">#启动</span><br><span class="line">./start-yarn.sh</span><br></pre></td></tr></table></figure>
+<p>然后在50070和8088端口进行测试<br>在测试之前为了防止namenode不能热切换,最好安装此插件<br>在master和slave1上安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install psmisc</span><br></pre></td></tr></table></figure>
+<h2 id="7-测试"><a href="#7-测试" class="headerlink" title="7.测试"></a>7.测试</h2><p>在(master的ip)192.168.134.154:50070和(slave1的ip)192.168.134.155:50070上查看namenode的状态<br><img src="/2018/10/22/blog181022-1/2.png" alt="在这里插入图片描述"></p>
+<p><img src="/2018/10/22/blog181022-1/3.png" alt="在这里插入图片描述"></p>
+<p>都能访问且一个是active一个是standby状态</p>
+<p>然后访问(slave1)192.168.134.155:8088和(slave2)192.168.134.156:8088查看Resourcemanager状态</p>
+<p>若是一个能访问,访问另一个时跳到前一个的时候并不是错误,那样是正常的<br>能访问的那个是active状态,若是两个都能访问则一个是active一个是standby<br><img src="/2018/10/22/blog181022-1/4.png" alt="在这里插入图片描述"><br><img src="/2018/10/22/blog181022-1/5.png" alt="在这里插入图片描述"><br><img src="/2018/10/22/blog181022-1/6.png" alt="在这里插入图片描述"></p>
+<p>首先在master主机上想hdfs上传一个文件,然后尝试能否在slave1和slave2上查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master tmp]# cd /usr/tmp</span><br><span class="line">[root@master tmp]# touch test</span><br><span class="line">[root@master tmp]# hadoop fs -put test /</span><br><span class="line">#分别在三台虚拟机上查看</span><br><span class="line">[root@master tmp]# hadoop fs -ls /</span><br><span class="line">Found 1 items</span><br><span class="line">-rw-r--r--   3 root supergroup          0 2018-10-22 20:42 /test</span><br></pre></td></tr></table></figure>
+<p>如果都能查看到,接下来再测试是否能够热切换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#查看进程</span><br><span class="line">[root@master tmp]# jps</span><br><span class="line">2593 DataNode</span><br><span class="line">2902 DFSZKFailoverController</span><br><span class="line">2232 JournalNode</span><br><span class="line">3609 NodeManager</span><br><span class="line">2157 QuorumPeerMain</span><br><span class="line">2431 NameNode</span><br><span class="line">3807 Jps</span><br><span class="line">#杀死active的namenode</span><br><span class="line">[root@master tmp]# kill -9 2431</span><br></pre></td></tr></table></figure>
+<p>在网页查看standby的是否变为active<br>从standby成功变更为active则表示成功<img src="/2018/10/22/blog181022-1/3.png" alt="在这里插入图片描述"><br><img src="/2018/10/22/blog181022-1/7.png" alt="在这里插入图片描述"><br>同样,测试yarn HA高可用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查看进程</span><br><span class="line">[root@slave2 sbin]# jps</span><br><span class="line">4050 Jps</span><br><span class="line">2355 DataNode</span><br><span class="line">2164 JournalNode</span><br><span class="line">2244 QuorumPeerMain</span><br><span class="line">3423 ResourceManager</span><br><span class="line">3919 NodeManager</span><br><span class="line">#杀死active的ResourceManager</span><br><span class="line">[root@slave2 sbin]# kill -9 3423</span><br></pre></td></tr></table></figure>
+<p>在网页查看<br><img src="/2018/10/22/blog181022-1/6.png" alt="在这里插入图片描述"><br><img src="/2018/10/22/blog181022-1/8.png" alt="在这里插入图片描述"></p>
+<p>如果说你杀死了namenode进程,那么相应的50070端口自然无法访问了,同理8088端口一样</p>
+<p><strong>至此hadoop HA高可用版搭建完成.</strong></p>
+<p>接下来会说一下hive的安装和使用</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+          
+            <a href="/tags/Zookeeper/" rel="tag"><i class="fa fa-tag"></i> Zookeeper</a>
+          
+            <a href="/tags/HA高可用/" rel="tag"><i class="fa fa-tag"></i> HA高可用</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/19/blog181019-4/" rel="next" title="Combiners编程">
+                <i class="fa fa-chevron-left"></i> Combiners编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="panz" />
+            
+              <p class="site-author-name" itemprop="name">panz</p>
+              <p class="site-description motion-element" itemprop="description">每天想着一夜暴富</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LeanAoo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1196699219@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-集群规划"><span class="nav-text">1.集群规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-准备"><span class="nav-text">2.准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改Hadoop配置文件"><span class="nav-text">3.修改Hadoop配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-复制内容到slave1-slave2"><span class="nav-text">4.复制内容到slave1,slave2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-启动集群"><span class="nav-text">5.启动集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-查看jps"><span class="nav-text">6.查看jps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-测试"><span class="nav-text">7.测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panz</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站总访问量: <span id="busuanzi_value_site_uv"></span> 次
+</span>
+</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'DeiJbmKiFOzFzi3f457Qfo75-gzGzoHsz',
+        appKey: 'q5N8mnIkGW798txiG66zhz1w',
+        placeholder: '喵喵喵?',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("DeiJbmKiFOzFzi3f457Qfo75-gzGzoHsz", "q5N8mnIkGW798txiG66zhz1w");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
+</html>
