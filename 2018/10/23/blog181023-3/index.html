@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hadoop,Hive,HiveServer2," />
 
 
 
@@ -86,17 +86,22 @@
 
 
 
-<meta name="description" content="每天想着一夜暴富">
-<meta property="og:type" content="website">
-<meta property="og:title" content="全部分类">
-<meta property="og:url" content="http://www.givemev.com/categories/index.html">
+<meta name="description" content="概览1.上传解压2.配置环境变量3.配置hive-site.xml4.将mysql的连接驱动放到hive/lib下5.初始化操作6.执行hive命令并测试7.异常处理">
+<meta name="keywords" content="Hadoop,Hive,HiveServer2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive的安装">
+<meta property="og:url" content="http://www.givemev.com/2018/10/23/blog181023-3/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="每天想着一夜暴富">
+<meta property="og:description" content="概览1.上传解压2.配置环境变量3.配置hive-site.xml4.将mysql的连接驱动放到hive/lib下5.初始化操作6.执行hive命令并测试7.异常处理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-19T10:07:52.444Z">
+<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-3/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-3/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-3/3.png">
+<meta property="og:updated_time" content="2018-10-23T14:43:16.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="全部分类">
-<meta name="twitter:description" content="每天想着一夜暴富">
+<meta name="twitter:title" content="Hive的安装">
+<meta name="twitter:description" content="概览1.上传解压2.配置环境变量3.配置hive-site.xml4.将mysql的连接驱动放到hive/lib下5.初始化操作6.执行hive命令并测试7.异常处理">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/23/blog181023-3/1.png">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/categories/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/23/blog181023-3/"/>
 
 
 
 
 
-  <title>全部分类 | GivemeV</title>
+  <title>Hive的安装 | GivemeV</title>
   
 
 
@@ -291,40 +296,218 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/23/blog181023-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="panz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GivemeV">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">全部分类</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                目前共计 1 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">13</span></li></ul>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Hive的安装</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T22:34:13+08:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/23/blog181023-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/23/blog181023-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/23/blog181023-3/" class="leancloud_visitors" data-flag-title="Hive的安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.上传解压<br>2.配置环境变量<br>3.配置hive-site.xml<br>4.将mysql的连接驱动放到hive/lib下<br>5.初始化操作<br>6.执行hive命令并测试<br>7.异常处理<br><a id="more"></a></p>
+<p>如果是集群版,Hive安装在一台虚拟机上就行</p>
+<p>首先确保hdfs和mysql是正确启动的</p>
+<h2 id="1-上传解压"><a href="#1-上传解压" class="headerlink" title="1.上传解压"></a>1.上传解压</h2><p>软件:hive-2.3.3</p>
+<p>在/usr在创建hive文件夹,用来存放压缩包和作为安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cd /usr</span><br><span class="line">[root@master usr]# mkdir hive</span><br><span class="line">[root@master usr]# ls</span><br><span class="line">bin  etc  games  hadoop  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br></pre></td></tr></table></figure>
+<p>利用Xshell连接虚拟机,并使用Xftp将hive压缩包上传到hive文件夹下<br><img src="/2018/10/23/blog181023-3/1.png" alt="在这里插入图片描述"><br>解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master hive]# tar -zxf apache-hive-2.3.3-bin.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="2.配置环境变量"></a>2.配置环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master hive]# vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在最后添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HIVE_HOME=/usr/hive/apache-hive-2.3.3-bin</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin</span><br></pre></td></tr></table></figure></p>
+<p>刷新环境变量并测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master hive]# source /etc/profile</span><br><span class="line">[root@master hive]# hive --version</span><br><span class="line">Hive 2.3.3</span><br><span class="line">Git git://daijymacpro-2.local/Users/daijy/commit/hive -r 8a511e3f79b43d4be41cd231cf5c99e43b248383</span><br><span class="line">Compiled by daijy on Wed Mar 28 16:58:33 PDT 2018</span><br><span class="line">From source with checksum 8873bba6c55a058614e74c0e628ab022</span><br></pre></td></tr></table></figure>
+<h2 id="3-配置hive-site-xml"><a href="#3-配置hive-site-xml" class="headerlink" title="3.配置hive-site.xml"></a>3.配置hive-site.xml</h2><p>你会发现/usr/hive/apache-hive-2.3.3-bin/conf/并没有hive-site.xml文件<br>直接新建一个就行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master hive]# cd apache-hive-2.3.3-bin/conf/</span><br><span class="line">#创建文件</span><br><span class="line">[root@master conf]# touch hive-site.xml</span><br><span class="line">#编辑</span><br><span class="line">[root@master conf]# vim hive-site.xml</span><br></pre></td></tr></table></figure>
+<p>在hive-site.xml中写入</p>
+<p>ip改为自己的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;jdbc:mysql://192.168.134.154:3306/hive&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">	&lt;property&gt; </span><br><span class="line">   		 &lt;name&gt;hive.cli.print.current.db&lt;/name&gt;</span><br><span class="line">		 &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt; </span><br><span class="line">	         &lt;name&gt;hive.cli.print.header&lt;/name&gt;</span><br><span class="line">	         &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!-- 这是hiveserver2 --&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">       		 &lt;name&gt;hive.server2.thrift.port&lt;/name&gt;</span><br><span class="line">     		 &lt;value&gt;10000&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">    	&lt;property&gt;</span><br><span class="line">       		&lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt;</span><br><span class="line">       		&lt;value&gt;192.168.134.154&lt;/value&gt;</span><br><span class="line">     	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-将mysql的连接驱动放到hive-lib下"><a href="#4-将mysql的连接驱动放到hive-lib下" class="headerlink" title="4.将mysql的连接驱动放到hive/lib下"></a>4.将mysql的连接驱动放到hive/lib下</h2><p>进入到你的hive安装目录的lib下,利用Xftp将驱动传输进去<br>我的mysql数据库连接驱动的百度云链接：<a href="https://pan.baidu.com/s/1wCBuZQaCP_nKT5t504SeoA" target="_blank" rel="noopener">https://pan.baidu.com/s/1wCBuZQaCP_nKT5t504SeoA</a><br>提取码：fakd</p>
+<h2 id="5-初始化操作"><a href="#5-初始化操作" class="headerlink" title="5.初始化操作"></a>5.初始化操作</h2><p>利用数据库工具SQLyog在mysql创建个新的数据库hive<br><img src="/2018/10/23/blog181023-3/2.png" alt="在这里插入图片描述"></p>
+<p>或者使用命令创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#之后输入密码,我的mysql密码是root(因为之前配置sqoop的时候设置了一次user表)</span><br><span class="line">[root@master ~]# mysql -u root -p </span><br><span class="line">mysql&gt;create database hive;</span><br></pre></td></tr></table></figure>
+<p>此时保证hadoop启动着<br>初始化操作如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# schematool -initSchema -dbType mysql</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/10/23/blog181023-3/3.png" alt="在这里插入图片描述"></p>
+<h2 id="6-执行hive命令并测试"><a href="#6-执行hive命令并测试" class="headerlink" title="6.执行hive命令并测试"></a>6.执行hive命令并测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# hive</span><br><span class="line">hive&gt; show databases;</span><br><span class="line">OK</span><br><span class="line">default</span><br><span class="line">Time taken: 7.897 seconds, Fetched: 1 row(s)</span><br></pre></td></tr></table></figure>
+<h2 id="7-异常处理"><a href="#7-异常处理" class="headerlink" title="7.异常处理"></a>7.异常处理</h2><p>如果出错了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; show databases;</span><br><span class="line">FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br></pre></td></tr></table></figure></p>
+<p>HIVE_HOME/lib 下的derby-10.11.1.1.jar问题，，把derby-10.10.2.0.jar 换成derby-10.10.1.1.jar,把derby-10.10.2.0.jar删除,问题成功解决</p>
+<p>derby-10.10.1.1.jar的百度云链接：<a href="https://pan.baidu.com/s/1v6mIGRjf8mlRQicRoau7iw" target="_blank" rel="noopener">https://pan.baidu.com/s/1v6mIGRjf8mlRQicRoau7iw</a><br>提取码：5ga1</p>
+<p><strong>其中hive-site.xml中的部分hiveserver2的配置是用于hiveserver2的,现在可以不配置,之后后介绍如何配置hiveserver2</strong></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+          
+            <a href="/tags/Hive/" rel="tag"><i class="fa fa-tag"></i> Hive</a>
+          
+            <a href="/tags/HiveServer2/" rel="tag"><i class="fa fa-tag"></i> HiveServer2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/23/blog181023-2/" rel="next" title="sqoop的安装">
+                <i class="fa fa-chevron-left"></i> sqoop的安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -333,6 +516,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -353,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -434,6 +633,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-上传解压"><span class="nav-text">1.上传解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置环境变量"><span class="nav-text">2.配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置hive-site-xml"><span class="nav-text">3.配置hive-site.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-将mysql的连接驱动放到hive-lib下"><span class="nav-text">4.将mysql的连接驱动放到hive/lib下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-初始化操作"><span class="nav-text">5.初始化操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-执行hive命令并测试"><span class="nav-text">6.执行hive命令并测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-异常处理"><span class="nav-text">7.异常处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
