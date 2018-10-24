@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[hiveserver2的配置和启动]]></title>
     <url>%2F2018%2F10%2F24%2Fblog181024-1%2F</url>
-    <content type="text"><![CDATA[概览1.配置hive-site.xml2.配置hadoop中的core-site.xml文件3.测试 首先将hive安装 然后更改部分配置文件 1.配置hive-site.xml利用Xshell工具连接虚拟机 进入hive安装目录下的conf文件夹,更改hive-site.xml配置文件其中配置参考hive安装中的配置hive-site.xml 你会发现/usr/hive/apache-hive-2.3.3-bin/conf/并没有hive-site.xml文件直接新建一个就行,如果之前安装hive的时候加上了hiveserver2的配置,可以跳过这步 12345[root@master hive]# cd apache-hive-2.3.3-bin/conf/#创建文件[root@master conf]# touch hive-site.xml#编辑[root@master conf]# vim hive-site.xml 在hive-site.xml中写入 ip改为自己的12345678910111213141516171819202122232425262728293031323334353637383940414243444546&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;&lt;configuration&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt; &lt;value&gt;jdbc:mysql://192.168.134.154:3306/hive&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt; &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt; &lt;value&gt;root&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt; &lt;value&gt;root&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt; &lt;value&gt;false&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.cli.print.current.db&lt;/name&gt; &lt;value&gt;true&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.cli.print.header&lt;/name&gt; &lt;value&gt;true&lt;/value&gt; &lt;/property&gt; &lt;!-- 这是hiveserver2 --&gt; &lt;property&gt; &lt;name&gt;hive.server2.thrift.port&lt;/name&gt; &lt;value&gt;10000&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt; &lt;value&gt;192.168.134.154&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 2.配置hadoop中的core-site.xml文件进入到hadoop的安装目录下的etc/hadoop文件夹,配置其中的core-site.xml文件 注意:如果是hadoop集群而不是单机版,需要更改所有虚拟机上的core-site.xml文件 在最后追加 123456789101112131415161718&lt;!-- 如果连接不上10000 --&gt;&lt;property&gt; &lt;name&gt;hadoop.proxyuser.root.hosts&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt;&lt;property&gt; &lt;name&gt;hadoop.proxyuser.zhaoshb.hosts&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hadoop.proxyuser.zhaoshb.groups&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; 3.测试首先启动你集群中的Zookeeper和Hadoop 然后在安装hive的主机上启动hiveserver2 因为配置好了hive的环境变量.所以我们可以直接在任何文件夹下运行不然的话需要进到hive安装目录的bin下 123[root@master ~]# hiveserver2#或者[root@master ~]# hive --service hiveserver2 这个时候你的页面会一直卡在这里,这是正常的,因为你是启动了一个服务 你只需要再开一个Xshell窗口连接即可 在新开的窗口操作 1234567#进入beeline[root@master ~]# beeline#连接10000端口beeline&gt; !connect jdbc:hive2://192.168.134.154:10000Connecting to jdbc:hive2://192.168.134.154:10000Enter username for jdbc:hive2://192.168.134.154:10000: root #用户名rootEnter password for jdbc:hive2://192.168.134.154:10000: **** #密码root 然后使用浏览器在192.168.134.154(安装hive的主机ip地址):10002查看 接下来可以在hiveserver2中操作,基本操作和hive中一样 12345670: jdbc:hive2://192.168.134.154:10000&gt; show databases;+----------------+| database_name |+----------------+| default |+----------------+1 row selected (2.51 seconds)]]></content>
+    <content type="text"><![CDATA[概览1.配置hive-site.xml2.配置hadoop中的core-site.xml文件3.测试 首先将hive安装 然后更改部分配置文件 1.配置hive-site.xml利用Xshell工具连接虚拟机 进入hive安装目录下的conf文件夹,更改hive-site.xml配置文件其中配置参考hive安装中的配置hive-site.xml 你会发现/usr/hive/apache-hive-2.3.3-bin/conf/并没有hive-site.xml文件直接新建一个就行,如果之前安装hive的时候加上了hiveserver2的配置,可以跳过这步 12345[root@master hive]# cd apache-hive-2.3.3-bin/conf/#创建文件[root@master conf]# touch hive-site.xml#编辑[root@master conf]# vim hive-site.xml 在hive-site.xml中写入 ip改为自己的12345678910111213141516171819202122232425262728293031323334353637383940414243444546&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;&lt;configuration&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt; &lt;value&gt;jdbc:mysql://192.168.134.154:3306/hive&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt; &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt; &lt;value&gt;root&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt; &lt;value&gt;root&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt; &lt;value&gt;false&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.cli.print.current.db&lt;/name&gt; &lt;value&gt;true&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.cli.print.header&lt;/name&gt; &lt;value&gt;true&lt;/value&gt; &lt;/property&gt; &lt;!-- 这是hiveserver2 --&gt; &lt;property&gt; &lt;name&gt;hive.server2.thrift.port&lt;/name&gt; &lt;value&gt;10000&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt; &lt;value&gt;192.168.134.154&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 2.配置hadoop中的core-site.xml文件进入到hadoop的安装目录下的etc/hadoop文件夹,配置其中的core-site.xml文件 注意:如果是hadoop集群而不是单机版,需要更改所有虚拟机上的core-site.xml文件 在最后追加 123456789101112131415161718&lt;!-- 如果连接不上10000 --&gt;&lt;property&gt; &lt;name&gt;hadoop.proxyuser.root.hosts&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt;&lt;property&gt; &lt;name&gt;hadoop.proxyuser.zhaoshb.hosts&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;hadoop.proxyuser.zhaoshb.groups&lt;/name&gt; &lt;value&gt;*&lt;/value&gt; &lt;/property&gt; 3.测试首先启动你集群中的Zookeeper和Hadoop 然后在安装hive的主机上启动hiveserver2 因为配置好了hive的环境变量.所以我们可以直接在任何文件夹下运行不然的话需要进到hive安装目录的bin下 123[root@master ~]# hiveserver2#或者[root@master ~]# hive --service hiveserver2 这个时候你的页面会一直卡在这里,这是正常的,因为你是启动了一个服务 你只需要再开一个Xshell窗口连接即可 在新开的窗口操作 1234567#进入beeline[root@master ~]# beeline#连接10000端口beeline&gt; !connect jdbc:hive2://192.168.134.154:10000Connecting to jdbc:hive2://192.168.134.154:10000Enter username for jdbc:hive2://192.168.134.154:10000: root #用户名rootEnter password for jdbc:hive2://192.168.134.154:10000: **** #密码root 然后使用浏览器在192.168.134.154(安装hive的主机ip地址):10002查看 接下来可以在hiveserver2中操作,基本操作和hive中一样 12345670: jdbc:hive2://192.168.134.154:10000&gt; show databases;+----------------+| database_name |+----------------+| default |+----------------+1 row selected (2.51 seconds) 接下来会说hbase的安装]]></content>
       <categories>
         <category>大数据</category>
       </categories>
@@ -110,8 +110,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -123,8 +123,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
         <tag>Partitioner</tag>
       </tags>
   </entry>
@@ -137,8 +137,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
