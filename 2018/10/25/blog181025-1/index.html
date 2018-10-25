@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop,mysql,sqoop," />
+  <meta name="keywords" content="Hadoop,HBase,shell," />
 
 
 
@@ -86,24 +86,22 @@
 
 
 
-<meta name="description" content="概览1.sqoop简介2.sqoop的安装和配置3.测试4.异常处理">
-<meta name="keywords" content="Hadoop,mysql,sqoop">
+<meta name="description" content="概览1.HBase简介2.上传解压3.修改配置文件4.启动5.进入客户端进行shell操作">
+<meta name="keywords" content="Hadoop,HBase,shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqoop的安装">
-<meta property="og:url" content="http://www.givemev.com/2018/10/23/blog181023-2/index.html">
+<meta property="og:title" content="HBase单节点的安装以及shell操作">
+<meta property="og:url" content="http://www.givemev.com/2018/10/25/blog181025-1/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.sqoop简介2.sqoop的安装和配置3.测试4.异常处理">
+<meta property="og:description" content="概览1.HBase简介2.上传解压3.修改配置文件4.启动5.进入客户端进行shell操作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-2/1.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-2/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-2/3.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-2/4.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/23/blog181023-2/5.png">
-<meta property="og:updated_time" content="2018-10-23T13:39:56.423Z">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-1/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-1/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-1/3.png">
+<meta property="og:updated_time" content="2018-10-25T08:48:37.306Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sqoop的安装">
-<meta name="twitter:description" content="概览1.sqoop简介2.sqoop的安装和配置3.测试4.异常处理">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/23/blog181023-2/1.png">
+<meta name="twitter:title" content="HBase单节点的安装以及shell操作">
+<meta name="twitter:description" content="概览1.HBase简介2.上传解压3.修改配置文件4.启动5.进入客户端进行shell操作">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/25/blog181025-1/1.png">
 
 
 
@@ -133,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/23/blog181023-2/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/25/blog181025-1/"/>
 
 
 
 
 
-  <title>sqoop的安装 | GivemeV</title>
+  <title>HBase单节点的安装以及shell操作 | GivemeV</title>
   
 
 
@@ -310,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/23/blog181023-2/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/25/blog181025-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -327,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqoop的安装</h1>
+          <h1 class="post-title" itemprop="name headline">HBase单节点的安装以及shell操作</h1>
         
 
         <div class="post-meta">
@@ -339,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T21:23:53+08:00">
-                2018-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T16:39:09+08:00">
+                2018-10-25
               </time>
             
 
@@ -380,8 +378,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/23/blog181023-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/23/blog181023-2/" itemprop="commentCount"></span>
+                <a href="/2018/10/25/blog181025-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/25/blog181025-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -389,7 +387,7 @@
 
           
           
-             <span id="/2018/10/23/blog181023-2/" class="leancloud_visitors" data-flag-title="sqoop的安装">
+             <span id="/2018/10/25/blog181025-1/" class="leancloud_visitors" data-flag-title="HBase单节点的安装以及shell操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -420,56 +418,46 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.sqoop简介<br>2.sqoop的安装和配置<br>3.测试<br>4.异常处理</p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.HBase简介<br>2.上传解压<br>3.修改配置文件<br>4.启动<br>5.进入客户端进行shell操作</p>
 <a id="more"></a>
-<h2 id="1-sqoop简介"><a href="#1-sqoop简介" class="headerlink" title="1.sqoop简介"></a>1.sqoop简介</h2><p>Sqoop(发音：skup)是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。</p>
-<p>sqoop 是 apache 旗下一款“Hadoop 和关系数据库服务器之间传送数据”的工具。</p>
-<p><strong>核心的功能有两个：导入和导出!</strong></p>
-<p>导入数据：MySQL，Oracle 导入数据到 Hadoop 的 HDFS、HIVE、HBASE 等数据存储系统</p>
-<p>导出数据：从 Hadoop 的文件系统中导出数据到关系数据库 mysql 等 Sqoop 的本质还是一个命令行工具，和 HDFS，Hive 相比，并没有什么高深的理论。</p>
-<p>sqoop：</p>
-<p>工具：本质就是迁移数据， 迁移的方式：就是把sqoop的迁移命令转换成MR程序</p>
-<p>hive</p>
-<p>工具，本质就是执行计算，依赖于HDFS存储数据，把SQL转换成MR程序</p>
-<p>工作原理是将导入或导出命令翻译成 MapReduce 程序来实现 在翻译出的 MapReduce 中主要是对 InputFormat 和 OutputFormat 进行定制</p>
-<h2 id="2-sqoop的安装和配置"><a href="#2-sqoop的安装和配置" class="headerlink" title="2.sqoop的安装和配置"></a>2.sqoop的安装和配置</h2><p>软件:sqoop-1.4.7.bin__hadoop-2.6.0.tar<br><strong>2.1.安装</strong><br>在/usr下创建个sqoop文件夹,作为压缩包的存放路径和解压路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#进入/usr下</span><br><span class="line">[root@master ~]# cd /usr/</span><br><span class="line">#创建sqoop文件夹</span><br><span class="line">[root@master usr]# mkdir sqoop</span><br><span class="line">[root@master usr]# ls</span><br><span class="line">bin  etc  games  hadoop  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br><span class="line">#进入sqoop下</span><br><span class="line">[root@master usr]# cd sqoop</span><br><span class="line">[root@master sqoop]#</span><br></pre></td></tr></table></figure>
-<p>利用Xshell连接虚拟机,并利用Xftp将sqoop压缩包上传到sqoop文件夹下<br><img src="/2018/10/23/blog181023-2/1.png" alt="在这里插入图片描述"><br>解压sqoop</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# tar -zxf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz</span><br></pre></td></tr></table></figure>
-<p><strong>2.2.配置profile环境变量</strong><br>进入到根目录的etc文件夹下,更改profile文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# vim /etc/profile</span><br></pre></td></tr></table></figure>
-<p>在profile最后添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export SQOOP_HOME=/usr/sqoop/sqoop-1.4.7.bin__hadoop-2.6.0</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br></pre></td></tr></table></figure>
-<p>保存退出,刷新profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# source /etc/profile</span><br></pre></td></tr></table></figure>
-<p><strong>2.3拷贝驱动</strong></p>
-<p>将数据库连接驱动拷贝到$SQOOP_HOME(sqoop安装目录)/lib里<br>进入到你的sqoop安装目录的lib下,利用Xftp将驱动传输进去<br>我的mysql数据库连接驱动的百度云链接：<a href="https://pan.baidu.com/s/1wCBuZQaCP_nKT5t504SeoA" target="_blank" rel="noopener">https://pan.baidu.com/s/1wCBuZQaCP_nKT5t504SeoA</a><br>提取码：fakd</p>
-<p><strong>2.4.使用前准备,mysql允许远程连接</strong><br>如果你在<a href="http://www.givemev.com/2018/10/23/blog181023-1/">安装mysql</a>的时候已经允许过了,就可以跳过这个步骤</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#进入mysql</span><br><span class="line">[root@master sqoop]# mysql</span><br><span class="line">#允许远程连接</span><br><span class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;root&apos; WITH GRANT OPTION;</span><br><span class="line">#刷新权限</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-<p><strong>2.5.集群配置</strong><br>如果是集群可以将sqoop发送到其他主机上,伪集群版可以跳过<br>发送sqoop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# scp -r /usr/sqoop root@slave1:/usr/</span><br><span class="line"></span><br><span class="line">[root@master sqoop]# scp -r /usr/sqoop root@slave2:/usr/</span><br></pre></td></tr></table></figure></p>
-<p>发送配置好的profile文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# scp -r /etc/profile root@slave1:/etc/</span><br><span class="line"></span><br><span class="line">[root@master sqoop]# scp -r /etc/profile root@slave2:/etc/</span><br></pre></td></tr></table></figure>
-<p>分别刷新profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# source /etc/profile</span><br><span class="line"></span><br><span class="line">[root@slave2 ~]# source /etc/profile</span><br></pre></td></tr></table></figure>
-<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>关闭防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
-<p>分别在集群的Zookeeper安装目录下的bin下启动Zookeeper</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master sqoop]# cd /usr/zookeeper/zookeeper-3.4.12/bin/</span><br><span class="line">#启动Zookeeper</span><br><span class="line">[root@master bin]# ./zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /usr/zookeeper/zookeeper-3.4.12/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
-<p>确保的你的集群正常启动,请参考<a href="http://www.givemev.com/2018/10/22/blog181022-1/">Hadoop HA高可用集群搭建</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]# start-all.sh</span><br></pre></td></tr></table></figure>
-<p>然后随便在哪个目录下(已经设置完成环境变量)输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#mysql后是我安装mysql主机的ip地址</span><br><span class="line">[root@master bin]#  sqoop list-databases --connect jdbc:mysql://192.168.134.154:3306/ --username root --password root</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/10/23/blog181023-2/2.png" alt="在这里插入图片描述"></p>
-<p>在分别在别的虚拟机使用sqoop看结果是否相同<br><strong>如上图则说明sqoop安装成功了</strong></p>
-<h2 id="4-异常处理"><a href="#4-异常处理" class="headerlink" title="4.异常处理"></a>4.异常处理</h2><p>如果你出了类似的异常</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">18/10/23 21:07:17 ERROR manager.CatalogQueryManager: Failed to list databases</span><br><span class="line">java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;master&apos; (using password: YES)</span><br><span class="line">	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1094)</span><br><span class="line">	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4208)</span><br><span class="line">	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4140)</span><br><span class="line">	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:925)</span><br></pre></td></tr></table></figure>
-<p>利用SQLyog或者Navicat连接虚拟机数据库<br><img src="/2018/10/23/blog181023-2/3.png" alt="在这里插入图片描述"></p>
-<p><img src="/2018/10/23/blog181023-2/4.png" alt="在这里插入图片描述"><br>将%这行的password复制给上面所以没有password的保存<br><img src="/2018/10/23/blog181023-2/5.png" alt="在这里插入图片描述"><br>然后重启数据库服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]# systemctl restart mysqld</span><br></pre></td></tr></table></figure>
-<p>再次尝试,应该就能成功了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]#  sqoop list-databases --connect jdbc:mysql://192.168.134.154:3306/ --username root --password root</span><br></pre></td></tr></table></figure>
-<p>分别在别的虚拟机上查看是否成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 sbin]#  sqoop list-databases --connect jdbc:mysql://192.168.134.154:3306/ --username root --password root</span><br><span class="line"></span><br><span class="line">[root@slave2 sbin]#  sqoop list-databases --connect jdbc:mysql://192.168.134.154:3306/ --username root --password root</span><br></pre></td></tr></table></figure>
+<h2 id="1-HBase简介"><a href="#1-HBase简介" class="headerlink" title="1.HBase简介"></a>1.HBase简介</h2><blockquote>
+<p>HBase – Hadoop Database，是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
+</blockquote>
+<blockquote>
+<p>HBase是一个分布式的、面向列的开源数据库，该技术来源于 Fay Chang 所撰写的Google论文“Bigtable：一个结构化数据的分布式存储系统”。就像Bigtable利用了Google文件系统（File System）所提供的分布式数据存储一样，HBase在Hadoop之上提供了类似于Bigtable的能力。HBase是Apache的Hadoop项目的子项目。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库。另一个不同的是HBase基于列的而不是基于行的模式。</p>
+</blockquote>
+<blockquote>
+<p>与FUJITSU Cliq等商用大数据产品不同，HBase是Google Bigtable的开源实现，类似Google Bigtable利用GFS作为其文件存储系统，HBase利用Hadoop HDFS作为其文件存储系统；Google运行MapReduce来处理Bigtable中的海量数据，HBase同样利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用Chubby作为协同服务，HBase利用Zookeeper作为对应。</p>
+</blockquote>
+<h2 id="2-上传解压"><a href="#2-上传解压" class="headerlink" title="2.上传解压"></a>2.上传解压</h2><p><strong>准备:</strong><br>1.hbase-2.0.0<br>2.XShell 5<br>3.Xftp 5</p>
+<p>使用Xshell工具(官网下载免费版本即可)连接虚拟机</p>
+<p>在usr下创建一个hbase文件夹作为压缩包存放路径和安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd /usr/</span><br><span class="line">[root@localhost usr]# ls</span><br><span class="line">bin  etc  games  hadoop  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br><span class="line">[root@localhost usr]# mkdir hbase</span><br><span class="line">[root@localhost usr]# ls</span><br><span class="line">bin  etc  games  hadoop  hbase  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br></pre></td></tr></table></figure>
+<p>利用Xftp将HBase的压缩包上传到hbase文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost usr]# cd hbase</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/10/25/blog181025-1/1.png" alt="在这里插入图片描述"></p>
+<p>然后解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost hbase]# tar -zxf hbase-2.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="3-修改配置文件"><a href="#3-修改配置文件" class="headerlink" title="3.修改配置文件"></a>3.修改配置文件</h2><p>进入到hbase安装目录下的conf文件夹下修改配置文件</p>
+<p><strong>3.1 .hbase-env.sh</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# ls</span><br><span class="line">hadoop-metrics2-hbase.properties  hbase-env.cmd  hbase-env.sh  hbase-policy.xml  hbase-site.xml  log4j.properties  regionservers</span><br><span class="line">[root@localhost conf]# vim hbase-env.sh</span><br></pre></td></tr></table></figure>
+<p>在第28行左右找到这个<br><img src="/2018/10/25/blog181025-1/2.png" alt="在这里插入图片描述"><br>将其修改为你的jdk安装路径,jdk的安装参考<a href="http://www.givemev.com/2018/10/16/blog181016-1/">Hadoop集群单机版搭建</a>中的jdk安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># The java implementation to use.  Java 1.8+ required.</span><br><span class="line">#这是我的jdk安装路径</span><br><span class="line"> export JAVA_HOME=/usr/java/jdk1.8.0_141</span><br></pre></td></tr></table></figure>
+<p><strong>3.2 .hbase-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# vim hbase-site.xml</span><br></pre></td></tr></table></figure>
+<p>在configuration中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">        &lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;file:///usr/hbase/data&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>3.3 .profile环境变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在最后添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/hbase/hbase-2.0.0</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>保存退出,刷新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# source /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="4-启动"><a href="#4-启动" class="headerlink" title="4.启动"></a>4.启动</h2><p>首先确保你的hadoop启动<code>start-all.sh</code><br>如果没有hadoop参考<a href="http://www.givemev.com/2018/10/16/blog181016-1/">Hadoop单机版搭建</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# start-hbase.sh </span><br><span class="line">SLF4J: Class path contains multiple SLF4J bindings.</span><br><span class="line">SLF4J: Found binding in [jar:file:/usr/hbase/hbase-2.0.0/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]</span><br><span class="line">SLF4J: Found binding in [jar:file:/usr/hadoop/hadoop-2.7.3/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]</span><br><span class="line">SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.</span><br><span class="line">SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]</span><br><span class="line">running master, logging to /usr/hbase/hbase-2.0.0/logs/hbase-root-master-zhiyou.out</span><br></pre></td></tr></table></figure></p>
+<p>在浏览器查看ip:16010(注意关闭防火墙<code>systemctl stop firewalld</code>(CentOS7.0))<br><img src="/2018/10/25/blog181025-1/3.png" alt="在这里插入图片描述"></p>
+<h2 id="5-进入客户端进行shell操作"><a href="#5-进入客户端进行shell操作" class="headerlink" title="5.进入客户端进行shell操作"></a>5.进入客户端进行shell操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# hbase shell</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line">显示hbase中的表</span><br><span class="line">list</span><br><span class="line"></span><br><span class="line">创建user表，包含info、data两个列族</span><br><span class="line">create &apos;user&apos;, &apos;info1&apos;, &apos;data1&apos;</span><br><span class="line">create &apos;user&apos;, &#123;NAME =&gt; &apos;info&apos;, VERSIONS =&gt; 3&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">向user表中插入信息，row key为rk0001，列族info中添加name列标示符，值为zhangsan</span><br><span class="line">put &apos;user&apos;, &apos;rk0001&apos;, &apos;info:name&apos;, &apos;zhangsan&apos;</span><br><span class="line"></span><br><span class="line">向user表中插入信息，row key为rk0001，列族info中添加gender列标示符，值为female</span><br><span class="line">put &apos;user&apos;, &apos;rk0001&apos;, &apos;info:gender&apos;, &apos;female&apos;</span><br><span class="line"></span><br><span class="line">向user表中插入信息，row key为rk0001，列族info中添加age列标示符，值为20</span><br><span class="line">put &apos;user&apos;, &apos;rk0001&apos;, &apos;info:age&apos;, 20</span><br><span class="line"></span><br><span class="line">向user表中插入信息，row key为rk0001，列族data中添加pic列标示符，值为picture</span><br><span class="line">put &apos;user&apos;, &apos;rk0001&apos;, &apos;data:pic&apos;, &apos;picture&apos;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001的所有信息</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001，info列族的所有信息</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &apos;info&apos;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001，info列族的name、age列标示符的信息</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &apos;info:name&apos;, &apos;info:age&apos;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001，info、data列族的信息</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &apos;info&apos;, &apos;data&apos;</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &#123;COLUMN =&gt; [&apos;info&apos;, &apos;data&apos;]&#125;</span><br><span class="line"></span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &#123;COLUMN =&gt; [&apos;info:name&apos;, &apos;data:pic&apos;]&#125;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001，列族为info，版本号最新5个的信息</span><br><span class="line">get &apos;people&apos;, &apos;rk0002&apos;, &#123;COLUMN =&gt; &apos;info&apos;, VERSIONS =&gt; 2&#125;</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &#123;COLUMN =&gt; &apos;info:name&apos;, VERSIONS =&gt; 5&#125;</span><br><span class="line">get &apos;user&apos;, &apos;rk0001&apos;, &#123;COLUMN =&gt; &apos;info:name&apos;, VERSIONS =&gt; 5, TIMERANGE =&gt; [1392368783980, 1392380169184]&#125;</span><br><span class="line"></span><br><span class="line">获取user表中row key为rk0001，列标示符中含有a的信息</span><br><span class="line">get &apos;people&apos;, &apos;rk0001&apos;, &#123;FILTER =&gt; &quot;(QualifierFilter(=,&apos;substring:a&apos;))&quot;&#125;</span><br><span class="line"></span><br><span class="line">put &apos;user&apos;, &apos;rk0002&apos;, &apos;info:name&apos;, &apos;fanbingbing&apos;</span><br><span class="line">put &apos;user&apos;, &apos;rk0002&apos;, &apos;info:gender&apos;, &apos;female&apos;</span><br><span class="line">put &apos;user&apos;, &apos;rk0002&apos;, &apos;info:nationality&apos;, &apos;中国&apos;</span><br><span class="line">get &apos;user&apos;, &apos;rk0002&apos;, &#123;FILTER =&gt; &quot;ValueFilter(=, &apos;binary:中国&apos;)&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查询user表中的所有信息</span><br><span class="line">scan &apos;user&apos;</span><br><span class="line"></span><br><span class="line">查询user表中列族为info的信息</span><br><span class="line">scan &apos;people&apos;, &#123;COLUMNS =&gt; &apos;info&apos;&#125;</span><br><span class="line">scan &apos;user&apos;, &#123;COLUMNS =&gt; &apos;info&apos;, RAW =&gt; true, VERSIONS =&gt; 5&#125;</span><br><span class="line">scan &apos;persion&apos;, &#123;COLUMNS =&gt; &apos;info&apos;, RAW =&gt; true, VERSIONS =&gt; 3&#125;</span><br><span class="line">查询user表中列族为info和data的信息</span><br><span class="line">scan &apos;user&apos;, &#123;COLUMNS =&gt; [&apos;info&apos;, &apos;data&apos;]&#125;</span><br><span class="line">scan &apos;user&apos;, &#123;COLUMNS =&gt; [&apos;info:name&apos;, &apos;data:pic&apos;]&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查询user表中列族为info、列标示符为name的信息</span><br><span class="line">scan &apos;user&apos;, &#123;COLUMNS =&gt; &apos;info:name&apos;&#125;</span><br><span class="line"></span><br><span class="line">查询user表中列族为info、列标示符为name的信息,并且版本最新的5个</span><br><span class="line">scan &apos;user&apos;, &#123;COLUMNS =&gt; &apos;info:name&apos;, VERSIONS =&gt; 5&#125;</span><br><span class="line"></span><br><span class="line">查询user表中列族为info和data且列标示符中含有a字符的信息</span><br><span class="line">scan &apos;people&apos;, &#123;COLUMNS =&gt; [&apos;info&apos;, &apos;data&apos;], FILTER =&gt; &quot;(QualifierFilter(=,&apos;substring:a&apos;))&quot;&#125;</span><br><span class="line"></span><br><span class="line">查询user表中列族为info，rk范围是[rk0001, rk0003)的数据</span><br><span class="line">scan &apos;people&apos;, &#123;COLUMNS =&gt; &apos;info&apos;, STARTROW =&gt; &apos;rk0001&apos;, ENDROW =&gt; &apos;rk0003&apos;&#125; </span><br><span class="line"></span><br><span class="line">查询user表中row key以rk字符开头的</span><br><span class="line">scan &apos;user&apos;,&#123;FILTER=&gt;&quot;PrefixFilter(&apos;rk&apos;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">查询user表中指定范围的数据</span><br><span class="line">scan &apos;user&apos;, &#123;TIMERANGE =&gt; [1392368783980, 1392380169184]&#125;</span><br><span class="line"></span><br><span class="line">删除数据</span><br><span class="line">删除user表row key为rk0001，列标示符为info:name的数据</span><br><span class="line">delete &apos;people&apos;, &apos;rk0001&apos;, &apos;info:name&apos;</span><br><span class="line">删除user表row key为rk0001，列标示符为info:name，timestamp为1392383705316的数据</span><br><span class="line">delete &apos;user&apos;, &apos;rk0001&apos;, &apos;info:name&apos;, 1392383705316</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">清空user表中的数据</span><br><span class="line">truncate &apos;people&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">修改表结构</span><br><span class="line">首先停用user表（新版本不用）</span><br><span class="line">disable &apos;user&apos;</span><br><span class="line"></span><br><span class="line">添加两个列族f1和f2</span><br><span class="line">alter &apos;people&apos;, NAME =&gt; &apos;f1&apos;</span><br><span class="line">alter &apos;user&apos;, NAME =&gt; &apos;f2&apos;</span><br><span class="line">启用表</span><br><span class="line">enable &apos;user&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###disable &apos;user&apos;(新版本不用)</span><br><span class="line">删除一个列族：</span><br><span class="line">alter &apos;user&apos;, NAME =&gt; &apos;f1&apos;, METHOD =&gt; &apos;delete&apos; 或 alter &apos;user&apos;, &apos;delete&apos; =&gt; &apos;f1&apos;</span><br><span class="line"></span><br><span class="line">添加列族f1同时删除列族f2</span><br><span class="line">alter &apos;user&apos;, &#123;NAME =&gt; &apos;f1&apos;&#125;, &#123;NAME =&gt; &apos;f2&apos;, METHOD =&gt; &apos;delete&apos;&#125;</span><br><span class="line"></span><br><span class="line">将user表的f1列族版本号改为5</span><br><span class="line">alter &apos;people&apos;, NAME =&gt; &apos;info&apos;, VERSIONS =&gt; 5</span><br><span class="line">启用表</span><br><span class="line">enable &apos;user&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除表</span><br><span class="line">disable &apos;user&apos;</span><br><span class="line">drop &apos;user&apos;</span><br></pre></td></tr></table></figure>
+<p><strong>接下来会介绍HBase集群搭建</strong></p>
 
       
     </div>
@@ -489,9 +477,9 @@
           
             <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
           
-            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+            <a href="/tags/HBase/" rel="tag"><i class="fa fa-tag"></i> HBase</a>
           
-            <a href="/tags/sqoop/" rel="tag"><i class="fa fa-tag"></i> sqoop</a>
+            <a href="/tags/shell/" rel="tag"><i class="fa fa-tag"></i> shell</a>
           
         </div>
       
@@ -504,8 +492,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/blog181023-1/" rel="next" title="mysql的安装(Linux)">
-                <i class="fa fa-chevron-left"></i> mysql的安装(Linux)
+              <a href="/2018/10/24/blog181024-1/" rel="next" title="hiveserver2的配置和启动">
+                <i class="fa fa-chevron-left"></i> hiveserver2的配置和启动
               </a>
             
           </div>
@@ -513,10 +501,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/23/blog181023-3/" rel="prev" title="Hive的安装">
-                Hive的安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -671,7 +655,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-sqoop简介"><span class="nav-text">1.sqoop简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-sqoop的安装和配置"><span class="nav-text">2.sqoop的安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试"><span class="nav-text">3.测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-异常处理"><span class="nav-text">4.异常处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HBase简介"><span class="nav-text">1.HBase简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-上传解压"><span class="nav-text">2.上传解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改配置文件"><span class="nav-text">3.修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-启动"><span class="nav-text">4.启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-进入客户端进行shell操作"><span class="nav-text">5.进入客户端进行shell操作</span></a></li></ol></div>
             
 
           </div>
