@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop,Java,Combiners," />
+  <meta name="keywords" content="Hadoop,HA高可用,HBase,shell," />
 
 
 
@@ -86,23 +86,28 @@
 
 
 
-<meta name="description" content="这个Combiners编程示范是基于 MapReduce对手机上网记录的简单分析和Partitioner分区">
-<meta name="keywords" content="Hadoop,Java,Combiners">
+<meta name="description" content="概览1.HBase简介及规划2.上传解压3.配置hbase集群4.拷贝hbase到其他节点5.同步时间6.启动所有hbase7.查看测试">
+<meta name="keywords" content="Hadoop,HA高可用,HBase,shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Combiners编程">
-<meta property="og:url" content="http://www.givemev.com/2018/10/19/blog181019-4/index.html">
+<meta property="og:title" content="HBase集群搭建">
+<meta property="og:url" content="http://www.givemev.com/2018/10/25/blog181025-3/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="这个Combiners编程示范是基于 MapReduce对手机上网记录的简单分析和Partitioner分区">
+<meta property="og:description" content="概览1.HBase简介及规划2.上传解压3.配置hbase集群4.拷贝hbase到其他节点5.同步时间6.启动所有hbase7.查看测试">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/19/blog181019-4/1.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/19/blog181019-4/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/19/blog181019-4/3.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/19/blog181019-4/4.png">
-<meta property="og:updated_time" content="2018-10-19T14:22:52.478Z">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/9.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/4.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/5.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/6.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/7.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/25/blog181025-3/8.png">
+<meta property="og:updated_time" content="2018-10-25T12:02:28.304Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Combiners编程">
-<meta name="twitter:description" content="这个Combiners编程示范是基于 MapReduce对手机上网记录的简单分析和Partitioner分区">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/19/blog181019-4/1.png">
+<meta name="twitter:title" content="HBase集群搭建">
+<meta name="twitter:description" content="概览1.HBase简介及规划2.上传解压3.配置hbase集群4.拷贝hbase到其他节点5.同步时间6.启动所有hbase7.查看测试">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/25/blog181025-3/9.png">
 
 
 
@@ -132,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/19/blog181019-4/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/25/blog181025-3/"/>
 
 
 
 
 
-  <title>Combiners编程 | GivemeV</title>
+  <title>HBase集群搭建 | GivemeV</title>
   
 
 
@@ -309,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/19/blog181019-4/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/25/blog181025-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -326,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Combiners编程</h1>
+          <h1 class="post-title" itemprop="name headline">HBase集群搭建</h1>
         
 
         <div class="post-meta">
@@ -338,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-19T22:11:23+08:00">
-                2018-10-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T19:54:57+08:00">
+                2018-10-25
               </time>
             
 
@@ -379,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/19/blog181019-4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/19/blog181019-4/" itemprop="commentCount"></span>
+                <a href="/2018/10/25/blog181025-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/25/blog181025-3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,7 +393,7 @@
 
           
           
-             <span id="/2018/10/19/blog181019-4/" class="leancloud_visitors" data-flag-title="Combiners编程">
+             <span id="/2018/10/25/blog181025-3/" class="leancloud_visitors" data-flag-title="HBase集群搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -419,10 +424,74 @@
       
 
       
-        <p><strong>这个Combiners编程示范是基于</strong> <a href="http://www.givemev.com/2018/10/19/blog181019-1/">MapReduce对手机上网记录的简单分析和Partitioner分区</a></p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.HBase简介及规划<br>2.上传解压<br>3.配置hbase集群<br>4.拷贝hbase到其他节点<br>5.同步时间<br>6.启动所有hbase<br>7.查看测试</p>
 <a id="more"></a>
-<p><img src="/2018/10/19/blog181019-4/1.png" alt="在这里插入图片描述"><br><img src="/2018/10/19/blog181019-4/2.png" alt="在这里插入图片描述"><br><img src="/2018/10/19/blog181019-4/3.png" alt="在这里插入图片描述"></p>
-<p><img src="/2018/10/19/blog181019-4/4.png" alt="在这里插入图片描述"></p>
+<p>首先HBase是基于<a href="http://www.givemev.com/2018/10/22/blog181022-1/">Hadoop 3节点高可用集群</a>和<a href="http://www.givemev.com/2018/10/19/blog181019-3/">Zookeeper集群</a>的,所以先将这两个搭建完毕</p>
+<h2 id="1-HBase简介及规划"><a href="#1-HBase简介及规划" class="headerlink" title="1.HBase简介及规划"></a>1.HBase简介及规划</h2><p><strong>简介</strong></p>
+<blockquote>
+<p>HBase – Hadoop Database，是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
+</blockquote>
+<blockquote>
+<p>HBase是一个分布式的、面向列的开源数据库，该技术来源于 Fay Chang 所撰写的Google论文“Bigtable：一个结构化数据的分布式存储系统”。就像Bigtable利用了Google文件系统（File System）所提供的分布式数据存储一样，HBase在Hadoop之上提供了类似于Bigtable的能力。HBase是Apache的Hadoop项目的子项目。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库。另一个不同的是HBase基于列的而不是基于行的模式。</p>
+</blockquote>
+<blockquote>
+<p>与FUJITSU Cliq等商用大数据产品不同，HBase是Google Bigtable的开源实现，类似Google Bigtable利用GFS作为其文件存储系统，HBase利用Hadoop HDFS作为其文件存储系统；Google运行MapReduce来处理Bigtable中的海量数据，HBase同样利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用Chubby作为协同服务，HBase利用Zookeeper作为对应。</p>
+</blockquote>
+<p><strong>规划</strong></p>
+<p><img src="/2018/10/25/blog181025-3/9.png" alt="在这里插入图片描述"></p>
+<h2 id="2-上传解压"><a href="#2-上传解压" class="headerlink" title="2.上传解压"></a>2.上传解压</h2><p><strong>准备:</strong><br>1.CentOS7.0<br>2.hbase-2.0.0<br>3.XShell 5<br>4.Xftp 5</p>
+<p>使用Xshell工具(官网下载免费版本即可)连接虚拟机</p>
+<p>在主节点的虚拟机的usr下创建一个hbase文件夹作为压缩包存放路径和安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cd /usr/</span><br><span class="line">[root@master usr]# ls</span><br><span class="line">bin  etc  games  hadoop  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br><span class="line">[root@master usr]# mkdir hbase</span><br><span class="line">[root@master usr]# ls</span><br><span class="line">bin  etc  games  hadoop  hbase  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br></pre></td></tr></table></figure>
+<p>利用Xftp将HBase压缩包上传到hbase文件夹下<br><img src="/2018/10/25/blog181025-3/1.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master usr]# cd hbase/</span><br></pre></td></tr></table></figure>
+<p>然后解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master hbase]# tar -zxf hbase-2.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="3-配置hbase集群"><a href="#3-配置hbase集群" class="headerlink" title="3.配置hbase集群"></a>3.配置hbase集群</h2><p><strong>配置hbase集群，要修改4个文件 , copy两个文件以及新建一个文件（首先zk集群已经安装好了）</strong></p>
+<p><strong>3.1 .把hadoop的hdfs-site.xml和core-site.xml 拷贝到hbase安装目录的conf下</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master hbase]# cd hbase-2.0.0/conf/</span><br><span class="line">[root@master conf]# cp /usr/hadoop/hadoop-2.7.3/etc/hadoop/hdfs-site.xml /usr/hbase/hbase-2.0.0/conf/</span><br><span class="line">[root@master conf]# cp /usr/hadoop/hadoop-2.7.3/etc/hadoop/core-site.xml /usr/hbase/hbase-2.0.0/conf/</span><br><span class="line">[root@master conf]# ls</span><br><span class="line">core-site.xml                     hbase-env.cmd  hbase-policy.xml  hdfs-site.xml     regionservers</span><br><span class="line">hadoop-metrics2-hbase.properties  hbase-env.sh   hbase-site.xml    log4j.properties</span><br></pre></td></tr></table></figure>
+<p><strong>3.2 .修改hbase-env.sh</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# vim hbase-env.sh</span><br></pre></td></tr></table></figure>
+<p>将28行的<br><img src="/2018/10/25/blog181025-3/2.png" alt="在这里插入图片描述"><br>改为自己的jdk路径<br><img src="/2018/10/25/blog181025-3/3.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_141</span><br></pre></td></tr></table></figure>
+<p>再将125行的<br><img src="/2018/10/25/blog181025-3/4.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/25/blog181025-3/5.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#告诉hbase使用外部的zk </span><br><span class="line">export HBASE_MANAGES_ZK=false</span><br></pre></td></tr></table></figure>
+<p>保存退出</p>
+<p><strong>3.3 .修改hbase-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# vim hbase-site.xml</span><br></pre></td></tr></table></figure>
+<p>在configuration中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定hbase在HDFS上存储的路径 --&gt;</span><br><span class="line">      &lt;property&gt;</span><br><span class="line">              &lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">              &lt;value&gt;hdfs://ns/hbase&lt;/value&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line">&lt;!-- 指定hbase是分布式的 --&gt;</span><br><span class="line">      &lt;property&gt;</span><br><span class="line">              &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span><br><span class="line">              &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line">&lt;!-- 指定zk的地址，多个用“,”分割 --&gt;</span><br><span class="line">      &lt;property&gt;</span><br><span class="line">              &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</span><br><span class="line">              &lt;value&gt;master:2181,slave1:2181,slave2:2181&lt;/value&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 时间服务器不同步导致集群服务无法启动 </span><br><span class="line">目前regionserver节点的时间和master的时间差距大于30000ms，就是30秒时无法启动		</span><br><span class="line">服务 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;hbase.master.maxclockskew&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;150000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">      </span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;hbase.master.info.port&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;60010&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p>esc+<code>:wq</code>保存退出</p>
+<p><strong>3.4 .修改regionservers</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# vim regionservers</span><br></pre></td></tr></table></figure>
+<p>将其改为你的集群的ip映射名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#localhost</span><br><span class="line"></span><br><span class="line">master</span><br><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<p><strong>3.5 .新建backup-masters(高可用)</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# touch backup-masters</span><br><span class="line">[root@master conf]# vim backup-masters</span><br></pre></td></tr></table></figure>
+<p>在其中写入你规划处于backup状态的hbase,因为你启动的hbase节点如果只有一台,而当其宕机的时候整个hbase集群都会变得不可用,所以我们设置一个或多个备用节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br></pre></td></tr></table></figure>
+<p> <strong>3.6 .配置profile环境变量</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# vim /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>在最后添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/hbase/hbase-2.0.0</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>保存退出,刷新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# source /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="4-拷贝hbase到其他节点"><a href="#4-拷贝hbase到其他节点" class="headerlink" title="4.拷贝hbase到其他节点"></a>4.拷贝hbase到其他节点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# scp -r /usr/hbase/ root@slave1:/usr/</span><br><span class="line">[root@master conf]# scp -r /usr/hbase/ root@slave2:/usr/</span><br></pre></td></tr></table></figure>
+<h2 id="5-同步时间"><a href="#5-同步时间" class="headerlink" title="5.同步时间"></a>5.同步时间</h2><p>如果你集群中所有节点机器的时间相同可以跳过此步骤</p>
+<p>在所有节点机器上查看时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# date</span><br><span class="line">2018年 10月 24日 星期三 01:27:46 CST</span><br><span class="line">[root@slave1 conf]# date</span><br><span class="line">2018年 10月 24日 星期三 01:27:46 CST</span><br><span class="line">[root@slave2 conf]# date</span><br><span class="line">2018年 10月 24日 星期三 01:27:46 CST</span><br></pre></td></tr></table></figure>
+<p>如果不同就执行此操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">centos 安装 ntpdate 并同步时间</span><br><span class="line">在命令行中做如下操作，来安装ntpdate</span><br><span class="line">yum install -y ntp</span><br><span class="line"></span><br><span class="line">继续在命令行中操作，进行同步时间</span><br><span class="line">ntpdate 210.72.145.44</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ntp常用服务器： </span><br><span class="line">中国国家授时中心：210.72.145.44 </span><br><span class="line">NTP服务器(上海) ：ntp.api.bz</span><br><span class="line"></span><br><span class="line">美国：time.nist.gov </span><br><span class="line">复旦：ntp.fudan.edu.cn </span><br><span class="line">微软公司授时主机(美国) ：time.windows.com </span><br><span class="line">台警大授时中心(台湾)：asia.pool.ntp.org</span><br></pre></td></tr></table></figure>
+<h2 id="6-启动所有hbase"><a href="#6-启动所有hbase" class="headerlink" title="6.启动所有hbase"></a>6.启动所有hbase</h2><p>启动Zookeeper集群<br>启动Hadoop集群</p>
+<p>启动hbase,在主节点上运行: <code>start-hbase.sh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master conf]# start-hbase.sh</span><br></pre></td></tr></table></figure>
+<p><code>jps</code>查看<br>其中你的主节点和备用节点上会多出两个进程 HMaster 和HRegionServer<br><img src="/2018/10/25/blog181025-3/6.png" alt="在这里插入图片描述"></p>
+<h2 id="7-查看测试"><a href="#7-查看测试" class="headerlink" title="7.查看测试"></a>7.查看测试</h2><p>通过浏览器访问hbase管理页面 ip(主节点和备用节点):60010<br><strong>主节点是Master<br>备用的是backup状态</strong></p>
+<p><img src="/2018/10/25/blog181025-3/7.png" alt="在这里插入图片描述"></p>
+<p><img src="/2018/10/25/blog181025-3/8.png" alt="在这里插入图片描述"><br>进入shell页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]# hbase shell</span><br></pre></td></tr></table></figure>
+<p>list查看表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):001:0&gt; list</span><br><span class="line">TABLE                                                                                                                                       </span><br><span class="line">0 row(s)</span><br><span class="line">Took 1.1337 seconds                                                                                                                         </span><br><span class="line">=&gt; []</span><br><span class="line">hbase(main):002:0&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其他shell命令参考<a href="http://www.givemev.com/2018/10/25/blog181025-2/">hbase的基本shell操作</a></p>
+<p><strong>HBase集群搭建完成,接下来会介绍下Java代码实现对HBase的基础操作</strong></p>
 
       
     </div>
@@ -442,9 +511,11 @@
           
             <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            <a href="/tags/HA高可用/" rel="tag"><i class="fa fa-tag"></i> HA高可用</a>
           
-            <a href="/tags/Combiners/" rel="tag"><i class="fa fa-tag"></i> Combiners</a>
+            <a href="/tags/HBase/" rel="tag"><i class="fa fa-tag"></i> HBase</a>
+          
+            <a href="/tags/shell/" rel="tag"><i class="fa fa-tag"></i> shell</a>
           
         </div>
       
@@ -457,8 +528,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/19/blog181019-3/" rel="next" title="Zookeeper的安装">
-                <i class="fa fa-chevron-left"></i> Zookeeper的安装
+              <a href="/2018/10/25/blog181025-2/" rel="next" title="HBase之简单的shell操作">
+                <i class="fa fa-chevron-left"></i> HBase之简单的shell操作
               </a>
             
           </div>
@@ -466,10 +537,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/22/blog181022-1/" rel="prev" title="Hadoop 2.0 HA 3节点高可用集群搭建">
-                Hadoop 2.0 HA 3节点高可用集群搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -524,8 +591,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -605,6 +681,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HBase简介及规划"><span class="nav-text">1.HBase简介及规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-上传解压"><span class="nav-text">2.上传解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置hbase集群"><span class="nav-text">3.配置hbase集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-拷贝hbase到其他节点"><span class="nav-text">4.拷贝hbase到其他节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-同步时间"><span class="nav-text">5.同步时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-启动所有hbase"><span class="nav-text">6.启动所有hbase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-查看测试"><span class="nav-text">7.查看测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
