@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Java代码实现对hive的基本操作]]></title>
+    <url>%2F2018%2F10%2F26%2Fblog181026-3%2F</url>
+    <content type="text"><![CDATA[概览1.导入jar包2.测试 1.导入jar包确保你的Zookeeper,Hadoop集群和hive启动着 在eclipse上新建java项目,并在项目下建个lib文件夹,然后将jar包放到lib中导入项目 hive的lib下的将其全部导入到项目中 2.测试在你要测试的hive的主机的/usr/tmp建个student文件,里面放入一些数据数据列间使用一个\table(制表符)隔开12341 lilei2 hanmeimei3 xiaoming4 haha 建个包,建个HiveJDBC测试类 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495package com.zy.hivejdbc;import java.sql.Connection;import java.sql.DriverManager;import java.sql.ResultSet;import java.sql.Statement;import org.junit.After;import org.junit.Before;import org.junit.Test;public class HiveJDBC &#123; private static String driverName=&quot;org.apache.hive.jdbc.HiveDriver&quot;; private static String url = &quot;jdbc:hive2://192.168.134.153:10000/mydb&quot;; private static String user = &quot;root&quot;; private static String password=&quot;root&quot;; private static Connection conn = null; private static Statement stmt = null; private static ResultSet rs = null; @Before public void init() throws Exception&#123; Class.forName(driverName); conn = DriverManager.getConnection(url, user, password); stmt = conn.createStatement(); &#125; @Test public void createDatabase() throws Exception&#123; String sql = &quot;create database hive_jdbc_test&quot;; System.out.println(&quot;Running: &quot; + sql); stmt.executeQuery(sql); &#125; @Test public void dropDatabase() throws Exception &#123; String sql = &quot;drop database if exists hive_jdbc_test&quot;; System.out.println(&quot;Running: &quot; + sql); stmt.execute(sql); &#125; @Test public void showDatabases() throws Exception &#123; String sql = &quot;show databases&quot;; System.out.println(&quot;Running: &quot; + sql + &quot;\n&quot;); rs = stmt.executeQuery(sql); while (rs.next()) &#123; System.out.println(rs.getString(1) ); &#125; &#125; @Test public void createTable() throws Exception &#123; String sql = &quot;create table t2(id int ,name String) row format delimited fields terminated by &apos;,&apos;;&quot;; System.out.println(&quot;Running: &quot; + sql); stmt.execute(sql); &#125; @Test public void loadData() throws Exception &#123; String filePath = &quot;/usr/tmp/student&quot;; String sql = &quot;load data local inpath &apos;&quot; + filePath + &quot;&apos; overwrite into table t2&quot;; System.out.println(&quot;Running: &quot; + sql); stmt.execute(sql); &#125; @Test public void selectData() throws Exception &#123; String sql = &quot;select * from t2&quot;; System.out.println(&quot;Running: &quot; + sql); rs = stmt.executeQuery(sql); System.out.println(&quot;编号&quot; + &quot;\t&quot; + &quot;姓名&quot; ); while (rs.next()) &#123; System.out.println(rs.getInt(1) + &quot;\t&quot; + rs.getString(2)); &#125; &#125; @Test public static void drop(Statement stmt) throws Exception &#123; String dropSQL = &quot;drop table t2&quot;; boolean bool = stmt.execute(dropSQL); System.out.println(&quot;删除表是否成功:&quot; + bool); &#125; @After public void destory() throws Exception &#123; if (rs != null) &#123; rs.close(); &#125; if (stmt != null) &#123; stmt.close(); &#125; if (conn != null) &#123; conn.close(); &#125; &#125;&#125; 分别双击方法名右键run Junit test 测试,并在hive和eclipse控制台查看结果]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Java</tag>
+        <tag>hive</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[HBase中什么是Region，什么是RegionServer]]></title>
     <url>%2F2018%2F10%2F26%2Fblog181026-2%2F</url>
     <content type="text"><![CDATA[regionServer 其实是hbase的服务，部署在一台物理服务器上，region有一点像关系型数据的分区，数据存放在region中，当然region下面还有很多结构，确切来说数据存放在memstore和hfile中。我们访问hbase的时候，先去hbase 系统表查找定位这条记录属于哪个region，然后定位到这个region属于哪个服务器，然后就到哪个服务器里面查找对应region中的数据 Region是HBase数据存储和管理的基本单位。 一个表中可以包含一个或多个Region。 每个Region只能被一个RS（RegionServer）提供服务，RS可以同时服务多个Region，来自不同RS上的Region组合成表格的整体逻辑视图。]]></content>
@@ -174,8 +187,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
         <tag>Java</tag>
+        <tag>MapReduce</tag>
       </tags>
   </entry>
   <entry>
@@ -187,8 +200,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
         <tag>Java</tag>
+        <tag>MapReduce</tag>
         <tag>Partitioner</tag>
       </tags>
   </entry>
@@ -201,8 +214,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
         <tag>Java</tag>
+        <tag>MapReduce</tag>
       </tags>
   </entry>
   <entry>

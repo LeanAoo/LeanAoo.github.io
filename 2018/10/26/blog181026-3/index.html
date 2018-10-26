@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hadoop,Java,hive," />
 
 
 
@@ -86,16 +86,23 @@
 
 
 
+<meta name="description" content="概览1.导入jar包2.测试">
+<meta name="keywords" content="Hadoop,Java,hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="海琴烟">
-<meta property="og:url" content="http://www.givemev.com/2018/10/15/test/index.html">
+<meta property="og:title" content="Java代码实现对hive的基本操作">
+<meta property="og:url" content="http://www.givemev.com/2018/10/26/blog181026-3/index.html">
 <meta property="og:site_name" content="GivemeV">
+<meta property="og:description" content="概览1.导入jar包2.测试">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/15/test/ice.jpg">
-<meta property="og:updated_time" content="2018-10-15T12:48:49.820Z">
+<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-3/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-3/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-3/4.png">
+<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-3/1.png">
+<meta property="og:updated_time" content="2018-10-26T12:45:12.332Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="海琴烟">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/15/test/ice.jpg">
+<meta name="twitter:title" content="Java代码实现对hive的基本操作">
+<meta name="twitter:description" content="概览1.导入jar包2.测试">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/26/blog181026-3/2.png">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/15/test/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/26/blog181026-3/"/>
 
 
 
 
 
-  <title>海琴烟 | GivemeV</title>
+  <title>Java代码实现对hive的基本操作 | GivemeV</title>
   
 
 
@@ -302,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/15/test/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/26/blog181026-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -319,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">海琴烟</h1>
+          <h1 class="post-title" itemprop="name headline">Java代码实现对hive的基本操作</h1>
         
 
         <div class="post-meta">
@@ -331,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-15T20:33:18+08:00">
-                2018-10-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T20:40:58+08:00">
+                2018-10-26
               </time>
             
 
@@ -342,6 +349,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -350,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/15/test/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/15/test/" itemprop="commentCount"></span>
+                <a href="/2018/10/26/blog181026-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/26/blog181026-3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -359,7 +388,7 @@
 
           
           
-             <span id="/2018/10/15/test/" class="leancloud_visitors" data-flag-title="海琴烟">
+             <span id="/2018/10/26/blog181026-3/" class="leancloud_visitors" data-flag-title="Java代码实现对hive的基本操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -390,7 +419,15 @@
       
 
       
-        <p><img src="/2018/10/15/test/ice.jpg" alt="冰公主"></p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.导入jar包<br>2.测试</p>
+<a id="more"></a>
+<h2 id="1-导入jar包"><a href="#1-导入jar包" class="headerlink" title="1.导入jar包"></a>1.导入jar包</h2><p>确保你的<a href="http://www.givemev.com/2018/10/19/blog181019-3/">Zookeeper</a>,<a href="http://www.givemev.com/2018/10/22/blog181022-1/">Hadoop</a>集群和<a href="http://www.givemev.com/2018/10/23/blog181023-3/">hive</a>启动着</p>
+<p>在eclipse上新建java项目,并在项目下建个lib文件夹,然后将jar包放到lib中导入项目<br><img src="/2018/10/26/blog181026-3/2.png" alt="在这里插入图片描述"><br><img src="/2018/10/26/blog181026-3/3.png" alt="在这里插入图片描述"><br><img src="/2018/10/26/blog181026-3/4.png" alt="在这里插入图片描述"></p>
+<p>hive的lib下的<br><img src="/2018/10/26/blog181026-3/1.png" alt="在这里插入图片描述"><br>将其全部导入到项目中</p>
+<h2 id="2-测试"><a href="#2-测试" class="headerlink" title="2.测试"></a>2.测试</h2><p>在你要测试的hive的主机的/usr/tmp建个student文件,里面放入一些数据<br>数据列间使用一个\table(制表符)隔开<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1	lilei</span><br><span class="line">2	hanmeimei</span><br><span class="line">3	xiaoming</span><br><span class="line">4	haha</span><br></pre></td></tr></table></figure></p>
+<p>建个包,建个HiveJDBC测试类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">package com.zy.hivejdbc;</span><br><span class="line"></span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line"></span><br><span class="line">import org.junit.After;</span><br><span class="line">import org.junit.Before;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class HiveJDBC &#123;</span><br><span class="line">	</span><br><span class="line">	private static String driverName=&quot;org.apache.hive.jdbc.HiveDriver&quot;;</span><br><span class="line">	private static String url = &quot;jdbc:hive2://192.168.134.153:10000/mydb&quot;;</span><br><span class="line">	private static String user = &quot;root&quot;;</span><br><span class="line">	private static String password=&quot;root&quot;;</span><br><span class="line">	</span><br><span class="line">	private static Connection conn = null;</span><br><span class="line">	private static Statement stmt = null;</span><br><span class="line">	private static ResultSet rs = null;</span><br><span class="line">	</span><br><span class="line">	@Before</span><br><span class="line">	public void init() throws Exception&#123;</span><br><span class="line">		Class.forName(driverName);</span><br><span class="line">		conn = DriverManager.getConnection(url, user, password);</span><br><span class="line">		stmt = conn.createStatement();</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void createDatabase() throws Exception&#123;</span><br><span class="line">		String sql = &quot;create database hive_jdbc_test&quot;;</span><br><span class="line">		System.out.println(&quot;Running: &quot; + sql);</span><br><span class="line">		stmt.executeQuery(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void dropDatabase() throws Exception &#123;</span><br><span class="line">		String sql = &quot;drop database if exists hive_jdbc_test&quot;;</span><br><span class="line">		System.out.println(&quot;Running: &quot; + sql);</span><br><span class="line">		stmt.execute(sql);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void showDatabases() throws Exception &#123;</span><br><span class="line">		String sql = &quot;show databases&quot;;</span><br><span class="line">		System.out.println(&quot;Running: &quot; + sql + &quot;\n&quot;);</span><br><span class="line">		rs = stmt.executeQuery(sql);</span><br><span class="line">		while (rs.next()) &#123;</span><br><span class="line">			System.out.println(rs.getString(1) );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void createTable() throws Exception &#123;</span><br><span class="line">		String sql = &quot;create table t2(id int ,name String) row format delimited fields terminated by &apos;,&apos;;&quot;;</span><br><span class="line">		System.out.println(&quot;Running: &quot; + sql);</span><br><span class="line">		stmt.execute(sql);</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">    public void loadData() throws Exception &#123;</span><br><span class="line">        String filePath = &quot;/usr/tmp/student&quot;;</span><br><span class="line">        String sql = &quot;load data local inpath &apos;&quot; + filePath + &quot;&apos; overwrite into table t2&quot;;</span><br><span class="line">        System.out.println(&quot;Running: &quot; + sql);</span><br><span class="line">        stmt.execute(sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void selectData() throws Exception &#123;</span><br><span class="line">		String sql = &quot;select * from t2&quot;;</span><br><span class="line">		System.out.println(&quot;Running: &quot; + sql);</span><br><span class="line">		rs = stmt.executeQuery(sql);</span><br><span class="line">		System.out.println(&quot;编号&quot; + &quot;\t&quot; + &quot;姓名&quot; );</span><br><span class="line">		while (rs.next()) &#123;</span><br><span class="line">			System.out.println(rs.getInt(1) + &quot;\t&quot; + rs.getString(2));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public static void drop(Statement stmt) throws Exception &#123;</span><br><span class="line">		String dropSQL = &quot;drop table t2&quot;;</span><br><span class="line">		boolean bool = stmt.execute(dropSQL);</span><br><span class="line">		System.out.println(&quot;删除表是否成功:&quot; + bool);</span><br><span class="line">		&#125;</span><br><span class="line">	@After</span><br><span class="line">	public void destory() throws Exception &#123;</span><br><span class="line">		if (rs != null) &#123;</span><br><span class="line">			rs.close();</span><br><span class="line">		&#125;</span><br><span class="line">		if (stmt != null) &#123;</span><br><span class="line">			stmt.close();</span><br><span class="line">		&#125;</span><br><span class="line">		if (conn != null) &#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分别双击方法名右键run Junit test 测试,并在hive和eclipse控制台查看结果</p>
 
       
     </div>
@@ -406,6 +443,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/hive/" rel="tag"><i class="fa fa-tag"></i> hive</a>
+          
+        </div>
+      
 
       
       
@@ -415,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/15/hello/" rel="next" title="你好">
-                <i class="fa fa-chevron-left"></i> 你好
+              <a href="/2018/10/26/blog181026-2/" rel="next" title="HBase中什么是Region，什么是RegionServer">
+                <i class="fa fa-chevron-left"></i> HBase中什么是Region，什么是RegionServer
               </a>
             
           </div>
@@ -424,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/16/blog181016-1/" rel="prev" title="Hadoop集群单机版搭建">
-                Hadoop集群单机版搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -482,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -563,6 +615,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-导入jar包"><span class="nav-text">1.导入jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试"><span class="nav-text">2.测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
