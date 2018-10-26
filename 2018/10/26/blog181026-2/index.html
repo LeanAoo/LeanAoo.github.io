@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Java,HBase," />
+  <meta name="keywords" content="HBase,Region,RegionServer," />
 
 
 
@@ -86,22 +86,20 @@
 
 
 
-<meta name="description" content="概览1.导入jar包2.测试3.异常处理">
-<meta name="keywords" content="Java,HBase">
+<meta name="description" content="regionServer 其实是hbase的服务，部署在一台物理服务器上，region有一点像关系型数据的分区，数据存放在region中，当然region下面还有很多结构，确切来说数据存放在memstore和hfile中。我们访问hbase的时候，先去hbase 系统表查找定位这条记录属于哪个region，然后定位到这个region属于哪个服务器，然后就到哪个服务器里面查找对应region中的数据">
+<meta name="keywords" content="HBase,Region,RegionServer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java代码实现对HBase的基本操作">
-<meta property="og:url" content="http://www.givemev.com/2018/10/26/blog181026-1/index.html">
+<meta property="og:title" content="HBase中什么是Region，什么是RegionServer">
+<meta property="og:url" content="http://www.givemev.com/2018/10/26/blog181026-2/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.导入jar包2.测试3.异常处理">
+<meta property="og:description" content="regionServer 其实是hbase的服务，部署在一台物理服务器上，region有一点像关系型数据的分区，数据存放在region中，当然region下面还有很多结构，确切来说数据存放在memstore和hfile中。我们访问hbase的时候，先去hbase 系统表查找定位这条记录属于哪个region，然后定位到这个region属于哪个服务器，然后就到哪个服务器里面查找对应region中的数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-1/1.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-1/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-1/3.png">
-<meta property="og:updated_time" content="2018-10-26T11:33:50.584Z">
+<meta property="og:image" content="http://www.givemev.com/2018/10/26/blog181026-2/1.png">
+<meta property="og:updated_time" content="2018-10-26T11:45:35.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java代码实现对HBase的基本操作">
-<meta name="twitter:description" content="概览1.导入jar包2.测试3.异常处理">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/26/blog181026-1/1.png">
+<meta name="twitter:title" content="HBase中什么是Region，什么是RegionServer">
+<meta name="twitter:description" content="regionServer 其实是hbase的服务，部署在一台物理服务器上，region有一点像关系型数据的分区，数据存放在region中，当然region下面还有很多结构，确切来说数据存放在memstore和hfile中。我们访问hbase的时候，先去hbase 系统表查找定位这条记录属于哪个region，然后定位到这个region属于哪个服务器，然后就到哪个服务器里面查找对应region中的数据">
+<meta name="twitter:image" content="http://www.givemev.com/2018/10/26/blog181026-2/1.png">
 
 
 
@@ -131,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/26/blog181026-1/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/10/26/blog181026-2/"/>
 
 
 
 
 
-  <title>Java代码实现对HBase的基本操作 | GivemeV</title>
+  <title>HBase中什么是Region，什么是RegionServer | GivemeV</title>
   
 
 
@@ -308,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/26/blog181026-1/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/26/blog181026-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -325,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java代码实现对HBase的基本操作</h1>
+          <h1 class="post-title" itemprop="name headline">HBase中什么是Region，什么是RegionServer</h1>
         
 
         <div class="post-meta">
@@ -337,7 +335,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T19:23:22+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T19:43:52+08:00">
                 2018-10-26
               </time>
             
@@ -378,8 +376,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/26/blog181026-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/26/blog181026-1/" itemprop="commentCount"></span>
+                <a href="/2018/10/26/blog181026-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/26/blog181026-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,7 +385,7 @@
 
           
           
-             <span id="/2018/10/26/blog181026-1/" class="leancloud_visitors" data-flag-title="Java代码实现对HBase的基本操作">
+             <span id="/2018/10/26/blog181026-2/" class="leancloud_visitors" data-flag-title="HBase中什么是Region，什么是RegionServer">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -418,21 +416,13 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.导入jar包<br>2.测试<br>3.异常处理</p>
-<a id="more"></a>
-<p>首先将<a href="https://blog.csdn.net/leanaoo/article/details/83385233" target="_blank" rel="noopener">HBase</a>搭建完成,然后启动<a href="https://blog.csdn.net/leanaoo/article/details/83188617" target="_blank" rel="noopener">Zookeeper</a>,<a href="https://blog.csdn.net/leanaoo/article/details/83278384" target="_blank" rel="noopener">Hadoop</a>,HBase集群</p>
-<h2 id="1-导入jar包"><a href="#1-导入jar包" class="headerlink" title="1.导入jar包"></a>1.导入jar包</h2><p><strong>准备:</strong><br>1.CentOS7<br>2.Zookeeper集群<br>3.Hadoop2.7.3集群<br>4.hbase2.0.0集群<br>5.eclipse</p>
-<p>在eclipse中建个java项目,项目中新建个lib文件夹用来存放jar包<br>将hbase目录下的lib下的所有jar包导入到项目中<br><img src="/2018/10/26/blog181026-1/1.png" alt="在这里插入图片描述"><br><img src="/2018/10/26/blog181026-1/2.png" alt="在这里插入图片描述"></p>
-<h2 id="2-测试"><a href="#2-测试" class="headerlink" title="2.测试"></a>2.测试</h2><p>然后建个包,建个TestHbase类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">package com.hd.hbase;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.hbase.HBaseConfiguration;</span><br><span class="line">import org.apache.hadoop.hbase.HColumnDescriptor;</span><br><span class="line">import org.apache.hadoop.hbase.HTableDescriptor;</span><br><span class="line">import org.apache.hadoop.hbase.TableName;</span><br><span class="line">import org.apache.hadoop.hbase.client.Admin;</span><br><span class="line">import org.apache.hadoop.hbase.client.Connection;</span><br><span class="line">import org.apache.hadoop.hbase.client.ConnectionFactory;</span><br><span class="line">import org.apache.hadoop.hbase.client.Delete;</span><br><span class="line">import org.apache.hadoop.hbase.client.Get;</span><br><span class="line">import org.apache.hadoop.hbase.client.Put;</span><br><span class="line">import org.apache.hadoop.hbase.client.Result;</span><br><span class="line">import org.apache.hadoop.hbase.client.ResultScanner;</span><br><span class="line">import org.apache.hadoop.hbase.client.Scan;</span><br><span class="line">import org.apache.hadoop.hbase.client.Table;</span><br><span class="line">import org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line">import org.junit.After;</span><br><span class="line">import org.junit.Before;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class TestHbase &#123;</span><br><span class="line">	private Configuration conf = null;</span><br><span class="line">	private Connection conn = null;</span><br><span class="line">	private Admin admin = null;</span><br><span class="line">	private Table table = null;</span><br><span class="line">	</span><br><span class="line">	@Before</span><br><span class="line">	public void createConf() throws IOException&#123;</span><br><span class="line">		//解决异常,可以不用</span><br><span class="line">		System.setProperty(&quot;hadoop.home.dir&quot;,&quot;D:\\software\\01-软件资料\\hadoop-common-2.2.0-bin-master&quot;);</span><br><span class="line">		conf = HBaseConfiguration.create();</span><br><span class="line">		//设置zk集群地址,这里需要修改windows下的hosts文件</span><br><span class="line">		conf.set(&quot;hbase.zookeeper.quorum&quot;,&quot;master:2181,slave1:2181,slave2:2181&quot;);</span><br><span class="line">		//建立连接</span><br><span class="line">		conn = ConnectionFactory.createConnection(conf);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	public void createTable() throws IOException&#123;</span><br><span class="line">		//获取表管理类</span><br><span class="line">		admin = conn.getAdmin();</span><br><span class="line">		//定义表</span><br><span class="line">		HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf(&quot;person&quot;));</span><br><span class="line">		//定义列族</span><br><span class="line">		HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(&quot;info&quot;);</span><br><span class="line">		//将列族添加到表中</span><br><span class="line">		hTableDescriptor.addFamily(hColumnDescriptor);</span><br><span class="line">		//执行建表操作</span><br><span class="line">		admin.createTable(hTableDescriptor);</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void put() throws IOException&#123;</span><br><span class="line"></span><br><span class="line">		//获取表对象</span><br><span class="line">		table = conn.getTable(TableName.valueOf(&quot;person&quot;));</span><br><span class="line">		//创建put对象</span><br><span class="line">		Put put = new Put(&quot;p1&quot;.getBytes());</span><br><span class="line">		//添加列</span><br><span class="line">		put.addColumn(&quot;info&quot;.getBytes(), &quot;name&quot;.getBytes(), &quot;haha&quot;.getBytes());</span><br><span class="line">		//向表格中添加put对象</span><br><span class="line">		table.put(put);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void get() throws IOException&#123;</span><br><span class="line">		//获取表对象</span><br><span class="line">		table = conn.getTable(TableName.valueOf(&quot;person&quot;));</span><br><span class="line">		//用行键实例化get</span><br><span class="line">		Get get = new Get(&quot;p1&quot;.getBytes());</span><br><span class="line">		//增加列族名和列名条件</span><br><span class="line">		get.addColumn(&quot;info&quot;.getBytes(), &quot;name&quot;.getBytes());</span><br><span class="line">		//执行,返回结果</span><br><span class="line">		Result result = table.get(get);</span><br><span class="line">		//取出结果</span><br><span class="line">		String valStr = Bytes.toString(result.getValue(&quot;info&quot;.getBytes(), &quot;name&quot;.getBytes()));</span><br><span class="line">		System.out.println(valStr);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void scan() throws IOException&#123;</span><br><span class="line">		//获取表对象</span><br><span class="line">		table = conn.getTable(TableName.valueOf(&quot;person&quot;));</span><br><span class="line">		//初始化scan示例</span><br><span class="line">		Scan scan = new Scan();</span><br><span class="line">		//增加过滤条件</span><br><span class="line">		scan.addColumn(&quot;info&quot;.getBytes(), &quot;name&quot;.getBytes());</span><br><span class="line">		//返回结果</span><br><span class="line">		ResultScanner rss = table.getScanner(scan);</span><br><span class="line">		//迭代取出结果</span><br><span class="line">		for (Result result : rss) &#123;</span><br><span class="line">			String valStr = Bytes.toString(result.getValue(&quot;info&quot;.getBytes(), &quot;name&quot;.getBytes()));</span><br><span class="line">			System.out.println(valStr);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	@Test</span><br><span class="line">	public void del() throws IOException&#123;</span><br><span class="line">		//获取表对象</span><br><span class="line">		table = conn.getTable(TableName.valueOf(&quot;person&quot;));</span><br><span class="line">		//用行键实例化Delete实例</span><br><span class="line">		Delete del = new Delete(&quot;p1&quot;.getBytes());</span><br><span class="line">		//执行删除</span><br><span class="line">		table.delete(del);</span><br><span class="line">	&#125;</span><br><span class="line">	@After</span><br><span class="line">	public void close() throws IOException&#123;</span><br><span class="line">		//关闭连接</span><br><span class="line">		if(admin!=null)&#123;</span><br><span class="line">			admin.close();</span><br><span class="line">		&#125;</span><br><span class="line">		if(table!=null)&#123;</span><br><span class="line">			table.close();</span><br><span class="line">		&#125;</span><br><span class="line">		if(conn!=null)&#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>修改Windows下的hosts文件<br>找到这个路径<code>C:\Windows\System32\drivers\etc</code><br>在hosts文件最后添加你的hbase集群的主机ip和主机名<br><img src="/2018/10/26/blog181026-1/3.png" alt="在这里插入图片描述"></p>
-<p>然后分别双击方法名,右键run Junit测试每个方法</p>
-<h2 id="3-异常处理"><a href="#3-异常处理" class="headerlink" title="3.异常处理"></a>3.异常处理</h2><p>其中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(&quot;hadoop.home.dir&quot;,&quot;D:\\software\\01-软件资料\\hadoop-common-2.2.0-bin-master&quot;);</span><br></pre></td></tr></table></figure>
-<p>是为了解决找不到hadoop的bin目录下winutils.exe文件的异常</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2018-10-26 19:19:10,309 ERROR [main] util.Shell (Shell.java:getWinUtilsPath(400)) - Failed to locate the winutils binary in the hadoop binary path</span><br><span class="line">java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.</span><br><span class="line">	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:382)</span><br><span class="line">	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:397)</span><br><span class="line">	at org.apache.hadoop.util.Shell.&lt;clinit&gt;(Shell.java:390)</span><br><span class="line">	at org.apache.hadoop.util.StringUtils.&lt;clinit&gt;(StringUtils.java:80)</span><br></pre></td></tr></table></figure>
-<p>其实这个异常就算不处理也是可以正常连接hbase操作的,但是最好还是要解决掉,因为我采用的hadoop2.7.3下的bin目录是没有这个文件的,所以我上网上找了一份hadoop2.2.0版本的,链接：<a href="https://pan.baidu.com/s/1koyq-8D5Z7u88DBtHGNe7g" target="_blank" rel="noopener">https://pan.baidu.com/s/1koyq-8D5Z7u88DBtHGNe7g</a><br>提取码：4ut9</p>
-<p>这个解压后只有bin目录将其路径填入System.setProperty()中即可.</p>
+        <p>regionServer 其实是hbase的服务，部署在一台物理服务器上，region有一点像关系型数据的分区，数据存放在region中，当然region下面还有很多结构，确切来说数据存放在memstore和hfile中。我们访问hbase的时候，先去hbase 系统表查找定位这条记录属于哪个region，然后定位到这个region属于哪个服务器，然后就到哪个服务器里面查找对应region中的数据</p>
+<ul>
+<li>Region是HBase数据存储和管理的基本单位。</li>
+<li>一个表中可以包含一个或多个Region。</li>
+<li>每个Region只能被一个RS（RegionServer）提供服务，RS可以同时服务多个Region，来自不同RS上的Region组合成表格的整体逻辑视图。</li>
+</ul>
+<p><img src="/2018/10/26/blog181026-2/1.png" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -450,9 +440,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-          
             <a href="/tags/HBase/" rel="tag"><i class="fa fa-tag"></i> HBase</a>
+          
+            <a href="/tags/Region/" rel="tag"><i class="fa fa-tag"></i> Region</a>
+          
+            <a href="/tags/RegionServer/" rel="tag"><i class="fa fa-tag"></i> RegionServer</a>
           
         </div>
       
@@ -465,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/25/blog181025-3/" rel="next" title="HBase集群搭建">
-                <i class="fa fa-chevron-left"></i> HBase集群搭建
+              <a href="/2018/10/26/blog181026-1/" rel="next" title="Java代码实现对HBase的基本操作">
+                <i class="fa fa-chevron-left"></i> Java代码实现对HBase的基本操作
               </a>
             
           </div>
@@ -474,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/26/blog181026-2/" rel="prev" title="HBase中什么是Region，什么是RegionServer">
-                HBase中什么是Region，什么是RegionServer <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,17 +520,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -622,22 +601,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-导入jar包"><span class="nav-text">1.导入jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试"><span class="nav-text">2.测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-异常处理"><span class="nav-text">3.异常处理</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
