@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/11.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/12.png">
 <meta property="og:image" content="http://www.givemev.com/2018/10/17/blog181017-1/13.png">
-<meta property="og:updated_time" content="2018-10-19T10:33:38.996Z">
+<meta property="og:updated_time" content="2018-10-26T12:02:46.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop集群版搭建">
 <meta name="twitter:description" content="概览1.规划2.克隆虚拟机3.在hosts文件修改ip映射4.修改hadoop配置文件5.更改slaves文件6.集群版ssh免密钥登录7.重新格式化namenode8.启动hadoop并验证是否成功9.若slave的datanode没有启动">
@@ -448,12 +448,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.134.154 master</span><br><span class="line">192.168.134.155 slave1</span><br><span class="line">192.168.134.156 slave2</span><br></pre></td></tr></table></figure>
 <p><strong>这里改动过之后最好重启虚拟机<code>reboot</code>,让其生效,这样最后配置ssh免密钥登录时不会出现异常</strong></p>
 <h2 id="4-修改hadoop配置文件"><a href="#4-修改hadoop配置文件" class="headerlink" title="4.修改hadoop配置文件"></a>4.修改hadoop配置文件</h2><p><strong>如果你的主机名还是单机版的.可以不用更改</strong></p>
-<p>然后进入到 /usr/hadoop/hadoop-2.7.3/etc/hadoop/下修改core-site.xml和yarn-site.xml , <strong>三个虚拟机都要更改</strong><br>将之前的主机名改为现在的主机 master<br>如图<br><img src="/2018/10/17/blog181017-1/5.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/17/blog181017-1/6.png" alt="在这里插入图片描述"></p>
+<p>然后进入到 /usr/hadoop/hadoop-2.7.3/etc/hadoop/下修改core-site.xml和yarn-site.xml , <strong>三个虚拟机都要更改,也可以只修改一台之后发送</strong><br>将之前的主机名改为现在的主机 master<br>如图<br><img src="/2018/10/17/blog181017-1/5.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/17/blog181017-1/6.png" alt="在这里插入图片描述"></p>
 <p>将yarn-site.xml内的<br><img src="/2018/10/17/blog181017-1/7.png" alt="在这里插入图片描述"><br>改为<br><img src="/2018/10/17/blog181017-1/8.png" alt="在这里插入图片描述"></p>
 <p>当然,如果你的主机名还是用的单机版的,那么上述两步可以不改</p>
 <p>接下来更改slaves文件</p>
-<h2 id="5-更改slaves文件"><a href="#5-更改slaves文件" class="headerlink" title="5.更改slaves文件"></a>5.更改slaves文件</h2><p>还是在该文件夹下<br>更改slaves文件<br>三个虚拟机都需要更改(其实这些都可以在克隆前更改,再克隆,不过都开始了就算了o(∩_∩)o)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim slaves</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-更改slaves文件"><a href="#5-更改slaves文件" class="headerlink" title="5.更改slaves文件"></a>5.更改slaves文件</h2><p>还是在该文件夹下<br>更改slaves文件<br>三个虚拟机都需要更改(<strong>其实这些都可以在克隆前更改,再克隆,不过也可以配置好后再发送</strong>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim slaves</span><br></pre></td></tr></table></figure></p>
 <p>改为<br><img src="/2018/10/17/blog181017-1/9.png" alt="在这里插入图片描述"><br><strong>这里需要说明一下,如果你要主机也当作一个节点的话 , 那么在里面也要添加主机名称,这个文件就是告诉hadoop该启动谁的datanode</strong></p>
+<p>如果需要发送给另外主机的话就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#会直接覆盖掉之前的</span><br><span class="line">[root@master .ssh]# scp -r /usr/hadoop root@slave1:/usr/</span><br><span class="line">[root@master .ssh]# scp -r /usr/hadoop root@slave2:/usr/</span><br></pre></td></tr></table></figure>
 <p>之后最重要的是ssh免密登录的配置</p>
 <h2 id="6-集群版ssh免密钥登录"><a href="#6-集群版ssh免密钥登录" class="headerlink" title="6.集群版ssh免密钥登录"></a>6.集群版ssh免密钥登录</h2><p>三台虚拟机都需要操作</p>
 <p>进入到~/.ssh</p>
