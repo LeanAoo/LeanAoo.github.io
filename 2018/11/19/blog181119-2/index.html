@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://www.givemev.com/2018/11/19/blog181119-2/2.png">
 <meta property="og:image" content="http://www.givemev.com/2018/11/19/blog181119-2/3.png">
 <meta property="og:image" content="http://www.givemev.com/2018/11/19/blog181119-2/4.png">
-<meta property="og:updated_time" content="2018-11-19T14:17:25.916Z">
+<meta property="og:updated_time" content="2018-11-19T14:20:01.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flume采集日志到hadoop存储">
 <meta name="twitter:description" content="概览1.将hadoop的hdfs-site.xml和core-site.xml 放到flume/conf下2.将hadoop的jar包拷贝到flume的lib目录下3.配置flume2.conf4.启动flume(保证首先启动hdfs)5.测试6.注意">
@@ -421,7 +421,7 @@
       
         <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.将hadoop的hdfs-site.xml和core-site.xml 放到flume/conf下<br>2.将hadoop的jar包拷贝到flume的lib目录下<br>3.配置flume2.conf<br>4.启动flume(保证首先启动hdfs)<br>5.测试<br>6.注意</p>
 <a id="more"></a>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先将flume配置完毕,参考<a href="http://www.givemev.com/2018/10/22/blog181119-1/">flume的单机版配置及测试</a></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先将flume配置完毕,参考<a href="http://www.givemev.com/2018/11/19/blog181119-1/">flume的单机版配置及测试</a></p>
 <p>hadoop集群搭建完毕,参考<a href="http://www.givemev.com/2018/10/16/blog181016-1/">hadoop单机版搭建</a>,<a href="http://www.givemev.com/2018/10/22/blog181022-1/">hadoop集群搭建</a></p>
 <p>工具:Xshell 5,Xftp 5</p>
 <h2 id="1-将hadoop的hdfs-site-xml和core-site-xml-放到flume-conf下"><a href="#1-将hadoop的hdfs-site-xml和core-site-xml-放到flume-conf下" class="headerlink" title="1.将hadoop的hdfs-site.xml和core-site.xml 放到flume/conf下"></a>1.将hadoop的hdfs-site.xml和core-site.xml 放到flume/conf下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cp /usr/hadoop/hadoop-2.7.3/etc/hadoop/core-site.xml /usr/flume/apache-flume-1.8.0-bin/conf/</span><br><span class="line">[root@localhost ~]# cp /usr/hadoop/hadoop-2.7.3/etc/hadoop/hdfs-site.xml /usr/flume/apache-flume-1.8.0-bin/conf/</span><br></pre></td></tr></table></figure>
