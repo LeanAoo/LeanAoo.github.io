@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop,Java," />
+  <meta name="keywords" content="Zookeeper,Kafka," />
 
 
 
@@ -86,23 +86,28 @@
 
 
 
-<meta name="description" content="概览1.Linux上进行上传下载查询操作2.Java代码实现上传下载查询操作">
-<meta name="keywords" content="Hadoop,Java">
+<meta name="description" content="概览1.上传解压2.修改配置文件3.分发到其他节点下4.启动5.测试6.注意">
+<meta name="keywords" content="Zookeeper,Kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop之简单的hdfs上文件的上传删除及查询">
-<meta property="og:url" content="http://www.givemev.com/2018/10/18/blog181018-1/index.html">
+<meta property="og:title" content="Kafka集群安装">
+<meta property="og:url" content="http://www.givemev.com/2018/11/20/blog181120-2/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="概览1.Linux上进行上传下载查询操作2.Java代码实现上传下载查询操作">
+<meta property="og:description" content="概览1.上传解压2.修改配置文件3.分发到其他节点下4.启动5.测试6.注意">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-1/1.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-1/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-1/3.png">
-<meta property="og:image" content="http://www.givemev.com/2018/10/18/blog181018-1/4.png">
-<meta property="og:updated_time" content="2018-10-19T10:37:37.414Z">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/4.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/5.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/6.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/7.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/8.png">
+<meta property="og:image" content="http://www.givemev.com/2018/11/20/blog181120-2/9.png">
+<meta property="og:updated_time" content="2018-11-20T13:49:01.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop之简单的hdfs上文件的上传删除及查询">
-<meta name="twitter:description" content="概览1.Linux上进行上传下载查询操作2.Java代码实现上传下载查询操作">
-<meta name="twitter:image" content="http://www.givemev.com/2018/10/18/blog181018-1/1.png">
+<meta name="twitter:title" content="Kafka集群安装">
+<meta name="twitter:description" content="概览1.上传解压2.修改配置文件3.分发到其他节点下4.启动5.测试6.注意">
+<meta name="twitter:image" content="http://www.givemev.com/2018/11/20/blog181120-2/1.png">
 
 
 
@@ -132,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/10/18/blog181018-1/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/11/20/blog181120-2/"/>
 
 
 
 
 
-  <title>Hadoop之简单的hdfs上文件的上传删除及查询 | GivemeV</title>
+  <title>Kafka集群安装 | GivemeV</title>
   
 
 
@@ -309,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/10/18/blog181018-1/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/11/20/blog181120-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -326,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop之简单的hdfs上文件的上传删除及查询</h1>
+          <h1 class="post-title" itemprop="name headline">Kafka集群安装</h1>
         
 
         <div class="post-meta">
@@ -338,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T21:09:29+08:00">
-                2018-10-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T21:41:51+08:00">
+                2018-11-20
               </time>
             
 
@@ -379,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/18/blog181018-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/18/blog181018-1/" itemprop="commentCount"></span>
+                <a href="/2018/11/20/blog181120-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/20/blog181120-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,7 +393,7 @@
 
           
           
-             <span id="/2018/10/18/blog181018-1/" class="leancloud_visitors" data-flag-title="Hadoop之简单的hdfs上文件的上传删除及查询">
+             <span id="/2018/11/20/blog181120-2/" class="leancloud_visitors" data-flag-title="Kafka集群安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -419,42 +424,50 @@
       
 
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.Linux上进行上传下载查询操作<br>2.Java代码实现上传下载查询操作<br><a id="more"></a></p>
-<p>上次将<a href="http://www.givemev.com/2018/10/17/blog181017-1/">Hadoop集群版</a>搭建完成了,那么怎么上传下载文件呢?</p>
-<h2 id="1-Linux上进行上传下载查询操作"><a href="#1-Linux上进行上传下载查询操作" class="headerlink" title="1.Linux上进行上传下载查询操作"></a>1.Linux上进行上传下载查询操作</h2><p><strong>首先将Hadoop服务启动</strong></p>
-<p>将master,slave1,slave2三台虚拟机启动</p>
-<p>在master上启动Hadoop服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
-<p>然后jps查看命令是否启动成功,和<a href="http://www.givemev.com/2018/10/17/blog181017-1/">Hadoop集群搭建</a>中验证方法一致</p>
-<p>确认启动成功后,使用Xshell分别连接虚拟机</p>
-<p><strong>这时候需要你先将需要操作的文件传输到虚拟机中或者在虚拟机中创建文件</strong></p>
-<p>使用Xftp将文件上传到虚拟机中或者自己创建文件,我们就将文件放置在/usr/tmp中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/tmp</span><br></pre></td></tr></table></figure>
-<p>然后我们创建一个文本文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#touch 创建文件 mkdir 创建文件夹</span><br><span class="line">touch test</span><br><span class="line">#编辑文件</span><br><span class="line">vim test</span><br></pre></td></tr></table></figure>
-<p>可以随便输入一些内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br><span class="line">hello lilei</span><br><span class="line">hello haimeimei</span><br><span class="line">hello hadoop</span><br><span class="line">hello girl</span><br><span class="line">hello girl</span><br></pre></td></tr></table></figure>
-<p>保存退出<br><strong>然后将文件上传到hdfs根目录中</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#将文件上传到Hadoop根目录中</span><br><span class="line">hadoop fs -put test /</span><br><span class="line">#查看是否上传成功</span><br><span class="line">hadoop fs -ls /</span><br><span class="line">#查看文件内容,发现与之前的内容相同则上传成功</span><br><span class="line">#如果你在安装虚拟机的时候没有选择中文,而在文件中有中文内容,有可能造成乱码</span><br><span class="line">hadoop fs -cat /test</span><br><span class="line">#hdfs上的文件是不支持修改的</span><br></pre></td></tr></table></figure>
-<p><strong>文件上传成功了,那么接下来试一试文件夹</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#创建文件夹</span><br><span class="line">mkdir testdir</span><br><span class="line">#上传</span><br><span class="line">hadoop fs -put testdir /</span><br><span class="line">#查看</span><br><span class="line">hadoop fs -ls /</span><br></pre></td></tr></table></figure>
-<p><strong>删除文件/文件夹</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#删除文件 </span><br><span class="line">hadoop fs -rm -f /test</span><br><span class="line">#删除文件夹</span><br><span class="line">hadoop fs -rm -r /testdir</span><br><span class="line">#查看</span><br><span class="line">hadoop fs -ls /</span><br></pre></td></tr></table></figure>
-<p><strong>将hdfs上的文件下载到本地</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#将文件上传上去</span><br><span class="line">[root@master tmp]# hadoop fs -put test /</span><br><span class="line">#将test改名为test1</span><br><span class="line">[root@master tmp]# hadoop fs -mv /test /test1</span><br><span class="line">#查看文件内容</span><br><span class="line">[root@master tmp]# hadoop fs -cat /test1</span><br><span class="line">hello world</span><br><span class="line">hello lilei</span><br><span class="line">hello haimeimei</span><br><span class="line">hello hadoop</span><br><span class="line">hello girl</span><br><span class="line">hello girl</span><br><span class="line">#文件下载</span><br><span class="line">[root@master tmp]# hadoop fs -get /test1</span><br><span class="line">#查看tmp文件夹下的内容</span><br><span class="line">[root@master tmp]# ls</span><br><span class="line">test  test1  testdir</span><br></pre></td></tr></table></figure>
-<p>这就是几种基本的Linux上进行上传下载查询操作</p>
-<h2 id="2-Java代码实现上传下载查询操作"><a href="#2-Java代码实现上传下载查询操作" class="headerlink" title="2.Java代码实现上传下载查询操作"></a>2.Java代码实现上传下载查询操作</h2><p>启动eclipse或者其他工具<br>新建个Java项目,test包,TestHadoop类</p>
-<p>然后在项目下创建个lib文件夹存放jar包</p>
-<p><strong>将hadoop解压文件夹中的jar复制到lib内</strong><br>如图,大概共有69个jar包<br><img src="/2018/10/18/blog181018-1/1.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-1/2.png" alt="在这里插入图片描述"></p>
-<p><strong>然后在eclipse中选择lib文件夹下所有jar包–&gt;右键Build Path–&gt;add to Build Path</strong></p>
-<p>因为是测试类,所以我们<strong>将JUnit4导入到Path中</strong></p>
-<p><strong>在项目上右键–&gt;Build Path–&gt;Confirgure Build Path</strong></p>
-<p><img src="/2018/10/18/blog181018-1/3.png" alt="在这里插入图片描述"><br><img src="/2018/10/18/blog181018-1/4.png" alt="在这里插入图片描述"></p>
-<p>然后,这是TestHadoop的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">package com.hd.test;</span><br><span class="line"></span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.URI;</span><br><span class="line">import java.net.URISyntaxException;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.FileStatus;</span><br><span class="line">import org.apache.hadoop.fs.FileSystem;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class TestHadoop &#123;</span><br><span class="line">	/**</span><br><span class="line">	 * 上传文件</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @throws InterruptedException</span><br><span class="line">	 * @throws URISyntaxException</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void upLoad() throws IOException, InterruptedException, URISyntaxException&#123;</span><br><span class="line">		// 创建config对象</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		// 创建FileSystem对象 192.168.134.154是你的主机master的ip地址,root是你的用户名</span><br><span class="line">		FileSystem fs = FileSystem.get(new URI(&quot;hdfs://192.168.134.154:9000&quot;), conf, &quot;root&quot;);</span><br><span class="line">		// 把本地磁盘上的文件(这个文件可以自己选择)上传到hdfs上面的根目录上,这里可以改名</span><br><span class="line">		fs.copyFromLocalFile(false, new Path(&quot;d:/TABS.DBF&quot;), new Path(&quot;/abc.a&quot;));</span><br><span class="line">		// 关闭</span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 下载</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @throws InterruptedException</span><br><span class="line">	 * @throws URISyntaxException</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void downLoad() throws IOException, InterruptedException, URISyntaxException&#123;</span><br><span class="line">		// 创建config对象</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		// 创建FileSystem对象</span><br><span class="line">		FileSystem fs = FileSystem.get(new URI(&quot;hdfs://192.168.134.154:9000&quot;), conf, &quot;root&quot;);</span><br><span class="line">		// 把hdfs上面的根目录上的文件下载到本地磁盘上</span><br><span class="line">		fs.copyToLocalFile(false, new Path(&quot;/abc.a&quot;), new Path(&quot;E:/&quot;), true);</span><br><span class="line">		// 关闭</span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 删除</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @throws InterruptedException</span><br><span class="line">	 * @throws URISyntaxException</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void del() throws IOException, InterruptedException, URISyntaxException&#123;</span><br><span class="line">		// 创建config对象</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		// 创建FileSystem对象</span><br><span class="line">		FileSystem fs = FileSystem.get(new URI(&quot;hdfs://192.168.134.154:9000&quot;), conf, &quot;root&quot;);</span><br><span class="line">		// 删除,false只能删除空文件夹</span><br><span class="line">		fs.delete(new Path(&quot;/abc.a&quot;), true);</span><br><span class="line">		// 关闭</span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 创建文件夹</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @throws InterruptedException</span><br><span class="line">	 * @throws URISyntaxException</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void mkdir() throws IOException, InterruptedException, URISyntaxException&#123;</span><br><span class="line">		// 创建config对象</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		// 创建FileSystem对象</span><br><span class="line">		FileSystem fs = FileSystem.get(new URI(&quot;hdfs://192.168.134.154:9000&quot;), conf, &quot;root&quot;);</span><br><span class="line">		// 创建目录</span><br><span class="line">		fs.mkdirs(new Path(&quot;/a/b&quot;));</span><br><span class="line">		// 关闭</span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 遍历查询输出</span><br><span class="line">	 * @throws FileNotFoundException</span><br><span class="line">	 * @throws IllegalArgumentException</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @throws InterruptedException</span><br><span class="line">	 * @throws URISyntaxException</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void out() throws FileNotFoundException, IllegalArgumentException, IOException, InterruptedException, URISyntaxException&#123;</span><br><span class="line">		// 创建config对象</span><br><span class="line">		Configuration conf = new Configuration();</span><br><span class="line">		// 创建FileSystem对象</span><br><span class="line">		FileSystem fs = FileSystem.get(new URI(&quot;hdfs://192.168.134.154:9000&quot;), conf, &quot;root&quot;);</span><br><span class="line">		// 遍历</span><br><span class="line">		FileStatus[] status = fs.listStatus(new Path(&quot;/&quot;));</span><br><span class="line"></span><br><span class="line">		for (int i = 0; i &lt; status.length; i++) &#123;</span><br><span class="line">			if (status[i].isFile()) &#123;</span><br><span class="line">				System.err.println(&quot;文件:&quot; + status[i].getPath().toString());</span><br><span class="line">			&#125; else if (status[i].isDirectory()) &#123;</span><br><span class="line">				System.err.println(&quot;目录:&quot; + status[i].getPath().toString());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		// 关闭</span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>每次运行只要双击方法名然后右键Run –&gt;JUnit Test就能测试运行</strong></p>
-<p><strong>然后分别在hdfs上 , 本地E盘 和 eclipse控制台 查看是否运行成功</strong></p>
-<p>以后会接着介绍更多的关于hadoop的操作</p>
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.上传解压<br>2.修改配置文件<br>3.分发到其他节点下<br>4.启动<br>5.测试<br>6.注意</p>
+<a id="more"></a>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>安装好<a href="http://www.givemev.com/2018/10/19/blog181019-3/">Zookeeper</a><br>JDK版本:1.8.0_141<br>Kafka版本:kafka_2.12-1.1.0<br>工具:Xshell 5,Xftp 5</p>
+<h2 id="1-上传解压"><a href="#1-上传解压" class="headerlink" title="1.上传解压"></a>1.上传解压</h2><p>首先在master(随意一台)的主机上的/usr下创建kafka文件夹作为安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cd /usr/</span><br><span class="line">[root@master usr]# ls</span><br><span class="line">bin  etc  flume  games  hadoop  hbase  hive  include  java  lib  lib64  libexec  local  sbin  share  sqoop  src  tmp  zookeeper</span><br><span class="line">[root@master usr]# mkdir kafka</span><br></pre></td></tr></table></figure>
+<p>然后利用Xftp将压缩包上传到/usr/kafka下并解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master usr]# cd kafka/</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/20/blog181120-2/1.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master kafka]# ls</span><br><span class="line">kafka_2.12-1.1.0.tgz</span><br><span class="line">[root@master kafka]# tar -zxf kafka_2.12-1.1.0.tgz</span><br></pre></td></tr></table></figure>
+<h2 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2.修改配置文件"></a>2.修改配置文件</h2><p>修改 /usr/kafka/kafka_2.12-1.1.0/config/server.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master kafka]# cd kafka_2.12-1.1.0/config/</span><br><span class="line">[root@master config]# vim server.properties</span><br></pre></td></tr></table></figure>
+<p>只修改broker.id和zookeeper就行<br>将<br><img src="/2018/11/20/blog181120-2/2.png" alt="在这里插入图片描述"><br>修改为<br><img src="/2018/11/20/blog181120-2/3.png" alt="在这里插入图片描述"><br><strong>broker.id每台主机上都不一样</strong></p>
+<p>将<br><img src="/2018/11/20/blog181120-2/4.png" alt="在这里插入图片描述"><br>修改为<br><img src="/2018/11/20/blog181120-2/5.png" alt="在这里插入图片描述"><br>保存退出</p>
+<p>这是比较详细的配置(其实只要按照上面的更改即可)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">#broker的全局唯一编号，不能重复</span><br><span class="line">broker.id=01</span><br><span class="line"> </span><br><span class="line">#用来监听链接的端口，producer或consumer将在此端口建立连接</span><br><span class="line">port=9092</span><br><span class="line"> </span><br><span class="line">#处理网络请求的线程数量</span><br><span class="line">num.network.threads=3</span><br><span class="line"> </span><br><span class="line">#用来处理磁盘IO的线程数量</span><br><span class="line">num.io.threads=8</span><br><span class="line"> </span><br><span class="line">#发送套接字的缓冲区大小</span><br><span class="line">socket.send.buffer.bytes=102400</span><br><span class="line"> </span><br><span class="line">#接受套接字的缓冲区大小</span><br><span class="line">socket.receive.buffer.bytes=102400</span><br><span class="line"> </span><br><span class="line">#请求套接字的缓冲区大小</span><br><span class="line">socket.request.max.bytes=104857600</span><br><span class="line"> </span><br><span class="line">#kafka消息存放的路径</span><br><span class="line">log.dirs=/home/servers-kafka/logs/kafka</span><br><span class="line"> </span><br><span class="line">#topic在当前broker上的分片个数</span><br><span class="line">num.partitions=2</span><br><span class="line"> </span><br><span class="line">#用来恢复和清理data下数据的线程数量</span><br><span class="line">num.recovery.threads.per.data.dir=1</span><br><span class="line"> </span><br><span class="line">#segment文件保留的最长时间，超时将被删除</span><br><span class="line">log.retention.hours=168</span><br><span class="line"> </span><br><span class="line">#滚动生成新的segment文件的最大时间</span><br><span class="line">log.roll.hours=168</span><br><span class="line"> </span><br><span class="line">#日志文件中每个segment的大小，默认为1G</span><br><span class="line">log.segment.bytes=1073741824</span><br><span class="line"> </span><br><span class="line">#周期性检查文件大小的时间</span><br><span class="line">log.retention.check.interval.ms=300000</span><br><span class="line"> </span><br><span class="line">#日志清理是否打开</span><br><span class="line">log.cleaner.enable=true</span><br><span class="line"> </span><br><span class="line">#broker需要使用zookeeper保存meta数据</span><br><span class="line">zookeeper.connect=master:2181,slave1:2181,slave2:2181</span><br><span class="line"> </span><br><span class="line">#zookeeper链接超时时间</span><br><span class="line">zookeeper.connection.timeout.ms=6000</span><br><span class="line"> </span><br><span class="line">#partion buffer中，消息的条数达到阈值，将触发flush到磁盘</span><br><span class="line">log.flush.interval.messages=10000</span><br><span class="line"> </span><br><span class="line">#消息buffer的时间，达到阈值，将触发flush到磁盘</span><br><span class="line">log.flush.interval.ms=3000</span><br><span class="line"> </span><br><span class="line">#删除topic需要server.properties中设置delete.topic.enable=true否则只是标记删除</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"> </span><br><span class="line">#此处的host.name为本机IP(重要),如果不改,则客户端会抛出:Producerconnection to localhost:9092 unsuccessful 错误!</span><br><span class="line">host.name=master</span><br></pre></td></tr></table></figure>
+<h2 id="3-分发到其他节点下"><a href="#3-分发到其他节点下" class="headerlink" title="3.分发到其他节点下"></a>3.分发到其他节点下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master config]# scp -r /usr/kafka/ root@slave1:/usr/</span><br><span class="line"></span><br><span class="line">[root@master config]# scp -r /usr/kafka/ root@slave2:/usr/</span><br></pre></td></tr></table></figure>
+<p>然后分别在slave1和slave2上更改broker id </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/kafka/kafka_2.12-1.1.0/config/server.properties</span><br></pre></td></tr></table></figure>
+<p><strong>将broker id改为02和03</strong></p>
+<h2 id="4-启动"><a href="#4-启动" class="headerlink" title="4.启动"></a>4.启动</h2><p><strong>确保防火墙关闭</strong></p>
+<p><strong>首先全部启动Zookeeper</strong>,参考<a href="http://www.givemev.com/2018/10/19/blog181019-3/">Zookeeper安装</a>中的启动</p>
+<p><strong>再全部启动kafka</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 由于没配置环境变量,所以需要进入安装目录下启动</span><br><span class="line">cd /usr/kafka/kafka_2.12-1.1.0</span><br><span class="line"># 后台启动,最后加&amp;</span><br><span class="line">./bin/kafka-server-start.sh -daemon config/server.properties &amp;</span><br></pre></td></tr></table></figure>
+<p>查看jps<br><img src="/2018/11/20/blog181120-2/6.png" alt="在这里插入图片描述"></p>
+<h2 id="5-测试"><a href="#5-测试" class="headerlink" title="5.测试"></a>5.测试</h2><p><strong>在master上创建topic-test</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master kafka_2.12-1.1.0]# ./bin/kafka-topics.sh --create --zookeeper master:2181,slave1:2181,slave2:2181 --replication-factor 3 --partitions 3 --topic test</span><br><span class="line">Created topic &quot;test&quot;.</span><br></pre></td></tr></table></figure>
+<p><strong>在master,slave1,2上查看已创建的topic列表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/kafka-topics.sh --list --zookeeper localhost:2181</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/20/blog181120-2/7.png" alt="在这里插入图片描述"><br><strong>在master上启动生产者</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master kafka_2.12-1.1.0]# ./bin/kafka-console-producer.sh --broker-list master:9092,slave1:9092,slave2:9092 --topic test</span><br></pre></td></tr></table></figure>
+<p>随意输入一些内容<br><img src="/2018/11/20/blog181120-2/8.png" alt="在这里插入图片描述"></p>
+<p><strong>在其他节点上启动控制台消费者</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/kafka-console-consumer.sh --bootstrap-server master:9092,slave1:9092,slave2:9092 --from-beginning --topic test</span><br></pre></td></tr></table></figure>
+<p>会出现<br><img src="/2018/11/20/blog181120-2/9.png" alt="在这里插入图片描述"></p>
+<p><code>--from-beginning</code>如果去掉不会出现消费者启动之前的消息</p>
+<p><strong>测试:在生产者输入内容,消费者查看消息</strong></p>
+<p><strong>删除主题:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/kafka-topics.sh --delete  --zookeeper localhost:2181  --topic test</span><br></pre></td></tr></table></figure>
+<h2 id="6-注意"><a href="#6-注意" class="headerlink" title="6.注意"></a>6.注意</h2><p> <strong>如果kafaka启动时加载的配置文件中server.properties没有配置delete.topic.enable=true，那么此时的删除并不是真正的删除，而是把topic标记为：marked for deletion</strong></p>
+<blockquote>
+<p>  你可以通过命令：./bin/kafka-topics –zookeeper 【zookeeper server】 –list<br>来查看所有topic</p>
+<p>   此时你若想真正删除它，可以如下操作：<br>     （1）登录zookeeper客户端：命令：./bin/zookeeper-client<br>     （2）找到topic所在的目录：ls /brokers/topics<br>     （3）找到要删除的topic，执行命令：rmr /brokers/topics/【topic name】即可，此时topic被彻底删除。</p>
+<p>   另外被标记为marked for deletion的topic你可以在zookeeper客户端中通过命令获得：ls /admin/delete_topics/【topic name】，<br>    如果你删除了此处的topic，那么marked for deletion 标记消失<br>    zookeeper 的config中也有有关topic的信息： ls /config/topics/【topic name】暂时不知道有什么用</p>
+</blockquote>
 
       
     </div>
@@ -472,9 +485,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hadoop/" rel="tag"><i class="fa fa-tag"></i> Hadoop</a>
+            <a href="/tags/Zookeeper/" rel="tag"><i class="fa fa-tag"></i> Zookeeper</a>
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
           
         </div>
       
@@ -487,8 +500,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/17/blog181017-1/" rel="next" title="Hadoop集群版搭建">
-                <i class="fa fa-chevron-left"></i> Hadoop集群版搭建
+              <a href="/2018/11/20/blog181120-1/" rel="next" title="Flume多节点集群搭建">
+                <i class="fa fa-chevron-left"></i> Flume多节点集群搭建
               </a>
             
           </div>
@@ -496,10 +509,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/18/blog181018-2/" rel="prev" title="MapReduce的执行流程和原理">
-                MapReduce的执行流程和原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -654,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Linux上进行上传下载查询操作"><span class="nav-text">1.Linux上进行上传下载查询操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java代码实现上传下载查询操作"><span class="nav-text">2.Java代码实现上传下载查询操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-上传解压"><span class="nav-text">1.上传解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改配置文件"><span class="nav-text">2.修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分发到其他节点下"><span class="nav-text">3.分发到其他节点下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-启动"><span class="nav-text">4.启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-测试"><span class="nav-text">5.测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-注意"><span class="nav-text">6.注意</span></a></li></ol></div>
             
 
           </div>
