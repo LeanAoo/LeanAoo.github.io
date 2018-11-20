@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[简单说明什么是Kafka]]></title>
+    <url>%2F2018%2F11%2F20%2Fblog181120-3%2F</url>
+    <content type="text"><![CDATA[Kafka通俗理解Apache kafka是消息中间件的一种，我发现很多人不知道消息中间件是什么，在开始学习之前，我这边就先简单的解释一下什么是消息中间件，只是粗略的讲解，目前kafka已经可以做更多的事情。 举个例子，生产者消费者，生产者生产鸡蛋，消费者消费鸡蛋，生产者生产一个鸡蛋，消费者就消费一个鸡蛋，假设消费者消费鸡蛋的时候噎住了（系统宕机了），生产者还在生产鸡蛋，那新生产的鸡蛋就丢失了。再比如生产者很强劲（大交易量的情况），生产者1秒钟生产100个鸡蛋，消费者1秒钟只能吃50个鸡蛋，那要不了一会，消费者就吃不消了（消息堵塞，最终导致系统超时），消费者拒绝再吃了，”鸡蛋“又丢失了，这个时候我们放个篮子在它们中间，生产出来的鸡蛋都放到篮子里，消费者去篮子里拿鸡蛋，这样鸡蛋就不会丢失了，都在篮子里，而这个篮子就是”kafka“。鸡蛋其实就是“数据流”，系统之间的交互都是通过“数据流”来传输的（就是tcp、http什么的），也称为报文，也叫“消息”。消息队列满了，其实就是篮子满了，”鸡蛋“ 放不下了，那赶紧多放几个篮子，其实就是kafka的扩容。各位现在知道kafka是干什么的了吧，它就是那个”篮子”。 kafka名词解释后面大家会看到一些关于kafka的名词，比如topic、producer、consumer、broker，我这边来简单说明一下。 producer：生产者，就是它来生产“鸡蛋”的。 consumer：消费者，生出的“鸡蛋”它来消费。 topic：你把它理解为标签，生产者每生产出来一个鸡蛋就贴上一个标签（topic），消费者可不是谁生产的“鸡蛋”都吃的，这样不同的生产者生产出来的“鸡蛋”，消费者就可以选择性的“吃”了。 broker：就是篮子了。 大家一定要学会抽象的去思考，上面只是属于业务的角度，如果从技术角度，topic标签实际就是队列，生产者把所有“鸡蛋（消息）”都放到对应的队列里了，消费者到指定的队列里取。 —-w3c对kafka介绍https://www.w3cschool.cn/apache_kafka/apache_kafka_introduction.html]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>Kafka</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Kafka集群安装]]></title>
     <url>%2F2018%2F11%2F20%2Fblog181120-2%2F</url>
     <content type="text"><![CDATA[概览1.上传解压2.修改配置文件3.分发到其他节点下4.启动5.测试6.注意 准备安装好ZookeeperJDK版本:1.8.0_141Kafka版本:kafka_2.12-1.1.0工具:Xshell 5,Xftp 5 1.上传解压首先在master(随意一台)的主机上的/usr下创建kafka文件夹作为安装路径 1234[root@master ~]# cd /usr/[root@master usr]# lsbin etc flume games hadoop hbase hive include java lib lib64 libexec local sbin share sqoop src tmp zookeeper[root@master usr]# mkdir kafka 然后利用Xftp将压缩包上传到/usr/kafka下并解压 1[root@master usr]# cd kafka/ 123[root@master kafka]# lskafka_2.12-1.1.0.tgz[root@master kafka]# tar -zxf kafka_2.12-1.1.0.tgz 2.修改配置文件修改 /usr/kafka/kafka_2.12-1.1.0/config/server.properties 12[root@master kafka]# cd kafka_2.12-1.1.0/config/[root@master config]# vim server.properties 只修改broker.id和zookeeper就行将修改为broker.id每台主机上都不一样 将修改为保存退出 这是比较详细的配置(其实只要按照上面的更改即可) 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162#broker的全局唯一编号，不能重复broker.id=01 #用来监听链接的端口，producer或consumer将在此端口建立连接port=9092 #处理网络请求的线程数量num.network.threads=3 #用来处理磁盘IO的线程数量num.io.threads=8 #发送套接字的缓冲区大小socket.send.buffer.bytes=102400 #接受套接字的缓冲区大小socket.receive.buffer.bytes=102400 #请求套接字的缓冲区大小socket.request.max.bytes=104857600 #kafka消息存放的路径log.dirs=/home/servers-kafka/logs/kafka #topic在当前broker上的分片个数num.partitions=2 #用来恢复和清理data下数据的线程数量num.recovery.threads.per.data.dir=1 #segment文件保留的最长时间，超时将被删除log.retention.hours=168 #滚动生成新的segment文件的最大时间log.roll.hours=168 #日志文件中每个segment的大小，默认为1Glog.segment.bytes=1073741824 #周期性检查文件大小的时间log.retention.check.interval.ms=300000 #日志清理是否打开log.cleaner.enable=true #broker需要使用zookeeper保存meta数据zookeeper.connect=master:2181,slave1:2181,slave2:2181 #zookeeper链接超时时间zookeeper.connection.timeout.ms=6000 #partion buffer中，消息的条数达到阈值，将触发flush到磁盘log.flush.interval.messages=10000 #消息buffer的时间，达到阈值，将触发flush到磁盘log.flush.interval.ms=3000 #删除topic需要server.properties中设置delete.topic.enable=true否则只是标记删除delete.topic.enable=true #此处的host.name为本机IP(重要),如果不改,则客户端会抛出:Producerconnection to localhost:9092 unsuccessful 错误!host.name=master 3.分发到其他节点下123[root@master config]# scp -r /usr/kafka/ root@slave1:/usr/[root@master config]# scp -r /usr/kafka/ root@slave2:/usr/ 然后分别在slave1和slave2上更改broker id 1vim /usr/kafka/kafka_2.12-1.1.0/config/server.properties 将broker id改为02和03 4.启动确保防火墙关闭 首先全部启动Zookeeper,参考Zookeeper安装中的启动 再全部启动kafka 1234# 由于没配置环境变量,所以需要进入安装目录下启动cd /usr/kafka/kafka_2.12-1.1.0# 后台启动,最后加&amp;./bin/kafka-server-start.sh -daemon config/server.properties &amp; 查看jps 5.测试在master上创建topic-test 12[root@master kafka_2.12-1.1.0]# ./bin/kafka-topics.sh --create --zookeeper master:2181,slave1:2181,slave2:2181 --replication-factor 3 --partitions 3 --topic testCreated topic &quot;test&quot;. 在master,slave1,2上查看已创建的topic列表 1./bin/kafka-topics.sh --list --zookeeper localhost:2181 在master上启动生产者 1[root@master kafka_2.12-1.1.0]# ./bin/kafka-console-producer.sh --broker-list master:9092,slave1:9092,slave2:9092 --topic test 随意输入一些内容 在其他节点上启动控制台消费者 1./bin/kafka-console-consumer.sh --bootstrap-server master:9092,slave1:9092,slave2:9092 --from-beginning --topic test 会出现 --from-beginning如果去掉不会出现消费者启动之前的消息 测试:在生产者输入内容,消费者查看消息 删除主题: 1./bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic test 6.注意 如果kafaka启动时加载的配置文件中server.properties没有配置delete.topic.enable=true，那么此时的删除并不是真正的删除，而是把topic标记为：marked for deletion 你可以通过命令：./bin/kafka-topics –zookeeper 【zookeeper server】 –list来查看所有topic 此时你若想真正删除它，可以如下操作： （1）登录zookeeper客户端：命令：./bin/zookeeper-client （2）找到topic所在的目录：ls /brokers/topics （3）找到要删除的topic，执行命令：rmr /brokers/topics/【topic name】即可，此时topic被彻底删除。 另外被标记为marked for deletion的topic你可以在zookeeper客户端中通过命令获得：ls /admin/delete_topics/【topic name】， 如果你删除了此处的topic，那么marked for deletion 标记消失 zookeeper 的config中也有有关topic的信息： ls /config/topics/【topic name】暂时不知道有什么用]]></content>
@@ -247,8 +258,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -260,8 +271,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
         <tag>Partitioner</tag>
       </tags>
   </entry>
@@ -274,8 +285,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Java</tag>
         <tag>MapReduce</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
