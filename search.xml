@@ -132,9 +132,9 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>HA高可用</tag>
         <tag>HBase</tag>
         <tag>shell</tag>
+        <tag>HA高可用</tag>
       </tags>
   </entry>
   <entry>
@@ -196,8 +196,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Sqoop</tag>
         <tag>mysql</tag>
+        <tag>Sqoop</tag>
       </tags>
   </entry>
   <entry>
