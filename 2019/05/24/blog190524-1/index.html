@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="Oracle根据字段排序,如果字段类型是varchar字符串,而不是number会导致1和10分不清.所以需要将varchar转为数字或者将表的字段类型更改为number">
+<meta name="description" content="Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱解决方法:将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number Oracle排序发生混乱即使是number类型数据排序也会发生混乱解决方法:加上一个唯一值的排序例如:select t.* from table1 t order by t.px(可重复),t.id(唯一约束)">
 <meta name="keywords" content="Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle根据字段排序问题">
 <meta property="og:url" content="http://www.givemev.com/2019/05/24/blog190524-1/index.html">
 <meta property="og:site_name" content="GivemeV">
-<meta property="og:description" content="Oracle根据字段排序,如果字段类型是varchar字符串,而不是number会导致1和10分不清.所以需要将varchar转为数字或者将表的字段类型更改为number">
+<meta property="og:description" content="Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱解决方法:将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number Oracle排序发生混乱即使是number类型数据排序也会发生混乱解决方法:加上一个唯一值的排序例如:select t.* from table1 t order by t.px(可重复),t.id(唯一约束)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-24T09:44:16.110Z">
+<meta property="og:updated_time" content="2019-05-25T08:24:07.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle根据字段排序问题">
-<meta name="twitter:description" content="Oracle根据字段排序,如果字段类型是varchar字符串,而不是number会导致1和10分不清.所以需要将varchar转为数字或者将表的字段类型更改为number">
+<meta name="twitter:description" content="Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱解决方法:将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number Oracle排序发生混乱即使是number类型数据排序也会发生混乱解决方法:加上一个唯一值的排序例如:select t.* from table1 t order by t.px(可重复),t.id(唯一约束)">
 
 
 
@@ -414,7 +414,8 @@
       
 
       
-        <p><strong>Oracle根据字段排序,如果字段类型是varchar字符串,而不是number会导致1和10分不清.<br>所以需要将varchar转为数字或者将表的字段类型更改为number</strong></p>
+        <p><strong>Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱</strong><br>解决方法:<br>将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number</p>
+<p><strong>Oracle排序发生混乱</strong><br>即使是number类型数据排序也会发生混乱<br>解决方法:<br>加上一个唯一值的排序<br>例如:<br>select t.* from table1 t order by t.px(可重复),t.id(唯一约束)</p>
 
       
     </div>

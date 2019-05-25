@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Oracle根据字段排序问题]]></title>
     <url>%2F2019%2F05%2F24%2Fblog190524-1%2F</url>
-    <content type="text"><![CDATA[Oracle根据字段排序,如果字段类型是varchar字符串,而不是number会导致1和10分不清.所以需要将varchar转为数字或者将表的字段类型更改为number]]></content>
+    <content type="text"><![CDATA[Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱解决方法:将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number Oracle排序发生混乱即使是number类型数据排序也会发生混乱解决方法:加上一个唯一值的排序例如:select t.* from table1 t order by t.px(可重复),t.id(唯一约束)]]></content>
       <categories>
         <category>Oracle</category>
       </categories>
@@ -207,8 +207,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>mysql</tag>
         <tag>Sqoop</tag>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
