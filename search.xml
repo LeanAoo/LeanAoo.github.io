@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[greenplum数据库相关]]></title>
+    <url>%2F2019%2F06%2F05%2Fblog190605-1%2F</url>
+    <content type="text"><![CDATA[初始配置的greenplum数据库是不能用一个limit直接分页的，只用一个limit分页需要更改配置文件，需要用 limit 每页数据条数 offset 从第几条开始。例如每页十条数据，查询第二页的数据 select * from tab limit 10 offset 11 注意greenplum的排序问题，目前发现每次查询的排序都不一样，因为数据量太大只做展示用也就没有深入了解 greenplum的数据库中表的名称默认是小写的 greenplum使用的是postgresql数据库的数据连接驱动org.postgresql.Driver sql语句12345678910111213141516171819202122&lt;!-- GP 表名和表备注查询 --&gt;SELECT RELNAME AS TABLE_NAME, CAST(OBJ_DESCRIPTION(RELFILENODE, &apos;PG_CLASS&apos;) AS VARCHAR) AS COMMENT FROM PG_CLASS C WHERE C.RELNAME = #&#123;TABLE_NAME&#125;&lt;!-- GP 表字段信息查询 --&gt;SELECT #&#123;TABLE_NAME&#125; AS TABLE_NAME, COL_DESCRIPTION(A.ATTRELID, A.ATTNUM) AS COMMENT, FORMAT_TYPE(A.ATTTYPID, A.ATTTYPMOD) AS TYPE, A.ATTNAME AS FIELD_NAME, A.ATTNOTNULL AS NOTNULL FROM PG_CLASS AS C, PG_ATTRIBUTE AS A WHERE C.RELNAME = #&#123;TABLE_NAME&#125; AND A.ATTRELID = C.OID AND A.ATTNUM&gt;0&lt;!-- GP 字段添加注释 --&gt;COMMENT ON COLUMN &quot;$&#123;TABLE_NAME&#125;&quot;.&quot;$&#123;FIELD_NAME&#125;&quot; IS &apos;$&#123;COMMENT&#125;&apos;]]></content>
+      <categories>
+        <category>Greenplum</category>
+      </categories>
+      <tags>
+        <tag>Greenplum</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Oracle根据字段排序问题]]></title>
     <url>%2F2019%2F05%2F24%2Fblog190524-1%2F</url>
     <content type="text"><![CDATA[Oracle根据字段排序,如果字段类型是varchar2字符串,会导致混乱解决方法:将varchar2转为数字(使用to_number()函数)或者将表的字段类型更改为number Oracle排序发生混乱即使是number类型数据排序也会发生混乱解决方法:加上一个唯一值的排序例如:select t.* from table1 t order by t.px(可重复),t.id(唯一约束)]]></content>
@@ -207,8 +218,8 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-        <tag>Sqoop</tag>
         <tag>mysql</tag>
+        <tag>Sqoop</tag>
       </tags>
   </entry>
   <entry>
