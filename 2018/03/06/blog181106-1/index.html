@@ -90,19 +90,19 @@
 <meta name="keywords" content="Java,SpringMVC,Ajax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC学习(一)">
-<meta property="og:url" content="http://www.givemev.com/2018/11/06/blog181106-1/index.html">
+<meta property="og:url" content="http://www.givemev.com/2018/03/06/blog181106-1/index.html">
 <meta property="og:site_name" content="GivemeV">
 <meta property="og:description" content="概览1.导入JAR包2.配置web.xml3.配置springmvc.xml4.创建controller层5.创建JSP测试页面6.测试7.注意">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.givemev.com/2018/11/06/blog181106-1/1.png">
-<meta property="og:image" content="http://www.givemev.com/2018/11/06/blog181106-1/2.png">
-<meta property="og:image" content="http://www.givemev.com/2018/11/06/blog181106-1/3.png">
-<meta property="og:image" content="http://www.givemev.com/2018/11/06/blog181106-1/4.png">
-<meta property="og:updated_time" content="2018-11-07T02:36:18.631Z">
+<meta property="og:image" content="http://www.givemev.com/2018/03/06/blog181106-1/1.png">
+<meta property="og:image" content="http://www.givemev.com/2018/03/06/blog181106-1/2.png">
+<meta property="og:image" content="http://www.givemev.com/2018/03/06/blog181106-1/3.png">
+<meta property="og:image" content="http://www.givemev.com/2018/03/06/blog181106-1/4.png">
+<meta property="og:updated_time" content="2020-07-19T12:44:30.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC学习(一)">
 <meta name="twitter:description" content="概览1.导入JAR包2.配置web.xml3.配置springmvc.xml4.创建controller层5.创建JSP测试页面6.测试7.注意">
-<meta name="twitter:image" content="http://www.givemev.com/2018/11/06/blog181106-1/1.png">
+<meta name="twitter:image" content="http://www.givemev.com/2018/03/06/blog181106-1/1.png">
 
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://www.givemev.com/2018/11/06/blog181106-1/"/>
+  <link rel="canonical" href="http://www.givemev.com/2018/03/06/blog181106-1/"/>
 
 
 
@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/11/06/blog181106-1/">
+    <link itemprop="mainEntityOfPage" href="http://www.givemev.com/2018/03/06/blog181106-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="panz">
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T20:21:53+08:00">
-                2018-11-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T15:21:53+08:00">
+                2018-03-06
               </time>
             
 
@@ -379,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/06/blog181106-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/06/blog181106-1/" itemprop="commentCount"></span>
+                <a href="/2018/03/06/blog181106-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/03/06/blog181106-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,7 +388,7 @@
 
           
           
-             <span id="/2018/11/06/blog181106-1/" class="leancloud_visitors" data-flag-title="SpringMVC学习(一)">
+             <span id="/2018/03/06/blog181106-1/" class="leancloud_visitors" data-flag-title="SpringMVC学习(一)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -422,8 +422,8 @@
         <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>1.导入JAR包<br>2.配置web.xml<br>3.配置springmvc.xml<br>4.创建controller层<br>5.创建JSP测试页面<br>6.测试<br>7.注意</p>
 <a id="more"></a>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>工具:eclipse<br>JAR包版本:spring4.1.0和2.5.6<br>JQuery版本:jquery-3.3.1.js<br>资料参考:<a href="https://www.cnblogs.com/sunniest/p/4555801.html" target="_blank" rel="noopener">https://www.cnblogs.com/sunniest/p/4555801.html</a></p>
-<h2 id="1-导入JAR包"><a href="#1-导入JAR包" class="headerlink" title="1.导入JAR包"></a>1.导入JAR包</h2><p>创建个web项目<br>在spring的官网上下载4.1.0和2.5.6版本的spring-framework<br>然后分别在两个文件下找到以下的jar包,将其导入到项目中<br><img src="/2018/11/06/blog181106-1/1.png" alt="在这里插入图片描述"></p>
-<h2 id="2-配置web-xml"><a href="#2-配置web-xml" class="headerlink" title="2.配置web.xml"></a>2.配置web.xml</h2><p>在项目的WebContent/WEB-INF下生成web.xml文件<br><img src="/2018/11/06/blog181106-1/2.png" alt="在这里插入图片描述"><br>在web.xml中配置springmvc</p>
+<h2 id="1-导入JAR包"><a href="#1-导入JAR包" class="headerlink" title="1.导入JAR包"></a>1.导入JAR包</h2><p>创建个web项目<br>在spring的官网上下载4.1.0和2.5.6版本的spring-framework<br>然后分别在两个文件下找到以下的jar包,将其导入到项目中<br><img src="/2018/03/06/blog181106-1/1.png" alt="在这里插入图片描述"></p>
+<h2 id="2-配置web-xml"><a href="#2-配置web-xml" class="headerlink" title="2.配置web.xml"></a>2.配置web.xml</h2><p>在项目的WebContent/WEB-INF下生成web.xml文件<br><img src="/2018/03/06/blog181106-1/2.png" alt="在这里插入图片描述"><br>在web.xml中配置springmvc</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot; version=&quot;3.1&quot;&gt;</span><br><span class="line">  &lt;display-name&gt;springmvc1&lt;/display-name&gt;</span><br><span class="line">  &lt;welcome-file-list&gt;</span><br><span class="line">    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;</span><br><span class="line">    &lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;</span><br><span class="line">    &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;</span><br><span class="line">    &lt;welcome-file&gt;default.html&lt;/welcome-file&gt;</span><br><span class="line">    &lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;</span><br><span class="line">    &lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;</span><br><span class="line">  &lt;/welcome-file-list&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;!-- 配置springmvc的核心过滤器 --&gt;</span><br><span class="line">  &lt;servlet&gt;</span><br><span class="line">  	&lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">  	&lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</span><br><span class="line">  	&lt;!-- 指定配置文件的路径 如果不写默认为WEB-INF下的&#123;servlet-name&#125;-servlet.xml --&gt;</span><br><span class="line">  	&lt;init-param&gt;</span><br><span class="line">  		&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">  		&lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;</span><br><span class="line">  	&lt;/init-param&gt;</span><br><span class="line">  &lt;/servlet&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;servlet-mapping&gt;</span><br><span class="line">  	&lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">  	&lt;!-- 类似于过滤任何的请求地址 --&gt;</span><br><span class="line">  	&lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/servlet-mapping&gt;</span><br><span class="line">  </span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="3-配置springmvc-xml"><a href="#3-配置springmvc-xml" class="headerlink" title="3.配置springmvc.xml"></a>3.配置springmvc.xml</h2><p>然后在src下创建个springmvc(名字与web.xml中的servlet-name相同)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/tx</span><br><span class="line">        http://www.springframework.org/schema/tx/spring-tx.xsd</span><br><span class="line">        http://www.springframework.org/schema/aop</span><br><span class="line">        http://www.springframework.org/schema/aop/spring-aop.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 扫描标注注解的对象 --&gt;</span><br><span class="line">		&lt;context:component-scan base-package=&quot;com.zy.springmvc1.controller&quot;&gt;&lt;/context:component-scan&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 使用注解配置 --&gt;</span><br><span class="line">    	&lt;mvc:annotation-driven&gt;&lt;/mvc:annotation-driven&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 不过滤静态资源 --&gt;</span><br><span class="line">        &lt;mvc:default-servlet-handler/&gt;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        &lt;!-- 配置springmvc的视图解析器 --&gt;</span><br><span class="line">        &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        	&lt;!-- 配置前缀 --&gt;</span><br><span class="line">        	&lt;property name=&quot;prefix&quot; value=&quot;/&quot;&gt;&lt;/property&gt;</span><br><span class="line">        	&lt;!-- 配置后缀 --&gt;</span><br><span class="line">        	&lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 文件上传的配置 --&gt;</span><br><span class="line">        &lt;bean id=&quot;multipartResolver&quot; class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;</span><br><span class="line">        	&lt;!-- 设置上传文件的最大值 --&gt;</span><br><span class="line">        	&lt;property name=&quot;maxUploadSize&quot; value=&quot;102400000&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
@@ -448,7 +448,7 @@
 <p>upload.jsp</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;</span><br><span class="line">    pageEncoding=&quot;UTF-8&quot;%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;!-- post提交 </span><br><span class="line">	 enctype:multipart/form-data --&gt;</span><br><span class="line">	&lt;form action=&quot;up&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">		名称:&lt;input name=&quot;name&quot; /&gt;&lt;br/&gt;</span><br><span class="line">		图片:&lt;input name=&quot;img&quot; type=&quot;file&quot; /&gt;&lt;br/&gt;</span><br><span class="line">		&lt;input type=&quot;submit&quot; value=&quot;上传&quot;/&gt;</span><br><span class="line">	&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h2><p>将项目布置到tomcat中,启动tomcat<br>打开浏览器在地址栏分别输入你要测试的方法的RequestMapping注释<br>然后查看jsp页面和控制台输出(有些是没有页面的所以会404,这是正常的,查看控制台有没有输出)</p>
-<p><img src="/2018/11/06/blog181106-1/3.png" alt="在这里插入图片描述"><br><img src="/2018/11/06/blog181106-1/4.png" alt="在这里插入图片描述"></p>
+<p><img src="/2018/03/06/blog181106-1/3.png" alt="在这里插入图片描述"><br><img src="/2018/03/06/blog181106-1/4.png" alt="在这里插入图片描述"></p>
 <h2 id="7-注意"><a href="#7-注意" class="headerlink" title="7.注意"></a>7.注意</h2><p>1.springmvc的默认路径不是src下[classpath],默认路径在web-inf下<br>2.springmvc默认名称有命名规则:web.xml中的servlet的[name-servlet.xml]<br>3.springmvc是面向方法编程的,定义方法实现跳转<br>4.springmvc的文件上传必须用post提交,还要有enctype属性 enctype:multipart/form-data</p>
 <p>具体还是参考:<a href="https://www.cnblogs.com/sunniest/p/4555801.html" target="_blank" rel="noopener">https://www.cnblogs.com/sunniest/p/4555801.html</a><br>这里对springmvc的讲解十分详细,所以本文就拿来自己实验测试用下</p>
 
@@ -485,18 +485,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/26/blog181026-3/" rel="next" title="Java代码实现对Hive的基本操作">
-                <i class="fa fa-chevron-left"></i> Java代码实现对Hive的基本操作
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/19/blog181119-1/" rel="prev" title="Flume的单机版配置及测试">
-                Flume的单机版配置及测试 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/06/hello/" rel="prev" title="你好">
+                你好 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -673,7 +669,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
